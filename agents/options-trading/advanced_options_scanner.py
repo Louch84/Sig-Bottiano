@@ -241,7 +241,7 @@ class OptionsChainFilter:
     """Filter options chain for criteria"""
     
     def find_cheap_options(self, symbol: str, max_cost: float = 10.0) -> Optional[Dict]:
-        """Find options under $10, ATM or 1 strike above"""
+        """Find options under $10, ATM or 1 strike above - WEEKLIES ONLY (0-14 DTE)"""
         try:
             ticker = yf.Ticker(symbol)
             expirations = ticker.options
@@ -249,12 +249,36 @@ class OptionsChainFilter:
             if not expirations:
                 return None
             
-            # Get nearest expiration (0-7 DTE for quick plays)
-            valid_exp = [e for e in expirations if (datetime.strptime(e, '%Y-%m-%d') - datetime.now()).days <= 21]
-            if not valid_exp:
-                valid_exp = expirations[:1]
+            # Filter for weekly options only (0-7 DTE = this week, 7-14 DTE = next week)
+            today = datetime.now()
+            weekly_exps = []
             
-            exp = valid_exp[0]
+            for exp in expirations:
+                exp_date = datetime.strptime(exp, '%Y-%m-%d')
+                days_to_exp = (exp_date - today).days
+                
+                # Only include 0-14 DTE (this week and next week)
+                if 0 <= days_to_exp <= 14:
+                    weekly_exps.append((exp, days_to_exp))
+            
+            # Sort by days to expiration
+            weekly_exps.sort(key=lambda x: x[1])
+            
+            if not weekly_exps:
+                return None
+            
+            # Prefer 0-7 DTE (this week), fallback to 7-14 DTE (next week)
+            this_week = [e for e in weekly_exps if e[1] <= 7]
+            next_week = [e for e in weekly_exps if 7 < e[1] <= 14]
+            
+            if this_week:
+                exp, dte = this_week[0]
+                exp_label = f"{exp} (This Week - {dte} DTE)"
+            elif next_week:
+                exp, dte = next_week[0]
+                exp_label = f"{exp} (Next Week - {dte} DTE)"
+            else:
+                return None
             chain = ticker.option_chain(exp)
             
             info = ticker.info
@@ -278,8 +302,8 @@ class OptionsChainFilter:
             result = {
                 'symbol': symbol,
                 'current_price': current,
-                'expiration': exp,
-                'dte': (datetime.strptime(exp, '%Y-%m-%d') - datetime.now()).days,
+                'expiration': exp_label,
+                'dte': dte,
                 'atm_option': None,
                 'above_option': None
             }
@@ -318,7 +342,7 @@ class UnusualActivityDetector:
     """Detect unusual options flow"""
     
     def detect(self, symbol: str) -> Dict:
-        """Detect unusual options activity"""
+        """Detect unusual options activity - WEEKLIES ONLY"""
         try:
             ticker = yf.Ticker(symbol)
             expirations = ticker.options
@@ -326,7 +350,21 @@ class UnusualActivityDetector:
             if not expirations:
                 return {'unusual': False}
             
-            chain = ticker.option_chain(expirations[0])
+            # Filter for weekly expirations only (0-14 DTE)
+            today = datetime.now()
+            weekly_exps = []
+            
+            for exp in expirations:
+                exp_date = datetime.strptime(exp, '%Y-%m-%d')
+                days_to_exp = (exp_date - today).days
+                if 0 <= days_to_exp <= 14:
+                    weekly_exps.append(exp)
+            
+            if not weekly_exps:
+                return {'unusual': False}
+            
+            # Check the nearest weekly expiration
+            chain = ticker.option_chain(weekly_exps[0])
             
             total_call_vol = chain.calls['volume'].sum()
             total_put_vol = chain.puts['volume'].sum()
