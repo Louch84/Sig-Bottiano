@@ -1122,6 +1122,10 @@ class AdvancedOptionsScanner:
                         # Get analyst data
                         analyst = self.analyst_fetcher.get_rating(symbol)
                         
+                        # Get squeeze data for $5 plays
+                        squeeze_data = self.short_squeeze.analyze(symbol, info)
+                        gamma_data = self.gamma_squeeze.analyze(symbol, chain, current, info)
+                        
                         cheap_plays.append({
                             'symbol': symbol,
                             'current': current,
@@ -1142,7 +1146,19 @@ class AdvancedOptionsScanner:
                             'roi_500': roi_500,
                             'roi_1000': roi_1000,
                             'analyst_rating': analyst['rating'],
-                            'analyst_target': analyst['target']
+                            'analyst_target': analyst['target'],
+                            # Squeeze data
+                            'short_percent_float': squeeze_data.get('short_percent_float', 0),
+                            'days_to_cover': squeeze_data.get('days_to_cover', 0),
+                            'squeeze_score': squeeze_data.get('squeeze_score', 0),
+                            'squeeze_potential': squeeze_data.get('squeeze_potential', ''),
+                            'is_squeeze_candidate': squeeze_data.get('is_squeeze_candidate', False),
+                            'gamma_score': gamma_data.get('gamma_score', 0),
+                            'gamma_potential': gamma_data.get('gamma_potential', ''),
+                            'is_gamma_candidate': gamma_data.get('is_gamma_candidate', False),
+                            'otm_call_oi_ratio': gamma_data.get('otm_call_oi_ratio', 0),
+                            'vol_vs_oi_ratio': gamma_data.get('vol_vs_oi_ratio', 0),
+                            'pc_volume_ratio': gamma_data.get('pc_volume_ratio', 0)
                         })
                 
                 # Process PUTS
@@ -1181,6 +1197,10 @@ class AdvancedOptionsScanner:
                         # Get analyst data
                         analyst = self.analyst_fetcher.get_rating(symbol)
                         
+                        # Get squeeze data for $5 plays
+                        squeeze_data = self.short_squeeze.analyze(symbol, info)
+                        gamma_data = self.gamma_squeeze.analyze(symbol, chain, current, info)
+                        
                         cheap_plays.append({
                             'symbol': symbol,
                             'current': current,
@@ -1201,7 +1221,19 @@ class AdvancedOptionsScanner:
                             'roi_500': roi_500,
                             'roi_1000': roi_1000,
                             'analyst_rating': analyst['rating'],
-                            'analyst_target': analyst['target']
+                            'analyst_target': analyst['target'],
+                            # Squeeze data
+                            'short_percent_float': squeeze_data.get('short_percent_float', 0),
+                            'days_to_cover': squeeze_data.get('days_to_cover', 0),
+                            'squeeze_score': squeeze_data.get('squeeze_score', 0),
+                            'squeeze_potential': squeeze_data.get('squeeze_potential', ''),
+                            'is_squeeze_candidate': squeeze_data.get('is_squeeze_candidate', False),
+                            'gamma_score': gamma_data.get('gamma_score', 0),
+                            'gamma_potential': gamma_data.get('gamma_potential', ''),
+                            'is_gamma_candidate': gamma_data.get('is_gamma_candidate', False),
+                            'otm_call_oi_ratio': gamma_data.get('otm_call_oi_ratio', 0),
+                            'vol_vs_oi_ratio': gamma_data.get('vol_vs_oi_ratio', 0),
+                            'pc_volume_ratio': gamma_data.get('pc_volume_ratio', 0)
                         })
                 
             except Exception as e:
@@ -1236,6 +1268,13 @@ class AdvancedOptionsScanner:
             print(f"   📊 Volume: {play['volume']} | OI: {play['oi']} | IV: {play['iv']:.1f}%")
             print(f"   📊 Analyst: {play['analyst_rating']} | Target: ${play['analyst_target']:.2f}")
             print(f"   🎯 Breakeven: ${play['breakeven']:.2f} (need {play['upside_to_breakeven']:.1f}%)")
+            
+            # Show squeeze data if present
+            if play.get('is_squeeze_candidate') or play.get('short_percent_float', 0) > 10:
+                print(f"   🎯 SQUEEZE: {play['short_percent_float']:.1f}% short, {play['days_to_cover']:.1f}d cover ({play['squeeze_potential']})")
+            if play.get('is_gamma_candidate') or play.get('gamma_score', 0) >= 40:
+                print(f"   🔥 GAMMA: {play['gamma_potential']} (Score: {play['gamma_score']}/100)")
+            
             print()
             print(f"   📈 ROI SCENARIOS (What stock price needed):")
             
