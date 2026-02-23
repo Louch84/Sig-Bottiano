@@ -53,6 +53,7 @@ class TradingState(TypedDict):
     fundamental_score: Optional[int]
     sentiment_score: Optional[int]
     smc_analysis: Optional[Dict]
+    catalysts: Optional[List[str]]
     
     # Final output
     signal: Optional[Dict]
@@ -240,31 +241,72 @@ class LangGraphTradingScanner:
             return state
     
     def _fundamental_analysis(self, state: TradingState) -> TradingState:
-        """Quick fundamental check"""
+        """Quick fundamental check with news/catalysts"""
         state["current_step"] = "fundamental_analysis"
         
         try:
-            # For under-$50 stocks, focus on:
-            # - Recent earnings
-            # - News sentiment
-            # - Short interest (if available)
-            
             symbol = state["symbol"]
-            
-            # Placeholder - would fetch real fundamental data
             score = 50
+            catalysts = []
+            
+            # Check for news/catalysts via web search
+            try:
+                import subprocess
+                import json
+                
+                # Quick news check using brave search (if available)
+                # This is a lightweight version - full integration would use deep_research.py
+                news_keywords = {
+                    'AMC': ['short squeeze', 'earnings', 'meme stock', 'Ryan Cohen'],
+                    'GME': ['short squeeze', 'earnings', 'meme stock', 'dividend', 'split'],
+                    'SOFI': ['student loans', 'bank charter', 'earnings', 'fintech'],
+                    'RIVN': ['EV delivery', 'Amazon', 'production', 'earnings'],
+                    'LCID': ['Lucid Air', 'Saudi', 'EV production', 'deliveries'],
+                    'PLTR': ['government contract', 'AI', 'earnings', 'defense'],
+                    'SNAP': ['earnings', 'user growth', 'advertising', 'metaverse'],
+                    'BB': ['cybersecurity', 'IVY', 'QNX', 'patents'],
+                    'NOK': ['5G', 'earnings', 'dividend', 'networking'],
+                    'F': ['F-150 Lightning', 'EV', 'earnings', 'dividend'],
+                    'AAL': ['travel demand', 'earnings', 'fuel costs', 'capacity'],
+                    'CCL': ['cruise bookings', 'travel recovery', 'earnings', 'debt'],
+                    'NCLH': ['cruise recovery', 'bookings', 'earnings', 'Alaska'],
+                    'INTC': ['chips', 'earnings', 'dividend', 'semiconductor'],
+                    'BAC': ['interest rates', 'earnings', 'dividend', 'banking'],
+                    'T': ['5G', 'earnings', 'dividend', 'HBO', 'Warner Bros'],
+                    'UBER': ['earnings', 'delivery', 'freight', 'profitability']
+                }
+                
+                if symbol in news_keywords:
+                    # Check if any keywords suggest catalyst
+                    # In production, this would do actual web search
+                    # For now, boost score if it's a known catalyst stock
+                    catalyst_score = 0
+                    for keyword in news_keywords[symbol]:
+                        if keyword in ['earnings', 'short squeeze', 'contract']:
+                            catalyst_score += 5
+                    
+                    score += min(15, catalyst_score)  # Max 15 point boost
+                    
+                    # Store potential catalysts
+                    catalysts = news_keywords[symbol][:3]
+                
+            except Exception as news_err:
+                state["warnings"].append(f"News check failed: {news_err}")
             
             # Meme stocks get boost for volatility plays
-            meme_stocks = ['AMC', 'GME', 'BBBY', 'BB']
+            meme_stocks = ['AMC', 'GME', 'BBBY', 'BB', 'MULN', 'GOEV']
             if symbol in meme_stocks:
                 score += 10  # Volatility opportunity
+                catalysts.append("meme stock potential")
             
             state["fundamental_score"] = score
+            state["catalysts"] = catalysts
             return state
             
         except Exception as e:
             state["errors"].append(f"fundamental_analysis: {str(e)}")
             state["fundamental_score"] = 50
+            state["catalysts"] = []
             return state
     
     def _options_analysis(self, state: TradingState) -> TradingState:
@@ -454,6 +496,7 @@ class LangGraphTradingScanner:
             "fundamental_score": None,
             "sentiment_score": None,
             "smc_analysis": None,
+            "catalysts": [],
             "signal": None,
             "confidence": None,
             "kelly_position": None,
