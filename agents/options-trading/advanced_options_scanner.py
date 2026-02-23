@@ -916,7 +916,43 @@ class AdvancedOptionsScanner:
         return signals, cheap_plays
 
 
+def print_legal_disclaimer():
+    """Print legal disclaimer before any output"""
+    print('╔' + '═'*88 + '╗')
+    print('║' + ' '*20 + '⚠️  LEGAL DISCLAIMER  ⚠️' + ' '*43 + '║')
+    print('╠' + '═'*88 + '╣')
+    print('║  NOT FINANCIAL ADVICE                                                               ║')
+    print('║  • This scanner is for EDUCATIONAL PURPOSES ONLY                                    ║')
+    print('║  • I am NOT a licensed financial advisor                                            ║')
+    print('║  • I am NOT registered with SEC/FINRA                                               ║')
+    print('║  • These are NOT recommendations to buy or sell                                       ║')
+    print('║                                                                                       ║')
+    print('║  RISK WARNING                                                                         ║')
+    print('║  • Options trading involves SUBSTANTIAL RISK of loss                                ║')
+    print('║  • You can lose 100% of your investment                                             ║')
+    print('║  • Past performance does NOT guarantee future results                               ║')
+    print('║  • Always do your OWN RESEARCH before trading                                       ║')
+    print('║                                                                                       ║')
+    print('║  BY USING THIS INFORMATION, YOU AGREE:                                                ║')
+    print('║  • To hold harmless from any losses                                                  ║')
+    print('║  • To consult a licensed professional for financial advice                         ║')
+    print('║  • That you are solely responsible for your trading decisions                      ║')
+    print('╚' + '═'*88 + '╝')
+    print()
+
+def print_educational_footer():
+    """Print educational reminder after output"""
+    print('═'*90)
+    print('⚠️  REMINDER: This is for EDUCATIONAL PURPOSES ONLY')
+    print('⚠️  NOT financial advice. NOT a recommendation.')
+    print('⚠️  You can lose 100% of your money trading options.')
+    print('⚠️  Consult a licensed professional before trading.')
+    print('═'*90)
+
+
 # Run combined scanner
 if __name__ == "__main__":
+    print_legal_disclaimer()
     scanner = AdvancedOptionsScanner(account_value=10000)
     scanner.run_full_scan(include_cheap=True)
+    print_educational_footer()
