@@ -719,8 +719,8 @@ class AdvancedOptionsScanner:
             print(f"#{i} {s.symbol} - {s.strategy.upper()}")
             print("-"*80)
             print(f"  Strategy: {s.strategy} | Direction: {s.direction} | Confidence: {s.confidence:.0f}%")
-            print(f"  Price: ${s.current_price:.2f} → Target: ${s.target_price:.2f} | Stop: ${s.stop_loss:.2f}")
-            print(f"  Option: ${s.suggested_strike} strike @ ${s.option_cost:.2f} ({s.days_to_expiration} DTE)")
+            print(f"  🎯 STRIKE: ${s.suggested_strike} | Current: ${s.current_price:.2f} → Target: ${s.target_price:.2f}")
+            print(f"  💰 Option Cost: ${s.option_cost:.2f} ({s.days_to_expiration} DTE) | Stop: ${s.stop_loss:.2f}")
             print(f"  Analyst: {s.analyst_rating} | Target: ${s.analyst_target:.2f}")
             print(f"  Momentum: {s.momentum_score:.0f}/100 | Gap: {s.gap_status}")
             if s.phase3_drug:
@@ -924,7 +924,7 @@ class AdvancedOptionsScanner:
             emoji = "📈" if option_type == "CALL" else "📉"
             
             print(f"{i}. {emoji} {play['symbol']} - {option_type}")
-            print(f"   Current: ${play['current']:.2f} | Strike: ${play['strike']:.2f} (+{play['distance_pct']:.1f}% OTM)")
+            print(f"   🎯 STRIKE: ${play['strike']:.2f} (Current: ${play['current']:.2f}, +{play['distance_pct']:.1f}% OTM)")
             print(f"   💰 Cost: ${play['price_per_share']:.3f}/share = ${play['contract_cost']:.2f}/contract")
             print(f"   📅 Expires: {play['expiration']} ({play['dte']} DTE)")
             print(f"   📊 Volume: {play['volume']} | OI: {play['oi']} | IV: {play['iv']:.1f}%")
