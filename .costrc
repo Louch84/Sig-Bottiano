@@ -1,0 +1,27 @@
+# Cost Optimization Configuration
+# Minimizes token burn, API costs, and compute waste
+
+[agent]
+# Response length
+max_response_tokens = 800        # Keep responses concise
+enable_compression = true        # Compress repetitive info
+
+# Context management
+context_window_strategy = sliding
+max_context_history = 10         # Only keep last 10 messages relevant
+cache_frequent_data = true       # Cache stock data, configs, etc.
+
+# Tool usage
+batch_api_calls = true           # Group requests when possible
+retry_failed_once = true         # Don't spam retries
+use_cached_results = true        # Prefer cache over fresh fetch
+
+# Memory efficiency
+auto_summarize_long_contexts = true
+prune_irrelevant_history = true
+compress_file_reads = true       # Summarize long files
+
+# Cost thresholds
+daily_token_budget = 100000      # Soft limit
+daily_api_call_budget = 500      # Brave, etc.
+alert_at_80_percent = true
