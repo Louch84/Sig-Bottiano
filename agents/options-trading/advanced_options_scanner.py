@@ -59,6 +59,13 @@ class OptionsSignal:
     days_to_cover: Optional[float]
     squeeze_score: Optional[int]
     squeeze_potential: Optional[str]
+    
+    # Gamma Squeeze
+    gamma_score: Optional[int]
+    gamma_potential: Optional[str]
+    otm_call_oi_ratio: Optional[float]
+    vol_vs_oi_ratio: Optional[float]
+    pc_volume_ratio: Optional[float]
 
 
 class NewsAnalyzer:
@@ -436,6 +443,165 @@ class ShortSqueezeAnalyzer:
             return f"➖ Low squeeze risk: {short_pct:.1f}% short. Not a primary squeeze candidate."
 
 
+class GammaSqueezeAnalyzer:
+    """
+    Analyze gamma squeeze potential based on options market structure
+    Tracks: Call OI, Volume vs OI, Put/Call ratio, OTM calls, IV expansion, unusual volume
+    """
+    
+    def analyze(self, symbol: str, chain, current_price: float, info: Dict) -> Dict:
+        """Analyze gamma squeeze indicators"""
+        try:
+            calls = chain.calls
+            puts = chain.puts
+            
+            # 1. Call Open Interest at strikes 5-10% above current
+            otm_call_oi = calls[calls['strike'] > current_price * 1.05]['openInterest'].sum()
+            total_call_oi = calls['openInterest'].sum()
+            otm_oi_ratio = (otm_call_oi / total_call_oi) if total_call_oi > 0 else 0
+            
+            # 2. Volume vs Open Interest (Volume >5x OI signals new positions)
+            call_volume = calls['volume'].sum()
+            call_oi = calls['openInterest'].sum()
+            vol_vs_oi_ratio = (call_volume / call_oi) if call_oi > 0 else 0
+            
+            # 3. Put/Call Ratio (extremely low = aggressive bullish positioning)
+            put_volume = puts['volume'].sum()
+            pc_volume_ratio = (put_volume / call_volume) if call_volume > 0 else 1
+            
+            # 4. Short-dated OTM calls (heavy buying = high gamma)
+            near_exp_calls = calls[calls['strike'] > current_price]
+            near_exp_otm_volume = near_exp_calls['volume'].sum() if not near_exp_calls.empty else 0
+            
+            # 5. Implied Volatility expansion
+            avg_iv = calls['impliedVolatility'].mean() if not calls.empty else 0
+            iv_percentile = self._calc_iv_percentile(avg_iv, symbol)
+            
+            # 6. Unusual options volume (>5x average)
+            avg_daily_volume = info.get('averageVolume', 0)
+            total_options_volume = call_volume + put_volume
+            volume_vs_avg = (total_options_volume / avg_daily_volume) if avg_daily_volume > 0 else 0
+            
+            # 7. Block trades (large orders >10,000 contracts or $200K+)
+            block_trades = self._detect_block_trades(calls, puts)
+            
+            # Calculate gamma squeeze score
+            gamma_score = 0
+            
+            # OTM Call OI score (max 25)
+            if otm_oi_ratio >= 0.4:
+                gamma_score += 25
+            elif otm_oi_ratio >= 0.3:
+                gamma_score += 20
+            elif otm_oi_ratio >= 0.2:
+                gamma_score += 15
+            
+            # Volume vs OI score (max 25)
+            if vol_vs_oi_ratio >= 5:
+                gamma_score += 25
+            elif vol_vs_oi_ratio >= 3:
+                gamma_score += 20
+            elif vol_vs_oi_ratio >= 2:
+                gamma_score += 15
+            
+            # Put/Call ratio score (max 20) - lower is more bullish
+            if pc_volume_ratio <= 0.3:
+                gamma_score += 20
+            elif pc_volume_ratio <= 0.5:
+                gamma_score += 15
+            elif pc_volume_ratio <= 0.7:
+                gamma_score += 10
+            
+            # IV expansion score (max 15)
+            if iv_percentile >= 80:
+                gamma_score += 15
+            elif iv_percentile >= 60:
+                gamma_score += 10
+            
+            # Unusual volume score (max 15)
+            if volume_vs_avg >= 5:
+                gamma_score += 15
+            elif volume_vs_avg >= 3:
+                gamma_score += 10
+            elif volume_vs_avg >= 2:
+                gamma_score += 5
+            
+            # Block trades bonus (max 10)
+            if block_trades >= 3:
+                gamma_score += 10
+            elif block_trades >= 1:
+                gamma_score += 5
+            
+            # Determine gamma squeeze potential
+            if gamma_score >= 80:
+                potential = "🔥 EXTREME GAMMA"
+            elif gamma_score >= 60:
+                potential = "🚀 HIGH GAMMA"
+            elif gamma_score >= 40:
+                potential = "⚠️ ELEVATED GAMMA"
+            else:
+                potential = "➖ NORMAL"
+            
+            return {
+                'otm_call_oi_ratio': otm_oi_ratio * 100,
+                'vol_vs_oi_ratio': vol_vs_oi_ratio,
+                'pc_volume_ratio': pc_volume_ratio,
+                'near_exp_otm_volume': near_exp_otm_volume,
+                'avg_iv': avg_iv * 100 if avg_iv else 0,
+                'iv_percentile': iv_percentile,
+                'options_volume_vs_avg': volume_vs_avg,
+                'block_trades_detected': block_trades,
+                'gamma_score': min(100, gamma_score),
+                'gamma_potential': potential,
+                'is_gamma_candidate': gamma_score >= 50,
+                'interpretation': self._interpret_gamma(gamma_score, otm_oi_ratio, vol_vs_oi_ratio, pc_volume_ratio)
+            }
+            
+        except Exception as e:
+            return {
+                'gamma_score': 0,
+                'gamma_potential': 'ERROR',
+                'is_gamma_candidate': False,
+                'interpretation': f'Error analyzing gamma: {str(e)}'
+            }
+    
+    def _calc_iv_percentile(self, current_iv: float, symbol: str) -> int:
+        """Calculate IV percentile (simplified - would need historical data)"""
+        # Simplified: high IV > 50%, very high > 80%
+        if current_iv > 0.8:
+            return 90
+        elif current_iv > 0.5:
+            return 70
+        elif current_iv > 0.3:
+            return 50
+        else:
+            return 30
+    
+    def _detect_block_trades(self, calls, puts) -> int:
+        """Detect potential block trades (>10K contracts or $200K+)"""
+        block_count = 0
+        
+        # Check for high volume at specific strikes
+        high_vol_calls = calls[calls['volume'] >= 10000]
+        block_count += len(high_vol_calls)
+        
+        high_vol_puts = puts[puts['volume'] >= 10000]
+        block_count += len(high_vol_puts)
+        
+        return block_count
+    
+    def _interpret_gamma(self, score: int, otm_oi: float, vol_oi: float, pc_ratio: float) -> str:
+        """Generate interpretation of gamma squeeze potential"""
+        if score >= 80:
+            return f"🎯 PRIME GAMMA SQUEEZE: {otm_oi*100:.0f}% OTM OI, {vol_oi:.1f}x Vol/OI, P/C {pc_ratio:.2f}. Market makers forced to hedge!"
+        elif score >= 60:
+            return f"⚠️ GAMMA WATCH: Strong call buying detected. Potential feedback loop forming."
+        elif score >= 40:
+            return f"📊 Elevated gamma: Some OTM call activity. Monitor for acceleration."
+        else:
+            return f"➖ Normal gamma structure. No significant squeeze pressure."
+
+
 class OptionsChainFilter:
     """Filter options chain for criteria"""
     
@@ -619,6 +785,7 @@ class AdvancedOptionsScanner:
         self.activity_detector = UnusualActivityDetector()
         self.low_conviction = LowConvictionPattern()
         self.short_squeeze = ShortSqueezeAnalyzer()
+        self.gamma_squeeze = GammaSqueezeAnalyzer()
         
         # Watchlist
         self.watchlist = [
@@ -677,9 +844,19 @@ class AdvancedOptionsScanner:
             # 9. Short Squeeze Analysis (NEW)
             squeeze_data = self.short_squeeze.analyze(symbol, info)
             
+            # 10. Gamma Squeeze Analysis (NEW)
+            gamma_data = None
+            try:
+                expirations = ticker.options
+                if expirations:
+                    chain = ticker.option_chain(expirations[0])
+                    gamma_data = self.gamma_squeeze.analyze(symbol, chain, current, info)
+            except:
+                pass
+            
             # Determine best strategy
             strategy = self._determine_strategy(
-                symbol, phase3, gap, momentum, unusual, sentiment, analyst, low_conviction_pattern, squeeze_data
+                symbol, phase3, gap, momentum, unusual, sentiment, analyst, low_conviction_pattern, squeeze_data, gamma_data
             )
             
             if not strategy:
@@ -688,7 +865,7 @@ class AdvancedOptionsScanner:
             # Build signal
             signal = self._build_signal(
                 symbol, current, strategy, momentum, gap, phase3, 
-                analyst, sentiment, options, unusual, news, low_conviction_pattern, squeeze_data
+                analyst, sentiment, options, unusual, news, low_conviction_pattern, squeeze_data, gamma_data
             )
             
             return signal
@@ -697,10 +874,19 @@ class AdvancedOptionsScanner:
             print(f"Error scanning {symbol}: {e}")
             return None
     
-    def _determine_strategy(self, symbol, phase3, gap, momentum, unusual, sentiment, analyst, low_conviction_pattern, squeeze_data=None) -> Optional[str]:
+    def _determine_strategy(self, symbol, phase3, gap, momentum, unusual, sentiment, analyst, low_conviction_pattern, squeeze_data=None, gamma_data=None) -> Optional[str]:
         """Determine which strategy fits best"""
         
-        # Priority 0: Short Squeeze Setup (NEW - Highest Priority)
+        # Priority -1: Gamma + Short Squeeze Combo (HIGHEST - Double feedback loop)
+        if (squeeze_data and squeeze_data.get('is_squeeze_candidate') and 
+            gamma_data and gamma_data.get('is_gamma_candidate')):
+            return 'gamma_short_combo'
+        
+        # Priority 0: Gamma Squeeze Setup
+        if gamma_data and gamma_data.get('is_gamma_candidate'):
+            return 'gamma_squeeze'
+        
+        # Priority 0.5: Short Squeeze Setup
         if squeeze_data and squeeze_data.get('is_squeeze_candidate'):
             return 'short_squeeze'
         
@@ -731,14 +917,14 @@ class AdvancedOptionsScanner:
         return None
     
     def _build_signal(self, symbol, current, strategy, momentum, gap, phase3, 
-                     analyst, sentiment, options, unusual, news, low_conviction_pattern=None, squeeze_data=None) -> OptionsSignal:
+                     analyst, sentiment, options, unusual, news, low_conviction_pattern=None, squeeze_data=None, gamma_data=None) -> OptionsSignal:
         """Build complete signal"""
         
         # Determine direction
         direction = 'CALL' if momentum['trend'] == 'bullish' else 'PUT'
         
-        # Override direction for short squeeze (always CALL - betting against shorts)
-        if strategy == 'short_squeeze':
+        # Override direction for short/gamma squeeze (always CALL - betting against shorts/MM hedging)
+        if strategy in ['short_squeeze', 'gamma_squeeze', 'gamma_short_combo']:
             direction = 'CALL'
         
         # Select option
@@ -786,7 +972,12 @@ class AdvancedOptionsScanner:
             short_percent_float=squeeze_data.get('short_percent_float') if squeeze_data else 0,
             days_to_cover=squeeze_data.get('days_to_cover') if squeeze_data else 0,
             squeeze_score=squeeze_data.get('squeeze_score') if squeeze_data else 0,
-            squeeze_potential=squeeze_data.get('squeeze_potential') if squeeze_data else None
+            squeeze_potential=squeeze_data.get('squeeze_potential') if squeeze_data else None,
+            gamma_score=gamma_data.get('gamma_score') if gamma_data else 0,
+            gamma_potential=gamma_data.get('gamma_potential') if gamma_data else None,
+            otm_call_oi_ratio=gamma_data.get('otm_call_oi_ratio') if gamma_data else 0,
+            vol_vs_oi_ratio=gamma_data.get('vol_vs_oi_ratio') if gamma_data else 0,
+            pc_volume_ratio=gamma_data.get('pc_volume_ratio') if gamma_data else 0
         )
     
     def scan_watchlist(self) -> List[OptionsSignal]:
@@ -837,6 +1028,9 @@ class AdvancedOptionsScanner:
                 print(f"  🧬 Phase 3: {s.phase3_drug}")
             if s.short_percent_float and s.short_percent_float > 10:
                 print(f"  🎯 SHORT SQUEEZE: {s.short_percent_float:.1f}% short, {s.days_to_cover:.1f} days to cover ({s.squeeze_potential})")
+            if s.gamma_score and s.gamma_score >= 40:
+                print(f"  🔥 GAMMA SQUEEZE: {s.gamma_potential} (Score: {s.gamma_score}/100)")
+                print(f"     OTM OI: {s.otm_call_oi_ratio:.0f}% | Vol/OI: {s.vol_vs_oi_ratio:.1f}x | P/C: {s.pc_volume_ratio:.2f}")
             if s.unusual_options_activity:
                 print(f"  ⚡ Unusual Options Activity Detected")
             print(f"  Max Risk: ${s.max_loss:.2f} | Potential: ${s.max_gain:.2f}")
