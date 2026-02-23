@@ -775,71 +775,128 @@ class AdvancedOptionsScanner:
                 if current == 0:
                     continue
                 
-                # Find cheap calls
+                # Find cheap calls and puts
                 calls = chain.calls
+                puts = chain.puts
                 max_price_per_share = max_contract_cost / 100
                 
+                # Process CALLS
                 cheap_calls = calls[calls['lastPrice'] <= max_price_per_share]
                 cheap_calls = cheap_calls[cheap_calls['lastPrice'] > 0]
                 
-                if cheap_calls.empty:
-                    continue
+                if not cheap_calls.empty:
+                    # Get closest OTM call
+                    otm_calls = cheap_calls[cheap_calls['strike'] > current]
+                    if not otm_calls.empty:
+                        best = otm_calls.sort_values('strike').iloc[0]
+                        
+                        contract_cost = best['lastPrice'] * 100
+                        breakeven = best['strike'] + best['lastPrice']
+                        
+                        # Calculate scenarios
+                        distance_pct = ((best['strike'] - current) / current) * 100
+                        upside_to_breakeven = ((breakeven - current) / current) * 100
+                        
+                        # Calculate stock prices needed for target ROIs (100%, 200%, 500%, 1000%)
+                        def calc_call_roi(target_roi):
+                            """Calculate stock price and profit for target ROI on CALL"""
+                            if contract_cost <= 0:
+                                return 0, 0, 0
+                            target_profit = contract_cost * (target_roi / 100)
+                            target_option_value = (target_profit / 100) + best['lastPrice']
+                            target_stock_price = best['strike'] + target_option_value
+                            stock_move_pct = ((target_stock_price - current) / current) * 100
+                            return target_stock_price, target_profit, stock_move_pct
+                        
+                        roi_100 = calc_call_roi(100)
+                        roi_200 = calc_call_roi(200)
+                        roi_500 = calc_call_roi(500)
+                        roi_1000 = calc_call_roi(1000)
+                        
+                        # Get analyst data
+                        analyst = self.analyst_fetcher.get_rating(symbol)
+                        
+                        cheap_plays.append({
+                            'symbol': symbol,
+                            'current': current,
+                            'strike': best['strike'],
+                            'option_type': 'CALL',
+                            'price_per_share': best['lastPrice'],
+                            'contract_cost': contract_cost,
+                            'breakeven': breakeven,
+                            'dte': dte,
+                            'expiration': exp,
+                            'volume': int(best['volume']) if not pd.isna(best['volume']) else 0,
+                            'oi': int(best['openInterest']) if not pd.isna(best['openInterest']) else 0,
+                            'iv': best['impliedVolatility'] * 100 if best['impliedVolatility'] else 0,
+                            'distance_pct': distance_pct,
+                            'upside_to_breakeven': upside_to_breakeven,
+                            'roi_100': roi_100,
+                            'roi_200': roi_200,
+                            'roi_500': roi_500,
+                            'roi_1000': roi_1000,
+                            'analyst_rating': analyst['rating'],
+                            'analyst_target': analyst['target']
+                        })
                 
-                # Get closest OTM call
-                otm_calls = cheap_calls[cheap_calls['strike'] > current]
-                if otm_calls.empty:
-                    continue
+                # Process PUTS
+                cheap_puts = puts[puts['lastPrice'] <= max_price_per_share]
+                cheap_puts = cheap_puts[cheap_puts['lastPrice'] > 0]
                 
-                best = otm_calls.sort_values('strike').iloc[0]
-                
-                contract_cost = best['lastPrice'] * 100
-                breakeven = best['strike'] + best['lastPrice']
-                
-                # Calculate scenarios
-                distance_pct = ((best['strike'] - current) / current) * 100
-                upside_to_breakeven = ((breakeven - current) / current) * 100
-                
-                # Calculate stock prices needed for target ROIs (100%, 200%, 500%, 1000%)
-                def calc_for_roi(target_roi):
-                    """Calculate stock price and profit for target ROI"""
-                    if contract_cost <= 0:
-                        return 0, 0, 0
-                    target_profit = contract_cost * (target_roi / 100)
-                    target_option_value = (target_profit / 100) + best['lastPrice']
-                    target_stock_price = best['strike'] + target_option_value
-                    stock_move_pct = ((target_stock_price - current) / current) * 100
-                    return target_stock_price, target_profit, stock_move_pct
-                
-                roi_100 = calc_for_roi(100)   # 2x = 100% profit
-                roi_200 = calc_for_roi(200)   # 3x = 200% profit  
-                roi_500 = calc_for_roi(500)   # 6x = 500% profit
-                roi_1000 = calc_for_roi(1000) # 11x = 1000% profit
-                
-                # Get analyst data
-                analyst = self.analyst_fetcher.get_rating(symbol)
-                
-                cheap_plays.append({
-                    'symbol': symbol,
-                    'current': current,
-                    'strike': best['strike'],
-                    'price_per_share': best['lastPrice'],
-                    'contract_cost': contract_cost,
-                    'breakeven': breakeven,
-                    'dte': dte,
-                    'expiration': exp,
-                    'volume': int(best['volume']) if not pd.isna(best['volume']) else 0,
-                    'oi': int(best['openInterest']) if not pd.isna(best['openInterest']) else 0,
-                    'iv': best['impliedVolatility'] * 100 if best['impliedVolatility'] else 0,
-                    'distance_pct': distance_pct,
-                    'upside_to_breakeven': upside_to_breakeven,
-                    # ROI scenarios: (stock_price, profit, stock_move_pct)
-                    'roi_100': roi_100,
-                    'roi_200': roi_200,
-                    'roi_500': roi_500,
-                    'roi_1000': roi_1000,
-                    'analyst_rating': analyst['rating'],
-                    'analyst_target': analyst['target']
-                })
+                if not cheap_puts.empty:
+                    # Get closest OTM put (strike < current)
+                    otm_puts = cheap_puts[cheap_puts['strike'] < current]
+                    if not otm_puts.empty:
+                        best = otm_puts.sort_values('strike', ascending=False).iloc[0]
+                        
+                        contract_cost = best['lastPrice'] * 100
+                        breakeven = best['strike'] - best['lastPrice']
+                        
+                        # Calculate scenarios
+                        distance_pct = ((current - best['strike']) / current) * 100
+                        downside_to_breakeven = ((current - breakeven) / current) * 100
+                        
+                        # Calculate stock prices needed for target ROIs on PUT
+                        def calc_put_roi(target_roi):
+                            """Calculate stock price and profit for target ROI on PUT"""
+                            if contract_cost <= 0:
+                                return 0, 0, 0
+                            target_profit = contract_cost * (target_roi / 100)
+                            target_option_value = (target_profit / 100) + best['lastPrice']
+                            target_stock_price = best['strike'] - target_option_value
+                            stock_move_pct = ((target_stock_price - current) / current) * 100
+                            return target_stock_price, target_profit, stock_move_pct
+                        
+                        roi_100 = calc_put_roi(100)
+                        roi_200 = calc_put_roi(200)
+                        roi_500 = calc_put_roi(500)
+                        roi_1000 = calc_put_roi(1000)
+                        
+                        # Get analyst data
+                        analyst = self.analyst_fetcher.get_rating(symbol)
+                        
+                        cheap_plays.append({
+                            'symbol': symbol,
+                            'current': current,
+                            'strike': best['strike'],
+                            'option_type': 'PUT',
+                            'price_per_share': best['lastPrice'],
+                            'contract_cost': contract_cost,
+                            'breakeven': breakeven,
+                            'dte': dte,
+                            'expiration': exp,
+                            'volume': int(best['volume']) if not pd.isna(best['volume']) else 0,
+                            'oi': int(best['openInterest']) if not pd.isna(best['openInterest']) else 0,
+                            'iv': best['impliedVolatility'] * 100 if best['impliedVolatility'] else 0,
+                            'distance_pct': distance_pct,
+                            'upside_to_breakeven': downside_to_breakeven,
+                            'roi_100': roi_100,
+                            'roi_200': roi_200,
+                            'roi_500': roi_500,
+                            'roi_1000': roi_1000,
+                            'analyst_rating': analyst['rating'],
+                            'analyst_target': analyst['target']
+                        })
                 
             except Exception as e:
                 continue
@@ -862,7 +919,11 @@ class AdvancedOptionsScanner:
         print()
         
         for i, play in enumerate(plays[:15], 1):
-            print(f"{i}. 📈 {play['symbol']}")
+            # Get option type from stored data
+            option_type = play.get('option_type', 'CALL')
+            emoji = "📈" if option_type == "CALL" else "📉"
+            
+            print(f"{i}. {emoji} {play['symbol']} - {option_type}")
             print(f"   Current: ${play['current']:.2f} | Strike: ${play['strike']:.2f} (+{play['distance_pct']:.1f}% OTM)")
             print(f"   💰 Cost: ${play['price_per_share']:.3f}/share = ${play['contract_cost']:.2f}/contract")
             print(f"   📅 Expires: {play['expiration']} ({play['dte']} DTE)")
