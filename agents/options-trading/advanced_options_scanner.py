@@ -53,6 +53,12 @@ class OptionsSignal:
     max_loss: float
     max_gain: float
     risk_reward: float
+    
+    # Short Squeeze
+    short_percent_float: Optional[float]
+    days_to_cover: Optional[float]
+    squeeze_score: Optional[int]
+    squeeze_potential: Optional[str]
 
 
 class NewsAnalyzer:
@@ -342,6 +348,94 @@ class MomentumCalculator:
         }
 
 
+class ShortSqueezeAnalyzer:
+    """
+    Analyze short squeeze potential based on key metrics
+    """
+    
+    def analyze(self, symbol: str, info: Dict) -> Dict:
+        """
+        Calculate short squeeze metrics
+        """
+        try:
+            # Get short interest data from ticker info
+            short_percent_float = info.get('shortPercentOfFloat', 0) * 100  # Convert to percentage
+            short_ratio = info.get('shortRatio', 0)  # Days to cover
+            shares_short = info.get('sharesShort', 0)
+            avg_volume = info.get('averageVolume', 0)
+            
+            # Calculate Shares Short vs Volume ratio
+            short_vs_volume = (shares_short / avg_volume) if avg_volume > 0 else 0
+            
+            # Determine squeeze potential
+            squeeze_potential = "LOW"
+            squeeze_score = 0
+            
+            # Short Float % thresholds
+            if short_percent_float >= 40:
+                squeeze_potential = "🔥 EXTREME"
+                squeeze_score += 40
+            elif short_percent_float >= 30:
+                squeeze_potential = "🚀 HIGH"
+                squeeze_score += 30
+            elif short_percent_float >= 20:
+                squeeze_potential = "⚠️ ELEVATED"
+                squeeze_score += 20
+            elif short_percent_float >= 10:
+                squeeze_score += 10
+            
+            # Days to Cover thresholds
+            if short_ratio >= 7:
+                squeeze_score += 30
+            elif short_ratio >= 5:
+                squeeze_score += 20
+            elif short_ratio >= 3:
+                squeeze_score += 10
+            
+            # Shares Short vs Volume
+            if short_vs_volume >= 10:
+                squeeze_score += 30
+            elif short_vs_volume >= 5:
+                squeeze_score += 20
+            elif short_vs_volume >= 3:
+                squeeze_score += 10
+            
+            # Cap at 100
+            squeeze_score = min(100, squeeze_score)
+            
+            return {
+                'short_percent_float': short_percent_float,
+                'short_ratio': short_ratio,
+                'days_to_cover': short_ratio,  # Same metric
+                'shares_short': shares_short,
+                'short_vs_volume_ratio': short_vs_volume,
+                'squeeze_potential': squeeze_potential,
+                'squeeze_score': squeeze_score,
+                'is_squeeze_candidate': squeeze_score >= 50,
+                'interpretation': self._interpret_squeeze(squeeze_score, short_percent_float, short_ratio)
+            }
+        except Exception as e:
+            return {
+                'short_percent_float': 0,
+                'short_ratio': 0,
+                'squeeze_potential': 'N/A',
+                'squeeze_score': 0,
+                'is_squeeze_candidate': False,
+                'interpretation': f'Error: {str(e)}'
+            }
+    
+    def _interpret_squeeze(self, score: int, short_pct: float, days_to_cover: float) -> str:
+        """Generate interpretation of squeeze potential"""
+        if score >= 70:
+            return f"🎯 PRIME SQUEEZE SETUP: {short_pct:.1f}% short, {days_to_cover:.1f} days to cover. High volatility potential!"
+        elif score >= 50:
+            return f"⚠️ SQUEEZE WATCH: {short_pct:.1f}% short, {days_to_cover:.1f} days to cover. Monitor closely."
+        elif score >= 30:
+            return f"📊 Elevated shorts: {short_pct:.1f}% short. Some squeeze potential if catalyst emerges."
+        else:
+            return f"➖ Low squeeze risk: {short_pct:.1f}% short. Not a primary squeeze candidate."
+
+
 class OptionsChainFilter:
     """Filter options chain for criteria"""
     
@@ -524,6 +618,7 @@ class AdvancedOptionsScanner:
         self.options_filter = OptionsChainFilter()
         self.activity_detector = UnusualActivityDetector()
         self.low_conviction = LowConvictionPattern()
+        self.short_squeeze = ShortSqueezeAnalyzer()
         
         # Watchlist
         self.watchlist = [
@@ -579,9 +674,12 @@ class AdvancedOptionsScanner:
             # 8. Low Conviction Pattern (NEW)
             low_conviction_pattern = self.low_conviction.detect(hist, info)
             
+            # 9. Short Squeeze Analysis (NEW)
+            squeeze_data = self.short_squeeze.analyze(symbol, info)
+            
             # Determine best strategy
             strategy = self._determine_strategy(
-                symbol, phase3, gap, momentum, unusual, sentiment, analyst, low_conviction_pattern
+                symbol, phase3, gap, momentum, unusual, sentiment, analyst, low_conviction_pattern, squeeze_data
             )
             
             if not strategy:
@@ -590,7 +688,7 @@ class AdvancedOptionsScanner:
             # Build signal
             signal = self._build_signal(
                 symbol, current, strategy, momentum, gap, phase3, 
-                analyst, sentiment, options, unusual, news, low_conviction_pattern
+                analyst, sentiment, options, unusual, news, low_conviction_pattern, squeeze_data
             )
             
             return signal
@@ -599,8 +697,12 @@ class AdvancedOptionsScanner:
             print(f"Error scanning {symbol}: {e}")
             return None
     
-    def _determine_strategy(self, symbol, phase3, gap, momentum, unusual, sentiment, analyst, low_conviction_pattern) -> Optional[str]:
+    def _determine_strategy(self, symbol, phase3, gap, momentum, unusual, sentiment, analyst, low_conviction_pattern, squeeze_data=None) -> Optional[str]:
         """Determine which strategy fits best"""
+        
+        # Priority 0: Short Squeeze Setup (NEW - Highest Priority)
+        if squeeze_data and squeeze_data.get('is_squeeze_candidate'):
+            return 'short_squeeze'
         
         # Priority 1: Low Conviction Pattern (NEW - Cheap Options Opportunity)
         if low_conviction_pattern.get('pattern_found') and low_conviction_pattern.get('confidence', 0) >= 75:
@@ -629,11 +731,15 @@ class AdvancedOptionsScanner:
         return None
     
     def _build_signal(self, symbol, current, strategy, momentum, gap, phase3, 
-                     analyst, sentiment, options, unusual, news, low_conviction_pattern=None) -> OptionsSignal:
+                     analyst, sentiment, options, unusual, news, low_conviction_pattern=None, squeeze_data=None) -> OptionsSignal:
         """Build complete signal"""
         
         # Determine direction
         direction = 'CALL' if momentum['trend'] == 'bullish' else 'PUT'
+        
+        # Override direction for short squeeze (always CALL - betting against shorts)
+        if strategy == 'short_squeeze':
+            direction = 'CALL'
         
         # Select option
         selected_option = None
@@ -676,7 +782,11 @@ class AdvancedOptionsScanner:
             unusual_options_activity=unusual.get('unusual', False),
             max_loss=selected_option['cost'] * 100 if selected_option else 0,
             max_gain=selected_option['cost'] * 100 * 2 if selected_option else 0,
-            risk_reward=2.0
+            risk_reward=2.0,
+            short_percent_float=squeeze_data.get('short_percent_float') if squeeze_data else 0,
+            days_to_cover=squeeze_data.get('days_to_cover') if squeeze_data else 0,
+            squeeze_score=squeeze_data.get('squeeze_score') if squeeze_data else 0,
+            squeeze_potential=squeeze_data.get('squeeze_potential') if squeeze_data else None
         )
     
     def scan_watchlist(self) -> List[OptionsSignal]:
@@ -685,7 +795,7 @@ class AdvancedOptionsScanner:
         
         print("="*80)
         print("🔥 ADVANCED OPTIONS SCANNER")
-        print("Features: Flow | Unusual Activity | Catalysts | Phase 3 | Momentum | Analyst Ratings | Gap Patterns | <$10 Options")
+        print("Features: Flow | Unusual Activity | Catalysts | Phase 3 | Momentum | Analyst Ratings | Gap Patterns | <$10 Options | Short Squeeze")
         print("="*80)
         print()
         
@@ -725,6 +835,8 @@ class AdvancedOptionsScanner:
             print(f"  Momentum: {s.momentum_score:.0f}/100 | Gap: {s.gap_status}")
             if s.phase3_drug:
                 print(f"  🧬 Phase 3: {s.phase3_drug}")
+            if s.short_percent_float and s.short_percent_float > 10:
+                print(f"  🎯 SHORT SQUEEZE: {s.short_percent_float:.1f}% short, {s.days_to_cover:.1f} days to cover ({s.squeeze_potential})")
             if s.unusual_options_activity:
                 print(f"  ⚡ Unusual Options Activity Detected")
             print(f"  Max Risk: ${s.max_loss:.2f} | Potential: ${s.max_gain:.2f}")
