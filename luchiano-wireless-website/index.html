@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luchiano Wireless | iPhone Repair Philadelphia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            color: #00d4aa;
+            font-size: 2rem;
+        }
+        
+        .nav-contact {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .nav-contact a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+        }
+        
+        .nav-contact a:hover {
+            color: #00d4aa;
+        }
+        
+        .hours-badge {
+            background: #00d4aa;
+            color: #1a1a2e;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .hero h1 span {
+            color: #ffd700;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+        
+        .hero-location {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .hero-location i {
+            color: #ffd700;
+            margin-right: 10px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: #00d4aa;
+            color: #1a1a2e;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,212,170,0.4);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,212,170,0.6);
+        }
+        
+        /* Services */
+        .services {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: #1a1a2e;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 50px;
+            font-size: 1.1rem;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: #00d4aa;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+        
+        .service-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #1a1a2e;
+        }
+        
+        .service-card p {
+            color: #666;
+        }
+        
+        /* Why Choose Us */
+        .why-us {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+        }
+        
+        .why-us .section-title {
+            color: white;
+        }
+        
+        .why-us-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        .why-item {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .why-item i {
+            font-size: 2.5rem;
+            color: #00d4aa;
+            margin-bottom: 20px;
+        }
+        
+        .why-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        
+        /* Hours & Location */
+        .hours-location {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .hours-location-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+            margin-top: 40px;
+        }
+        
+        .hours-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+        }
+        
+        .hours-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .hours-list {
+            list-style: none;
+        }
+        
+        .hours-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .hours-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .hours-list .time {
+            font-weight: 600;
+            color: #ffd700;
+        }
+        
+        .location-box {
+            background: #f8f9fa;
+            padding: 40px;
+            border-radius: 15px;
+        }
+        
+        .location-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #1a1a2e;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .location-info {
+            margin-bottom: 20px;
+        }
+        
+        .location-info p {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .location-info i {
+            color: #667eea;
+            width: 20px;
+        }
+        
+        .map-link {
+            display: inline-block;
+            background: #00d4aa;
+            color: #1a1a2e;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .map-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,212,170,0.4);
+        }
+        
+        /* Contact */
+        .contact {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .contact h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .contact-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            color: #1a1a2e;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .contact-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
+        /* Footer */
+        .footer {
+            background: #1a1a2e;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .footer p {
+            opacity: 0.8;
+        }
+        
+        .footer .philly-pride {
+            color: #00d4aa;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-mobile-alt"></i>
+                    Luchiano Wireless
+                </div>
+                <div class="nav-contact">
+                    <span class="hours-badge">
+                        <i class="fas fa-clock"></i> Open 7am - 11pm Daily
+                    </span>
+                    <a href="tel:+1">
+                        <i class="fas fa-phone"></i> Call Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Fast iPhone Repair in <span>West Philly</span></h1>
+                <p class="hero-subtitle">Screen fixed while you wait. Quality parts. Fair prices. No cap.</p>
+                <div class="hero-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    13 S 60th Street, Philadelphia, PA 19139
+                </div>
+                <br>
+                <a href="tel:+1" class="cta-button">
+                    <i class="fas fa-phone"></i> Call Now (215) XXX-XXXX
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="services">
+        <div class="container">
+            <h2 class="section-title">What We Do</h2>
+            <p class="section-subtitle">Everything mobile. Done right. Done fast.</p>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-screen"></i>
+                    </div>
+                    <h3>iPhone Screen Repair</h3>
+                    <p>Cracked screen? We fix it while you wait. Quality parts, professional installation.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-battery-full"></i>
+                    </div>
+                    <h3>Battery Replacement</h3>
+                    <p>Phone dying too fast? New battery = like new phone. Quick and affordable.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    </div>
+                    <h3>Pay Phone Bills</h3>
+                    <p>Pay your wireless bill here. All major carriers accepted.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-signal"></i>
+                    </div>
+                    <h3>Phone Activations</h3>
+                    <p>New phone or switching carriers? We get you connected.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <h3>Phones & Accessories</h3>
+                    <p>Cases, chargers, screen protectors, and more. Everything you need.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-wifi"></i>
+                    </div>
+                    <h3>Xfinity WiFi Prepaid</h3>
+                    <p>Home internet without the contract. Get connected today.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-us">
+        <div class="container">
+            <h2 class="section-title">Why Come to Us?</h2>
+            
+            <div class="why-us-grid">
+                <div class="why-item">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Fast Service</h3>
+                    <p>Most repairs done in 30 minutes or less. You don't wait, you don't worry.</p>
+                </div>
+                
+                <div class="why-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Quality Parts</h3>
+                    <p>We use the good stuff. Your phone works like it should after we're done.</p>
+                </div>
+                
+                <div class="why-item">
+                    <i class="fas fa-dollar-sign"></i>
+                    <h3>Fair Prices</h3>
+                    <p>No games, no gimmicks. Honest pricing for honest work.</p>
+                </div>
+                
+                <div class="why-item">
+                    <i class="fas fa-clock"></i>
+                    <h3>Open Late</h3>
+                    <p>7am to 11pm, 7 days a week. We here when you need us.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hours & Location -->
+    <section class="hours-location">
+        <div class="container">
+            <h2 class="section-title">Hours & Location</h2>
+            
+            <div class="hours-location-grid">
+                <div class="hours-box">
+                    <h3><i class="fas fa-clock"></i> Business Hours</h3>
+                    <ul class="hours-list">
+                        <li><span>Monday</span> <span class="time">7am - 11pm</span></li>
+                        <li><span>Tuesday</span> <span class="time">7am - 11pm</span></li>
+                        <li><span>Wednesday</span> <span class="time">7am - 11pm</span></li>
+                        <li><span>Thursday</span> <span class="time">7am - 11pm</span></li>
+                        <li><span>Friday</span> <span class="time">7am - 11pm</span></li>
+                        <li><span>Saturday</span> <span class="time">7am - 11pm</span></li>
+                        <li><span>Sunday</span> <span class="time">7am - 11pm</span></li>
+                    </ul>
+                </div>
+                
+                <div class="location-box">
+                    <h3><i class="fas fa-map-marker-alt"></i> Find Us</h3>
+                    <div class="location-info">
+                        <p><i class="fas fa-store"></i> <strong>Luchiano Wireless</strong></p>
+                        <p><i class="fas fa-map-pin"></i> 13 S 60th Street</p>
+                        <p><i class="fas fa-city"></i> Philadelphia, PA 19139</p>
+                        <p><i class="fas fa-phone"></i> (215) XXX-XXXX</p>
+                    </div>
+                    <a href="https://maps.google.com/?q=13+S+60th+Street+Philadelphia+PA+19139" target="_blank" class="map-link">
+                        <i class="fas fa-directions"></i> Get Directions
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact">
+        <div class="container">
+            <h2>Ready to Fix Your Phone?</h2>
+            <p>Stop by today or give us a call. We got you.</p>
+            
+            <div class="contact-buttons">
+                <a href="tel:+1" class="contact-btn">
+                    <i class="fas fa-phone"></i> Call Now
+                </a>
+                <a href="https://maps.google.com/?q=13+S+60th+Street+Philadelphia+PA+19139" target="_blank" class="contact-btn">
+                    <i class="fas fa-map-marker-alt"></i> Get Directions
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Luchiano Wireless. All rights reserved.</p>
+            <p class="philly-pride">🔌 West Philly's Trusted Phone Repair 🔌</p>
+        </div>
+    </footer>
+</body>
+</html>
