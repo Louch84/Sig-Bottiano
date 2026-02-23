@@ -799,11 +799,21 @@ class AdvancedOptionsScanner:
                 distance_pct = ((best['strike'] - current) / current) * 100
                 upside_to_breakeven = ((breakeven - current) / current) * 100
                 
-                # If stock moves 10%
-                target_price = current * 1.10
-                option_value = max(0, target_price - best['strike'])
-                profit = (option_value - best['lastPrice']) * 100
-                roi = (profit / contract_cost) * 100 if contract_cost > 0 else 0
+                # Calculate stock prices needed for target ROIs (100%, 200%, 500%, 1000%)
+                def calc_for_roi(target_roi):
+                    """Calculate stock price and profit for target ROI"""
+                    if contract_cost <= 0:
+                        return 0, 0, 0
+                    target_profit = contract_cost * (target_roi / 100)
+                    target_option_value = (target_profit / 100) + best['lastPrice']
+                    target_stock_price = best['strike'] + target_option_value
+                    stock_move_pct = ((target_stock_price - current) / current) * 100
+                    return target_stock_price, target_profit, stock_move_pct
+                
+                roi_100 = calc_for_roi(100)   # 2x = 100% profit
+                roi_200 = calc_for_roi(200)   # 3x = 200% profit  
+                roi_500 = calc_for_roi(500)   # 6x = 500% profit
+                roi_1000 = calc_for_roi(1000) # 11x = 1000% profit
                 
                 # Get analyst data
                 analyst = self.analyst_fetcher.get_rating(symbol)
@@ -822,8 +832,11 @@ class AdvancedOptionsScanner:
                     'iv': best['impliedVolatility'] * 100 if best['impliedVolatility'] else 0,
                     'distance_pct': distance_pct,
                     'upside_to_breakeven': upside_to_breakeven,
-                    'profit_10pct': profit,
-                    'roi_10pct': roi,
+                    # ROI scenarios: (stock_price, profit, stock_move_pct)
+                    'roi_100': roi_100,
+                    'roi_200': roi_200,
+                    'roi_500': roi_500,
+                    'roi_1000': roi_1000,
                     'analyst_rating': analyst['rating'],
                     'analyst_target': analyst['target']
                 })
@@ -837,7 +850,7 @@ class AdvancedOptionsScanner:
         return cheap_plays
     
     def print_cheap_options(self, plays: List[Dict]):
-        """Print $5 scanner results"""
+        """Print $5 scanner results with ROI scenarios"""
         if not plays:
             print("No cheap options found under $5.")
             return
@@ -856,9 +869,28 @@ class AdvancedOptionsScanner:
             print(f"   📊 Volume: {play['volume']} | OI: {play['oi']} | IV: {play['iv']:.1f}%")
             print(f"   📊 Analyst: {play['analyst_rating']} | Target: ${play['analyst_target']:.2f}")
             print(f"   🎯 Breakeven: ${play['breakeven']:.2f} (need {play['upside_to_breakeven']:.1f}%)")
-            print(f"   📈 If stock +10%: Profit ${play['profit_10pct']:.0f} ({play['roi_10pct']:.0f}% ROI)")
-            if play['roi_10pct'] > 1000:
-                print(f"      🔥 10-BAGGER POTENTIAL!")
+            print()
+            print(f"   📈 ROI SCENARIOS (What stock price needed):")
+            
+            # 100% ROI (2x)
+            sp_100, profit_100, move_100 = play['roi_100']
+            print(f"      100% ROI (2x): Stock ${sp_100:.2f} (+{move_100:.1f}%) → Profit ${profit_100:.0f}")
+            
+            # 200% ROI (3x)
+            sp_200, profit_200, move_200 = play['roi_200']
+            if move_200 < 100:  # Only show if reasonable
+                print(f"      200% ROI (3x): Stock ${sp_200:.2f} (+{move_200:.1f}%) → Profit ${profit_200:.0f}")
+            
+            # 500% ROI (6x)
+            sp_500, profit_500, move_500 = play['roi_500']
+            if move_500 < 200:
+                print(f"      500% ROI (6x): Stock ${sp_500:.2f} (+{move_500:.1f}%) → Profit ${profit_500:.0f} 🔥")
+            
+            # 1000% ROI (11x)
+            sp_1000, profit_1000, move_1000 = play['roi_1000']
+            if move_1000 < 500:
+                print(f"      1000% ROI (11x): Stock ${sp_1000:.2f} (+{move_1000:.1f}%) → Profit ${profit_1000:.0f} 🚀")
+            
             print()
         
         print("="*80)
