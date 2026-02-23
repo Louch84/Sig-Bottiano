@@ -194,6 +194,111 @@ class GapAnalyzer:
         return {'gapped_down': False, 'consolidated': False, 'pattern': 'none'}
 
 
+class LowConvictionPattern:
+    """
+    Detect 'Low Conviction Rally' pattern - perfect for cheap options
+    Pattern: Price up + Volume extremely low + Above SMAs + Near resistance
+    This suggests stealth accumulation before potential explosive move
+    """
+    
+    def detect(self, df: pd.DataFrame, info: Dict) -> Dict:
+        """
+        Detect low conviction rally pattern
+        Returns pattern details if found
+        """
+        if len(df) < 20:
+            return {'pattern_found': False}
+        
+        try:
+            # Get current data
+            current_price = info.get('currentPrice', info.get('regularMarketPrice', 0))
+            prev_close = info.get('previousClose', 0)
+            today_volume = info.get('volume', info.get('regularMarketVolume', 0))
+            
+            if current_price == 0 or today_volume == 0:
+                return {'pattern_found': False}
+            
+            # Calculate price change
+            price_change = ((current_price - prev_close) / prev_close * 100) if prev_close else 0
+            
+            # Calculate RVOL (Relative Volume)
+            avg_volume_20d = df['Volume'].tail(20).mean()
+            rvol = today_volume / avg_volume_20d if avg_volume_20d > 0 else 1
+            
+            # Check moving averages
+            closes = df['Close'].values
+            sma20 = pd.Series(closes).rolling(20).mean().iloc[-1]
+            sma50 = pd.Series(closes).rolling(50).mean().iloc[-1] if len(closes) >= 50 else None
+            
+            # Check if near highs
+            high_20d = df['High'].tail(20).max()
+            distance_to_high = ((high_20d - current_price) / current_price * 100)
+            
+            # PATTERN CRITERIA:
+            # 1. Price up (> 0.5%)
+            # 2. Volume extremely low (RVOL < 0.3x)
+            # 3. Above 20 SMA (trend intact)
+            # 4. Near recent highs (< 3% from 20d high)
+            
+            criteria_met = 0
+            checks = {
+                'price_up': price_change > 0.5,
+                'low_volume': rvol < 0.3,
+                'above_sma20': current_price > sma20,
+                'near_highs': distance_to_high < 3.0
+            }
+            
+            for check, passed in checks.items():
+                if passed:
+                    criteria_met += 1
+            
+            # Pattern confirmed if 3+ criteria met
+            pattern_found = criteria_met >= 3
+            
+            return {
+                'pattern_found': pattern_found,
+                'pattern_name': 'low_conviction_rally',
+                'confidence': (criteria_met / 4) * 100,
+                'price_change': round(price_change, 2),
+                'rvol': round(rvol, 2),
+                'above_sma20': checks['above_sma20'],
+                'above_sma50': current_price > sma50 if sma50 else False,
+                'distance_to_20d_high': round(distance_to_high, 2),
+                'criteria_met': criteria_met,
+                'checks': checks,
+                'interpretation': self._interpret(checks, price_change, rvol)
+            }
+            
+        except Exception as e:
+            return {'pattern_found': False, 'error': str(e)}
+    
+    def _interpret(self, checks: Dict, price_change: float, rvol: float) -> str:
+        """Generate interpretation of the pattern"""
+        if not checks['price_up']:
+            return "Price not moving up - pattern invalid"
+        
+        if not checks['low_volume']:
+            return "Volume too high - not a quiet rally"
+        
+        interpretations = []
+        
+        if checks['price_up'] and checks['low_volume']:
+            interpretations.append("Quiet accumulation detected")
+        
+        if checks['above_sma20']:
+            interpretations.append("Trend remains bullish")
+        
+        if checks['near_highs']:
+            interpretations.append("Testing resistance with stealth")
+        
+        if len(interpretations) >= 3:
+            return "🎯 PRIME SETUP: Stealth breakout building. Low volume = cheap options. Explosive move likely when volume returns."
+        elif len(interpretations) == 2:
+            return "⚠️ DECENT SETUP: Some quiet accumulation. Watch for volume spike."
+        else:
+            return "➖ WEAK SETUP: Pattern present but not ideal"
+
+
 class MomentumCalculator:
     """Calculate price momentum indicators"""
     
@@ -418,6 +523,7 @@ class AdvancedOptionsScanner:
         self.momentum_calc = MomentumCalculator()
         self.options_filter = OptionsChainFilter()
         self.activity_detector = UnusualActivityDetector()
+        self.low_conviction = LowConvictionPattern()
         
         # Watchlist
         self.watchlist = [
@@ -430,7 +536,9 @@ class AdvancedOptionsScanner:
             # Biotech/Pharma
             'ABBV', 'BIIB', 'GILD', 'JNJ', 'LLY', 'MRK', 'PFE', 'REGN',
             # Recovery
-            'AAL', 'CCL', 'NCLH', 'UBER'
+            'AAL', 'CCL', 'NCLH', 'UBER',
+            # Energy (for low conviction pattern)
+            'KMI', 'XOM', 'CVX', 'OXY', 'MPC', 'VLO', 'PSX'
         ]
     
     def scan_stock(self, symbol: str) -> Optional[OptionsSignal]:
@@ -468,9 +576,12 @@ class AdvancedOptionsScanner:
             # 7. Unusual Activity
             unusual = self.activity_detector.detect(symbol)
             
+            # 8. Low Conviction Pattern (NEW)
+            low_conviction_pattern = self.low_conviction.detect(hist, info)
+            
             # Determine best strategy
             strategy = self._determine_strategy(
-                symbol, phase3, gap, momentum, unusual, sentiment, analyst
+                symbol, phase3, gap, momentum, unusual, sentiment, analyst, low_conviction_pattern
             )
             
             if not strategy:
@@ -479,7 +590,7 @@ class AdvancedOptionsScanner:
             # Build signal
             signal = self._build_signal(
                 symbol, current, strategy, momentum, gap, phase3, 
-                analyst, sentiment, options, unusual, news
+                analyst, sentiment, options, unusual, news, low_conviction_pattern
             )
             
             return signal
@@ -488,33 +599,37 @@ class AdvancedOptionsScanner:
             print(f"Error scanning {symbol}: {e}")
             return None
     
-    def _determine_strategy(self, symbol, phase3, gap, momentum, unusual, sentiment, analyst) -> Optional[str]:
+    def _determine_strategy(self, symbol, phase3, gap, momentum, unusual, sentiment, analyst, low_conviction_pattern) -> Optional[str]:
         """Determine which strategy fits best"""
         
-        # Priority 1: Biotech Phase 3
+        # Priority 1: Low Conviction Pattern (NEW - Cheap Options Opportunity)
+        if low_conviction_pattern.get('pattern_found') and low_conviction_pattern.get('confidence', 0) >= 75:
+            return 'low_conviction'
+        
+        # Priority 2: Biotech Phase 3
         if phase3:
             return 'biotech'
         
-        # Priority 2: Gap and Consolidate
+        # Priority 3: Gap and Consolidate
         if gap['gapped_down'] and gap['consolidated']:
             return 'gap_fill'
         
-        # Priority 3: Unusual Options Flow
+        # Priority 4: Unusual Options Flow
         if unusual.get('unusual') and unusual.get('pc_ratio', 1) < 0.5:
             return 'flow'
         
-        # Priority 4: Strong Momentum + Catalyst
+        # Priority 5: Strong Momentum + Catalyst
         if momentum['score'] > 65 and sentiment == 'bullish':
             return 'momentum'
         
-        # Priority 5: Analyst Upgrade + Momentum
+        # Priority 6: Analyst Upgrade + Momentum
         if analyst['rating'] in ['STRONG_BUY', 'BUY'] and analyst['upside'] > 10:
             return 'catalyst'
         
         return None
     
     def _build_signal(self, symbol, current, strategy, momentum, gap, phase3, 
-                     analyst, sentiment, options, unusual, news) -> OptionsSignal:
+                     analyst, sentiment, options, unusual, news, low_conviction_pattern=None) -> OptionsSignal:
         """Build complete signal"""
         
         # Determine direction
