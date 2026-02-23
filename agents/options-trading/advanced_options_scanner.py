@@ -731,8 +731,160 @@ class AdvancedOptionsScanner:
             print(f"  Catalyst: {s.catalyst}")
 
 
-# Run scanner
+    def scan_cheap_options(self, max_contract_cost: float = 5.00) -> List[Dict]:
+        """
+        $5 SCANNER - Find cheap options under $5 per contract
+        Lottery ticket plays with massive ROI potential
+        """
+        cheap_plays = []
+        
+        print("="*80)
+        print(f"💰 $5 SCANNER - CHEAP OPTIONS FINDER (Under ${max_contract_cost}/contract)")
+        print("="*80)
+        print()
+        
+        for symbol in self.watchlist:
+            try:
+                ticker = yf.Ticker(symbol)
+                expirations = ticker.options
+                
+                if not expirations:
+                    continue
+                
+                # Get weekly expiration
+                today = datetime.now()
+                weekly_exps = []
+                
+                for exp in expirations:
+                    exp_date = datetime.strptime(exp, '%Y-%m-%d')
+                    days_to_exp = (exp_date - today).days
+                    if 0 <= days_to_exp <= 14:
+                        weekly_exps.append((exp, days_to_exp))
+                
+                if not weekly_exps:
+                    continue
+                
+                weekly_exps.sort(key=lambda x: x[1])
+                exp, dte = weekly_exps[0]
+                
+                # Get options chain
+                chain = ticker.option_chain(exp)
+                info = ticker.info
+                current = info.get('currentPrice', 0)
+                
+                if current == 0:
+                    continue
+                
+                # Find cheap calls
+                calls = chain.calls
+                max_price_per_share = max_contract_cost / 100
+                
+                cheap_calls = calls[calls['lastPrice'] <= max_price_per_share]
+                cheap_calls = cheap_calls[cheap_calls['lastPrice'] > 0]
+                
+                if cheap_calls.empty:
+                    continue
+                
+                # Get closest OTM call
+                otm_calls = cheap_calls[cheap_calls['strike'] > current]
+                if otm_calls.empty:
+                    continue
+                
+                best = otm_calls.sort_values('strike').iloc[0]
+                
+                contract_cost = best['lastPrice'] * 100
+                breakeven = best['strike'] + best['lastPrice']
+                
+                # Calculate scenarios
+                distance_pct = ((best['strike'] - current) / current) * 100
+                upside_to_breakeven = ((breakeven - current) / current) * 100
+                
+                # If stock moves 10%
+                target_price = current * 1.10
+                option_value = max(0, target_price - best['strike'])
+                profit = (option_value - best['lastPrice']) * 100
+                roi = (profit / contract_cost) * 100 if contract_cost > 0 else 0
+                
+                # Get analyst data
+                analyst = self.analyst_fetcher.get_rating(symbol)
+                
+                cheap_plays.append({
+                    'symbol': symbol,
+                    'current': current,
+                    'strike': best['strike'],
+                    'price_per_share': best['lastPrice'],
+                    'contract_cost': contract_cost,
+                    'breakeven': breakeven,
+                    'dte': dte,
+                    'expiration': exp,
+                    'volume': int(best['volume']) if not pd.isna(best['volume']) else 0,
+                    'oi': int(best['openInterest']) if not pd.isna(best['openInterest']) else 0,
+                    'iv': best['impliedVolatility'] * 100 if best['impliedVolatility'] else 0,
+                    'distance_pct': distance_pct,
+                    'upside_to_breakeven': upside_to_breakeven,
+                    'profit_10pct': profit,
+                    'roi_10pct': roi,
+                    'analyst_rating': analyst['rating'],
+                    'analyst_target': analyst['target']
+                })
+                
+            except Exception as e:
+                continue
+        
+        # Sort by contract cost
+        cheap_plays.sort(key=lambda x: x['contract_cost'])
+        
+        return cheap_plays
+    
+    def print_cheap_options(self, plays: List[Dict]):
+        """Print $5 scanner results"""
+        if not plays:
+            print("No cheap options found under $5.")
+            return
+        
+        print()
+        print("="*80)
+        print(f"🎯 TOP {len(plays)} CHEAP OPTIONS PLAYS")
+        print("="*80)
+        print()
+        
+        for i, play in enumerate(plays[:15], 1):
+            print(f"{i}. 📈 {play['symbol']}")
+            print(f"   Current: ${play['current']:.2f} | Strike: ${play['strike']:.2f} (+{play['distance_pct']:.1f}% OTM)")
+            print(f"   💰 Cost: ${play['price_per_share']:.3f}/share = ${play['contract_cost']:.2f}/contract")
+            print(f"   📅 Expires: {play['expiration']} ({play['dte']} DTE)")
+            print(f"   📊 Volume: {play['volume']} | OI: {play['oi']} | IV: {play['iv']:.1f}%")
+            print(f"   📊 Analyst: {play['analyst_rating']} | Target: ${play['analyst_target']:.2f}")
+            print(f"   🎯 Breakeven: ${play['breakeven']:.2f} (need {play['upside_to_breakeven']:.1f}%)")
+            print(f"   📈 If stock +10%: Profit ${play['profit_10pct']:.0f} ({play['roi_10pct']:.0f}% ROI)")
+            if play['roi_10pct'] > 1000:
+                print(f"      🔥 10-BAGGER POTENTIAL!")
+            print()
+        
+        print("="*80)
+        print("💡 These are lottery ticket plays - risk $3-5 for potential 1000%+ gains")
+        print("="*80)
+    
+    def run_full_scan(self, include_cheap: bool = True):
+        """
+        Run COMPLETE scan - both advanced signals AND cheap options
+        """
+        # Run advanced scanner
+        signals = self.scan_watchlist()
+        self.print_signals(signals)
+        
+        print()
+        print()
+        
+        # Run $5 scanner
+        if include_cheap:
+            cheap_plays = self.scan_cheap_options(max_contract_cost=5.00)
+            self.print_cheap_options(cheap_plays)
+        
+        return signals, cheap_plays
+
+
+# Run combined scanner
 if __name__ == "__main__":
     scanner = AdvancedOptionsScanner(account_value=10000)
-    signals = scanner.scan_watchlist()
-    scanner.print_signals(signals)
+    scanner.run_full_scan(include_cheap=True)
