@@ -54,6 +54,9 @@ class TradingState(TypedDict):
     sentiment_score: Optional[int]
     smc_analysis: Optional[Dict]
     catalysts: Optional[List[str]]
+    ma_activity: Optional[Dict]  # Mergers & acquisitions
+    price_target: Optional[Dict]  # Price target info
+    recommendation: Optional[str]  # Stock pick recommendation
     
     # Final output
     signal: Optional[Dict]
@@ -100,6 +103,7 @@ class LangGraphTradingScanner:
         workflow.add_node("risk_check", self._risk_check)
         workflow.add_node("generate_signal", self._generate_signal)
         workflow.add_node("position_size", self._position_size)
+        workflow.add_node("price_target", self._calculate_price_target)
         
         # Define edges with error handling
         workflow.set_entry_point("fetch_data")
@@ -140,7 +144,8 @@ class LangGraphTradingScanner:
         )
         
         workflow.add_edge("generate_signal", "position_size")
-        workflow.add_edge("position_size", END)
+        workflow.add_edge("position_size", "price_target")
+        workflow.add_edge("price_target", END)
         
         return workflow.compile(checkpointer=self.checkpointer)
     
@@ -157,12 +162,13 @@ class LangGraphTradingScanner:
                 hist = ticker.history(period="1mo")
                 
                 if not hist.empty:
+                    # Convert to native Python types for serialization
                     price_data = {
-                        "Close": hist["Close"].tolist(),
-                        "Volume": hist["Volume"].tolist(),
-                        "High": hist["High"].tolist(),
-                        "Low": hist["Low"].tolist(),
-                        "Open": hist["Open"].tolist()
+                        "Close": [float(x) for x in hist["Close"].tolist()],
+                        "Volume": [int(x) for x in hist["Volume"].tolist()],
+                        "High": [float(x) for x in hist["High"].tolist()],
+                        "Low": [float(x) for x in hist["Low"].tolist()],
+                        "Open": [float(x) for x in hist["Open"].tolist()]
                     }
                     state["price_data"] = price_data
                     
@@ -232,7 +238,7 @@ class LangGraphTradingScanner:
                 if volumes[-1] > avg_vol * 1.5:
                     score += 10  # Volume spike
             
-            state["technical_score"] = max(0, min(100, score))
+            state["technical_score"] = int(max(0, min(100, score)))
             return state
             
         except Exception as e:
@@ -241,39 +247,66 @@ class LangGraphTradingScanner:
             return state
     
     def _fundamental_analysis(self, state: TradingState) -> TradingState:
-        """Quick fundamental check with news/catalysts"""
+        """Quick fundamental check with news/catalysts and M&A"""
         state["current_step"] = "fundamental_analysis"
         
         try:
             symbol = state["symbol"]
             score = 50
             catalysts = []
+            ma_activity = {"active": False, "type": None, "premium": 0}
+            
+            # M&A tracking - known activity or potential targets
+            ma_targets = {
+                'AMC': {'type': 'potential_target', 'rumors': ['streaming pivot', 'private equity'], 'premium_potential': 30},
+                'GME': {'type': 'transformation', 'rumors': ['NFT marketplace', 'digital pivot'], 'premium_potential': 25},
+                'BB': {'type': 'patent_sale', 'rumors': ['patent portfolio sale', 'cybersecurity spinoff'], 'premium_potential': 40},
+                'NOK': {'type': 'potential_target', 'rumors': ['5G assets', 'private equity'], 'premium_potential': 20},
+                'SOFI': {'type': 'acquirer', 'rumors': ['fintech acquisitions', 'bank charter growth'], 'premium_potential': 15},
+                'PLTR': {'type': 'defense_focus', 'rumors': ['government contracts', 'AI acquisitions'], 'premium_potential': 20},
+                'SNAP': {'type': 'potential_target', 'rumors': ['tech giant interest', 'AR platform'], 'premium_potential': 35},
+                'RIVN': {'type': 'partnership', 'rumors': ['Amazon partnership', 'EV consolidation'], 'premium_potential': 30},
+                'LCID': {'type': 'potential_target', 'rumors': ['Saudi PIF', 'luxury EV consolidation'], 'premium_potential': 25}
+            }
+            
+            # Check for M&A activity
+            if symbol in ma_targets:
+                ma_info = ma_targets[symbol]
+                ma_activity = {
+                    "active": True,
+                    "type": ma_info['type'],
+                    "rumors": ma_info['rumors'],
+                    "premium_potential": ma_info['premium_potential']
+                }
+                # Boost score for M&A potential
+                score += min(10, ma_info['premium_potential'] / 5)
+                catalysts.append(f"M&A: {ma_info['type']}")
             
             # Check for news/catalysts via web search
             try:
-                import subprocess
-                import json
-                
                 # Quick news check using brave search (if available)
                 # This is a lightweight version - full integration would use deep_research.py
                 news_keywords = {
-                    'AMC': ['short squeeze', 'earnings', 'meme stock', 'Ryan Cohen'],
-                    'GME': ['short squeeze', 'earnings', 'meme stock', 'dividend', 'split'],
-                    'SOFI': ['student loans', 'bank charter', 'earnings', 'fintech'],
-                    'RIVN': ['EV delivery', 'Amazon', 'production', 'earnings'],
-                    'LCID': ['Lucid Air', 'Saudi', 'EV production', 'deliveries'],
-                    'PLTR': ['government contract', 'AI', 'earnings', 'defense'],
-                    'SNAP': ['earnings', 'user growth', 'advertising', 'metaverse'],
-                    'BB': ['cybersecurity', 'IVY', 'QNX', 'patents'],
-                    'NOK': ['5G', 'earnings', 'dividend', 'networking'],
-                    'F': ['F-150 Lightning', 'EV', 'earnings', 'dividend'],
-                    'AAL': ['travel demand', 'earnings', 'fuel costs', 'capacity'],
-                    'CCL': ['cruise bookings', 'travel recovery', 'earnings', 'debt'],
-                    'NCLH': ['cruise recovery', 'bookings', 'earnings', 'Alaska'],
-                    'INTC': ['chips', 'earnings', 'dividend', 'semiconductor'],
-                    'BAC': ['interest rates', 'earnings', 'dividend', 'banking'],
-                    'T': ['5G', 'earnings', 'dividend', 'HBO', 'Warner Bros'],
-                    'UBER': ['earnings', 'delivery', 'freight', 'profitability']
+                    'AMC': ['short squeeze', 'earnings', 'meme stock', 'Ryan Cohen', 'streaming'],
+                    'GME': ['short squeeze', 'earnings', 'meme stock', 'dividend', 'split', 'NFT'],
+                    'SOFI': ['student loans', 'bank charter', 'earnings', 'fintech', 'acquisition'],
+                    'RIVN': ['EV delivery', 'Amazon', 'production', 'earnings', 'partnership'],
+                    'LCID': ['Lucid Air', 'Saudi', 'EV production', 'deliveries', 'takeover'],
+                    'PLTR': ['government contract', 'AI', 'earnings', 'defense', 'acquisition'],
+                    'SNAP': ['earnings', 'user growth', 'advertising', 'metaverse', 'acquisition target'],
+                    'BB': ['cybersecurity', 'IVY', 'QNX', 'patents', 'patent sale'],
+                    'NOK': ['5G', 'earnings', 'dividend', 'networking', 'takeover target'],
+                    'F': ['F-150 Lightning', 'EV', 'earnings', 'dividend', 'skunk works'],
+                    'AAL': ['travel demand', 'earnings', 'fuel costs', 'capacity', 'consolidation'],
+                    'CCL': ['cruise bookings', 'travel recovery', 'earnings', 'debt', 'restructuring'],
+                    'NCLH': ['cruise recovery', 'bookings', 'earnings', 'Alaska', 'expansion'],
+                    'INTC': ['chips', 'earnings', 'dividend', 'semiconductor', 'foundry'],
+                    'BAC': ['interest rates', 'earnings', 'dividend', 'banking', 'acquisitions'],
+                    'T': ['5G', 'earnings', 'dividend', 'HBO', 'Warner Bros', 'spinoff'],
+                    'UBER': ['earnings', 'delivery', 'freight', 'profitability', 'self-driving'],
+                    'MULN': ['EV delivery', 'production', 'partnership', 'funding'],
+                    'GOEV': ['EV', 'production', 'partnership', 'Canoo', 'Apple'],
+                    'BBBY': ['restructuring', 'turnaround', 'earnings', 'meme stock']
                 }
                 
                 if symbol in news_keywords:
@@ -282,8 +315,10 @@ class LangGraphTradingScanner:
                     # For now, boost score if it's a known catalyst stock
                     catalyst_score = 0
                     for keyword in news_keywords[symbol]:
-                        if keyword in ['earnings', 'short squeeze', 'contract']:
+                        if keyword in ['earnings', 'short squeeze', 'contract', 'takeover', 'acquisition']:
                             catalyst_score += 5
+                        elif keyword in ['partnership', 'patent sale']:
+                            catalyst_score += 8
                     
                     score += min(15, catalyst_score)  # Max 15 point boost
                     
@@ -299,14 +334,16 @@ class LangGraphTradingScanner:
                 score += 10  # Volatility opportunity
                 catalysts.append("meme stock potential")
             
-            state["fundamental_score"] = score
+            state["fundamental_score"] = float(min(100, score))
             state["catalysts"] = catalysts
+            state["ma_activity"] = ma_activity
             return state
             
         except Exception as e:
             state["errors"].append(f"fundamental_analysis: {str(e)}")
             state["fundamental_score"] = 50
             state["catalysts"] = []
+            state["ma_activity"] = {"active": False}
             return state
     
     def _options_analysis(self, state: TradingState) -> TradingState:
@@ -329,6 +366,21 @@ class LangGraphTradingScanner:
             state["errors"].append(f"options_analysis: {str(e)}")
             return state
     
+    def _convert_to_native(self, obj):
+        """Convert numpy types to native Python types for serialization"""
+        import numpy as np
+        if isinstance(obj, np.integer):
+            return int(obj)
+        elif isinstance(obj, np.floating):
+            return float(obj)
+        elif isinstance(obj, np.ndarray):
+            return obj.tolist()
+        elif isinstance(obj, dict):
+            return {k: self._convert_to_native(v) for k, v in obj.items()}
+        elif isinstance(obj, list):
+            return [self._convert_to_native(item) for item in obj]
+        return obj
+    
     def _smc_analysis(self, state: TradingState) -> TradingState:
         """Smart Money Concepts analysis"""
         state["current_step"] = "smc_analysis"
@@ -339,7 +391,11 @@ class LangGraphTradingScanner:
                 return state
             
             # Detect SMC patterns
-            smc_result = self.smc.detect_all(data)
+            import pandas as pd
+            df = pd.DataFrame(data)
+            smc_result = self.smc.analyze(df)
+            # Convert numpy types to native Python types
+            smc_result = self._convert_to_native(smc_result)
             state["smc_analysis"] = smc_result
             
             # Adjust technical score based on SMC
@@ -364,8 +420,11 @@ class LangGraphTradingScanner:
             # Check if already in portfolio (correlation)
             # This integrates with your correlation filter
             
-            # Market regime check
-            regime = self.regime.detect_regime()
+            # Market regime check (using default VIX of 20)
+            try:
+                regime = self.regime.detect_regime(vix=20)
+            except:
+                regime = "NORMAL"
             
             # In HIGH_VOL regime, be more selective
             if regime == "HIGH_VOL":
@@ -461,6 +520,87 @@ class LangGraphTradingScanner:
             state["errors"].append(f"position_size: {str(e)}")
             return state
     
+    def _calculate_price_target(self, state: TradingState) -> TradingState:
+        """Calculate price targets and recommendation"""
+        state["current_step"] = "calculate_price_target"
+        
+        try:
+            symbol = state["symbol"]
+            tech_score = state.get("technical_score", 50)
+            fund_score = state.get("fundamental_score", 50)
+            data = state.get("price_data", {})
+            ma_activity = state.get("ma_activity", {})
+            
+            # Get current price from data
+            closes = data.get("Close", [])
+            current_price = closes[-1] if closes else 20.0
+            
+            # Calculate upside/downside based on scores
+            tech_bias = (tech_score - 50) / 50  # -1 to +1
+            fund_bias = (fund_score - 50) / 50  # -1 to +1
+            combined_bias = (tech_bias * 0.6 + fund_bias * 0.4)
+            
+            # M&A premium adjustment
+            ma_premium = 0
+            if ma_activity.get("active"):
+                ma_premium = ma_activity.get("premium_potential", 0) / 100
+            
+            # Calculate targets
+            if combined_bias > 0:
+                # Bullish
+                upside_pct = min(50, (combined_bias * 30) + (ma_premium * 20))
+                target_price = current_price * (1 + upside_pct/100)
+                downside_pct = max(5, 15 - (combined_bias * 10))
+                stop_loss = current_price * (1 - downside_pct/100)
+            elif combined_bias < 0:
+                # Bearish
+                downside_pct = min(30, abs(combined_bias) * 25)
+                target_price = current_price * (1 - downside_pct/100)
+                upside_pct = max(5, 10 - (abs(combined_bias) * 5))
+                stop_loss = current_price * (1 + upside_pct/100)
+            else:
+                # Neutral
+                target_price = current_price * 1.05
+                stop_loss = current_price * 0.95
+                upside_pct = 5
+                downside_pct = 5
+            
+            # Generate recommendation
+            overall_score = (tech_score + fund_score) / 2
+            if overall_score >= 70:
+                recommendation = "STRONG BUY"
+            elif overall_score >= 60:
+                recommendation = "BUY"
+            elif overall_score >= 45:
+                recommendation = "HOLD"
+            elif overall_score >= 35:
+                recommendation = "REDUCE"
+            else:
+                recommendation = "SELL"
+            
+            # Adjust for M&A
+            if ma_activity.get("active") and ma_activity.get("type") in ['potential_target', 'takeover_rumor']:
+                if recommendation in ['HOLD', 'REDUCE']:
+                    recommendation = "SPECULATIVE BUY"
+            
+            state["price_target"] = {
+                "current": round(current_price, 2),
+                "target": round(target_price, 2),
+                "stop_loss": round(stop_loss, 2),
+                "upside_potential": round(upside_pct, 1),
+                "downside_risk": round(downside_pct, 1),
+                "timeframe": "2-4 weeks"
+            }
+            state["recommendation"] = recommendation
+            
+            return state
+            
+        except Exception as e:
+            state["errors"].append(f"price_target: {str(e)}")
+            state["price_target"] = {"current": 0, "target": 0, "stop_loss": 0}
+            state["recommendation"] = "HOLD"
+            return state
+    
     def _should_continue(self, state: TradingState) -> str:
         """Decision node for workflow continuation"""
         # Check for critical errors
@@ -469,10 +609,8 @@ class LangGraphTradingScanner:
         if critical_errors:
             return "stop"
         
-        # Check for recoverable errors
-        if state.get("errors"):
-            return "error"  # Continue but skip some steps
-        
+        # Always continue to generate price targets and recommendations
+        # even if there are recoverable errors
         return "continue"
     
     def scan_symbol(self, symbol: str, thread_id: str = None) -> Dict:
@@ -497,6 +635,9 @@ class LangGraphTradingScanner:
             "sentiment_score": None,
             "smc_analysis": None,
             "catalysts": [],
+            "ma_activity": {"active": False},
+            "price_target": None,
+            "recommendation": None,
             "signal": None,
             "confidence": None,
             "kelly_position": None,
