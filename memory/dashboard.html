@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sig Botti - Performance Dashboard</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #e0e0e0;
+        }
+        h1 {
+            color: #00d4aa;
+            border-bottom: 2px solid #00d4aa;
+            padding-bottom: 10px;
+        }
+        .metric-card {
+            background: #2a2a2a;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px 0;
+        }
+        .metric-value {
+            font-size: 48px;
+            font-weight: bold;
+            color: #00d4aa;
+        }
+        .metric-label {
+            color: #888;
+            font-size: 14px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #444;
+        }
+        th {
+            color: #00d4aa;
+        }
+        .status-good { color: #00d4aa; }
+        .status-warn { color: #ffd700; }
+        .status-bad { color: #ff6b6b; }
+    </style>
+</head>
+<body>
+    <h1>🧠 Sig Botti - Performance Dashboard</h1>
+    <p>Last updated: 2026-02-23 04:44:54</p>
+    
+    <div class="grid">
+        <div class="metric-card">
+            <div class="metric-value">100ms</div>
+            <div class="metric-label">Avg Response Time</div>
+        </div>
+        
+        <div class="metric-card">
+            <div class="metric-value">100.0%</div>
+            <div class="metric-label">Success Rate</div>
+        </div>
+        
+        <div class="metric-card">
+            <div class="metric-value">1</div>
+            <div class="metric-label">Total Operations</div>
+        </div>
+    </div>
+    
+    <div class="metric-card">
+        <h2>🔧 Top Tools</h2>
+        <table>
+            <tr><th>Tool</th><th>Uses</th></tr>
+        </table>
+    </div>
+    
+    <div class="metric-card">
+        <h2>📈 Insights</h2>
+        <p>Performance is being tracked continuously. This dashboard updates in real-time.</p>
+    </div>
+</body>
+</html>

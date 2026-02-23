@@ -342,20 +342,46 @@ class SelfHealer:
             'disk_space': self._cleanup_disk
         }
     
-    def check_and_heal(self) -> List[Dict]:
+    def check_and_alert(self) -> List[Dict]:
+        """Check health and alert on issues (don't auto-restart during chat)"""
+        results = self.monitor.run_all_checks()
+        issues = []
+        
+        for check in results:
+            if check.status in ['degraded', 'failed']:
+                issues.append({
+                    'component': check.component,
+                    'status': check.status,
+                    'details': check.details,
+                    'error': check.error
+                })
+        
+        return issues
+    
+    def check_and_heal(self, allow_restart: bool = False) -> List[Dict]:
         """Check health and attempt recovery if needed"""
         results = self.monitor.run_all_checks()
         actions_taken = []
         
         for check in results:
             if check.status in ['degraded', 'failed']:
-                action = self._attempt_recovery(check)
-                actions_taken.append({
-                    'component': check.component,
-                    'status': check.status,
-                    'action': action['action'],
-                    'success': action['success']
-                })
+                if check.component == 'gateway' and not allow_restart:
+                    # Just alert, don't restart during active conversation
+                    actions_taken.append({
+                        'component': check.component,
+                        'status': check.status,
+                        'action': 'alert_only',
+                        'success': False,
+                        'message': 'Gateway issue detected - restart manually if needed'
+                    })
+                else:
+                    action = self._attempt_recovery(check)
+                    actions_taken.append({
+                        'component': check.component,
+                        'status': check.status,
+                        'action': action['action'],
+                        'success': action['success']
+                    })
         
         return actions_taken
     
@@ -383,16 +409,12 @@ class SelfHealer:
         try:
             print("🔄 Attempting to restart gateway...")
             
-            # Stop
-            subprocess.run(["openclaw", "gateway", "stop"], capture_output=True, timeout=10)
-            time.sleep(2)
-            
-            # Start
+            # Use restart command (not stop/start)
             result = subprocess.run(
-                ["openclaw", "gateway", "start"],
+                ["openclaw", "gateway", "restart"],
                 capture_output=True,
                 text=True,
-                timeout=10
+                timeout=30
             )
             
             if result.returncode == 0:
