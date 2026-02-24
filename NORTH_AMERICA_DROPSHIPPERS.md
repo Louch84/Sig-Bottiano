@@ -1,15 +1,48 @@
 # North America Dropshippers - Electronics & Motorcycles
 
-## Quick Reference:
+## 💰 FREE TO START - Prioritized List:
 
-| Category | Best USA Supplier | Best Canada Supplier |
-|----------|-------------------|---------------------|
-| **iPhone/Electronics** | KIKO Wholesale (NYC) | AppScenic (filter CAN) |
-| **Motorcycle Parts** | MotoSport | MotoSport (ships to CAN) |
-| **Enduro/Dirt Bike** | Bud Racing USA | Royal Distributing |
-| **General Electronics** | TopDawg | Syncee |
-| **Car/Auto Parts** | Turn 14 Distribution | RockAuto (ships to CAN) |
-| **Performance Car Parts** | Summit Racing | PartsEngine (Canada) |
+### ✅ FREE Programs (No Monthly Fees):
+
+| Supplier | Category | Cost to Join | Best For |
+|----------|----------|--------------|----------|
+| **KIKO Wholesale** | Electronics | FREE | iPhone parts, accessories |
+| **MotoSport** | Motorcycle | FREE application | Dirt bike, motorcycle parts |
+| **RockAuto** | Car Parts | FREE | General auto parts |
+| **Inventory Source** | Multi-category | FREE directory access | Finding suppliers |
+| **Spocket** | Multi-category | FREE plan available | Shopify stores |
+| **Syncee** | Multi-category | FREE plan available | Multi-platform |
+| **AppScenic** | Multi-category | FREE to browse | Canada suppliers |
+
+### 💳 PAID/Membership Required:
+
+| Supplier | Category | Cost | Notes |
+|----------|----------|------|-------|
+| **TopDawg** | General | Monthly fee | Full integration |
+| **Turn 14** | Car Parts | Dealer account required | Performance focus |
+| **Summit Racing** | Car Parts | Dealer program | Bulk orders |
+| **Bud Racing** | Motorcycle | Wholesale account | European parts |
+
+---
+
+## 🚀 RECOMMENDED STARTER COMBO (All FREE):
+
+**For iPhone/Electronics:**
+1. KIKO Wholesale (FREE) - Primary supplier
+2. Spocket (FREE plan) - Backup/alternatives
+
+**For Motorcycles:**
+1. MotoSport (FREE application) - Main supplier
+
+**For Car Parts:**
+1. RockAuto (FREE) - General parts
+
+**For Finding More:**
+1. Inventory Source (FREE directory) - Browse options
+
+---
+
+## Full Supplier List by Category:
 
 ---
 
@@ -231,6 +264,66 @@
 - **AutoPartsWAY** (Canada) - wholesale pricing
 - **RockAuto** - ships to Canada
 - Check US suppliers for Canadian shipping
+
+## 📝 How to Start for FREE:
+
+### Step 1: Sign Up (Today - $0)
+```
+1. KIKO Wholesale → kikowireless.com
+   - Click "Wholesale Application"
+   - Fill out business info (can use SSN if no EIN yet)
+   - Usually approved in 24-48 hours
+
+2. RockAuto → rockauto.com
+   - Create business account
+   - No approval needed for wholesale pricing
+
+3. MotoSport → motosport.com
+   - Apply for dealer program
+   - May need business license/EIN
+
+4. Spocket → spocket.co
+   - Sign up free plan
+   - Connect to Shopify (if you have it)
+```
+
+### Step 2: Get Your Business Info Ready:
+- Business name (can be DBA)
+- Address
+- Tax ID (EIN) or SSN for sole prop
+- Business email
+- Some may want website (use Luchiano Wireless site)
+
+### Step 3: Test Before You Invest:
+- Order samples from 2-3 suppliers
+- Test shipping speed & product quality
+- Compare pricing
+- THEN commit to paid programs if needed
+
+### Step 4: Scale Up (Only When Making Money):
+- Upgrade to paid plans for better margins
+- Add Turn 14 for performance parts
+- Add TopDawg for wider selection
+
+---
+
+## 💡 Free vs Paid Strategy:
+
+**Start FREE:**
+- ✅ KIKO (electronics)
+- ✅ RockAuto (car parts)
+- ✅ MotoSport (motorcycles)
+- ✅ Spocket free plan
+
+**Upgrade Later When Profitable:**
+- 💳 TopDawg ($30-50/month) - wider electronics
+- 💳 Turn 14 (dealer account) - performance parts
+- 💳 Paid Spocket ($49/month) - better margins
+
+**Total to Start: $0**
+**Total to Scale: ~$100-150/month**
+
+---
 
 ## Integration:
 These can plug into your Luchiano Wireless website for fulfillment.
