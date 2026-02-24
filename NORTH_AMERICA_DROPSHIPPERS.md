@@ -8,6 +8,8 @@
 | **Motorcycle Parts** | MotoSport | MotoSport (ships to CAN) |
 | **Enduro/Dirt Bike** | Bud Racing USA | Royal Distributing |
 | **General Electronics** | TopDawg | Syncee |
+| **Car/Auto Parts** | Turn 14 Distribution | RockAuto (ships to CAN) |
+| **Performance Car Parts** | Summit Racing | PartsEngine (Canada) |
 
 ---
 
@@ -164,6 +166,71 @@
 - Check **MotoSport** - ships to Canada
 - **Royal Distributing** (Canada-based)
 - **FortNine** (Canada) - parts and gear
+
+## 🚗 Car/Auto Parts Suppliers:
+
+### USA-Based:
+
+#### 1. **Turn 14 Distribution** (turn14.com)
+- Certified car parts distributor
+- Mercedes, BMW, Toyota, Ford, etc.
+- Good for bulk orders
+- Multiple automotive brands
+- Dealer programs
+
+#### 2. **Inventory Source - Automotive** (inventorysource.com)
+- Auto accessories wholesale
+- USA automotive distributors
+- Integration with Flxpoint
+- Wide network of suppliers
+
+#### 3. **Spocket Automotive** (spocket.co)
+- Custom car accessories
+- Interior & exterior modifications
+- USA-based suppliers
+- Shopify integration
+
+#### 4. **MOTORO Parts** (motoroparts.com)
+- 20+ years in auto parts
+- Private label & dropshipping
+- Full dropshipping services
+- Established supplier
+
+#### 5. **Spark Shipping** (sparkshipping.com)
+- Automotive dropshipping automation
+- Supplier integrations
+- Inventory management
+- Real-time order tracking
+
+#### 6. **JC Whitney** (jcwhitney.com)
+- Classic car parts
+- Truck accessories
+- Long-established
+- Wide catalog
+
+#### 7. **Summit Racing** (summitracing.com)
+- Performance auto parts
+- Racing accessories
+- Fast shipping
+- Dealer programs
+
+#### 8. **RockAuto** (rockauto.com)
+- Wide auto parts selection
+- Competitive pricing
+- Multiple brands
+- Wholesale options
+
+### Car Parts by Category:
+- **Performance**: Summit Racing, Turn 14
+- **Accessories**: Spocket, JC Whitney
+- **General Parts**: RockAuto, MOTORO
+- **Dropshipping Focus**: Inventory Source, Spark Shipping
+
+### Canada Car Parts:
+- **PartsEngine** (Canada) - auto parts & accessories
+- **AutoPartsWAY** (Canada) - wholesale pricing
+- **RockAuto** - ships to Canada
+- Check US suppliers for Canadian shipping
 
 ## Integration:
 These can plug into your Luchiano Wireless website for fulfillment.
