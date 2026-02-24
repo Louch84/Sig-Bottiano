@@ -247,26 +247,28 @@ class LowConvictionPattern:
             high_20d = df['High'].tail(20).max()
             distance_to_high = ((high_20d - current_price) / current_price * 100)
             
-            # PATTERN CRITERIA:
-            # 1. Price up (> 0.5%)
-            # 2. Volume extremely low (RVOL < 0.3x)
+            # PATTERN CRITERIA (IMPROVED):
+            # 1. Price up (> 0.3% - was 0.5%, more signals)
+            # 2. Volume low (RVOL < 0.6x - was 0.3x, still quiet but not extreme)
             # 3. Above 20 SMA (trend intact)
-            # 4. Near recent highs (< 3% from 20d high)
+            # 4. Near recent highs (< 5% from 20d high - was 3%, more opportunities)
+            # 5. Not extended (> 3% would be chasing)
             
             criteria_met = 0
             checks = {
-                'price_up': price_change > 0.5,
-                'low_volume': rvol < 0.3,
+                'price_up': price_change > 0.3,
+                'not_extended': price_change < 3.0,  # Don't chase big moves
+                'low_volume': rvol < 0.6,  # Relaxed from 0.3
                 'above_sma20': current_price > sma20,
-                'near_highs': distance_to_high < 3.0
+                'near_highs': distance_to_high < 5.0  # Relaxed from 3%
             }
             
             for check, passed in checks.items():
                 if passed:
                     criteria_met += 1
             
-            # Pattern confirmed if 3+ criteria met
-            pattern_found = criteria_met >= 3
+            # Pattern confirmed if 4+ of 5 criteria met (was 3 of 4)
+            pattern_found = criteria_met >= 4
             
             return {
                 'pattern_found': pattern_found,
