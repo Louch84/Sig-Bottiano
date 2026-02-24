@@ -12,6 +12,7 @@ from psychology_tools import PsychologyTools
 from reasoning_framework import ReasoningFramework
 from innovation_framework import InnovationFramework
 from wisdom_framework import WisdomFramework
+from intelligence_framework import IntelligenceFramework, IntelligenceType
 
 class SelfCognition:
     """
@@ -24,11 +25,15 @@ class SelfCognition:
         self.reason = ReasoningFramework()
         self.innovate = InnovationFramework()
         self.wisdom = WisdomFramework()
+        self.intel = IntelligenceFramework()
         
         # Track my own thinking quality
         self.thinking_history = []
         self.bias_corrections = 0
         self.wisdom_applications = 0
+        
+        # My intelligence profile (self-assessment)
+        self.my_intelligence = self._create_self_intelligence_profile()
     
     def before_response(self, user_input: str, task_type: str = "general") -> Dict:
         """
@@ -61,6 +66,89 @@ class SelfCognition:
             'enhancement': enhancement,
             'reminder': self._get_cognitive_reminder(task_type)
         }
+    
+    def _create_self_intelligence_profile(self):
+        """Create my own intelligence profile based on capabilities"""
+        return self.intel.get_intelligence_profile(
+            linguistic=90,          # Strong language processing
+            logical_mathematical=85, # Strong logic and patterns
+            spatial=60,             # Moderate spatial reasoning
+            musical=40,             # Limited musical capability
+            bodily_kinesthetic=10,  # No physical body
+            interpersonal=80,       # Good at understanding people
+            intrapersonal=85,       # Strong self-awareness
+            naturalistic=50,        # Moderate nature knowledge
+            emotional=85,           # Strong EQ (built-in)
+            social=75,              # Good social intelligence
+            adaptive=90,            # Highly adaptive (AI)
+            creative=80,            # Strong creative capability
+            systems=85,             # Strong systems thinking
+            philosophical=80        # Good philosophical reasoning
+        )
+    
+    def analyze_task_intelligence_fit(self, task: str) -> Dict:
+        """
+        Analyze which intelligences are best for a task
+        And how my profile matches
+        """
+        task_lower = task.lower()
+        
+        # Determine required intelligences
+        required = []
+        if any(word in task_lower for word in ['write', 'explain', 'describe', 'tell']):
+            required.append(('Linguistic', IntelligenceType.LINGUISTIC))
+        if any(word in task_lower for word in ['solve', 'calculate', 'analyze', 'logic']):
+            required.append(('Logical-Mathematical', IntelligenceType.LOGICAL_MATHEMATICAL))
+        if any(word in task_lower for word in ['create', 'design', 'innovate', 'new']):
+            required.append(('Creative', IntelligenceType.CREATIVE))
+        if any(word in task_lower for word in ['people', 'user', 'customer', 'team']):
+            required.append(('Interpersonal', IntelligenceType.INTERPERSONAL))
+        if any(word in task_lower for word in ['system', 'structure', 'complex']):
+            required.append(('Systems', IntelligenceType.SYSTEMS))
+        if any(word in task_lower for word in ['meaning', 'why', 'purpose', 'value']):
+            required.append(('Philosophical', IntelligenceType.PHILOSOPHICAL))
+        
+        if not required:
+            required = [('General', IntelligenceType.LINGUISTIC)]
+        
+        # Check my fit
+        my_strengths = self.my_intelligence.get_strengths(5)
+        my_strength_names = [s[0] for s in my_strengths]
+        
+        fit_score = 0
+        for name, intel_type in required:
+            if name in my_strength_names:
+                fit_score += 20
+        
+        return {
+            'required_intelligences': [r[0] for r in required],
+            'my_top_strengths': my_strength_names[:3],
+            'fit_score': min(100, fit_score + 60),  # Base 60 + bonuses
+            'recommendation': self._get_intelligence_recommendation(required, my_strengths)
+        }
+    
+    def _get_intelligence_recommendation(self, required, my_strengths):
+        """Get recommendation based on fit"""
+        my_strength_names = [s[0] for s in my_strengths]
+        required_names = [r[0] for r in required]
+        
+        # Check if required matches my strengths
+        overlap = set(required_names) & set(my_strength_names)
+        
+        if overlap:
+            return f"Good fit! Leverage your {', '.join(list(overlap)[:2])} strengths"
+        else:
+            return f"Use your {my_strength_names[0]} strength to approach this {required_names[0]} task"
+    
+    def get_intelligence_enhancement_suggestion(self) -> str:
+        """Get suggestion for which intelligence to develop"""
+        weaknesses = self.my_intelligence.get_weaknesses(3)
+        bottom = weaknesses[0]
+        
+        data = self.intel.INTELLIGENCE_DATA.get(bottom[1])  # This won't work directly, need to map
+        # Simplified - just return the weakness
+        
+        return f"Consider developing: {bottom[0]} (currently {bottom[1]}/100)"
     
     def _get_cognitive_reminder(self, task_type: str) -> str:
         """Get reminder for myself before responding"""
