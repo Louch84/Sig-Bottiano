@@ -8,7 +8,7 @@
 
 ## ⚡ STEP 1: Update Your Number (10 min)
 
-**CRITICAL:** Replace `YOUR_NUMBER` everywhere before posting!
+**CRITICAL:** Replace `12152848650` everywhere before posting!
 
 ### Files to Update:
 1. `luchiano-wireless-site/index.html` - 6 instances
@@ -27,7 +27,7 @@
 3. Set up profile:
    - **Photo:** Luchiano Wireless logo or your photo
    - **Name:** Luchiano Wireless | USA Phones
-   - **Description:** "Direct from USA warehouse 🇺🇸 | iPhones, Samsung, Repairs | DHL to Nigeria 🇳🇬 Ghana 🇬🇭 Kenya 🇰🇪 | WhatsApp: +1 YOUR_NUMBER"
+   - **Description:** "Direct from USA warehouse 🇺🇸 | iPhones, Samsung, Repairs | DHL to Nigeria 🇳🇬 Ghana 🇬🇭 Kenya 🇰🇪 | WhatsApp: +1 12152848650"
 
 ### Add Quick Replies (Copy from WHATSAPP_TEMPLATES.md):
 - `!greeting` - Auto response
@@ -113,7 +113,7 @@ Samsung A16 5G (Bulk) - $275
 
 📦 Shipping: 3-5 Days DHL
 
-👉 ORDER NOW: https://wa.me/YOUR_NUMBER
+👉 ORDER NOW: https://wa.me/12152848650
 
 🌐 Full Catalog: luchianowireless.netlify.app
 
@@ -151,7 +151,7 @@ Let me know what you need! 📱
 
 - Sig
 Philadelphia, USA 🇺🇸
-WhatsApp: +1 YOUR_NUMBER
+WhatsApp: +1 12152848650
 ```
 
 **Who to Message:**
@@ -176,7 +176,7 @@ Fresh stock just landed:
 
 Who's copping today? 📱
 
-Order: wa.me/YOUR_NUMBER
+Order: wa.me/12152848650
 ```
 
 **11 AM EST - Product Highlight:**
@@ -231,7 +231,7 @@ Still got:
 
 Bulk discounts available!
 
-Order before midnight: wa.me/YOUR_NUMBER
+Order before midnight: wa.me/12152848650
 
 Good night! 🌍
 ```
@@ -257,7 +257,7 @@ Good night! 🌍
 
 - Warehouse: Edison, NJ
 - Website: luchianowireless.netlify.app
-- WhatsApp: +1 YOUR_NUMBER
+- WhatsApp: +1 12152848650
 
 We ship daily to Nigeria/Ghana/Kenya via DHL.
 

@@ -101,7 +101,7 @@ Samsung A16 5G (Bulk) - $275
 
 📦 Shipping: 3-5 Days DHL
 
-👉 ORDER NOW: https://wa.me/YOUR_NUMBER
+👉 ORDER NOW: https://wa.me/12152848650
 
 🌐 Full Catalog: luchianowireless.netlify.app
 
@@ -129,7 +129,7 @@ Let me know what you need! 📱
 
 - Sig
 Philadelphia, USA 🇺🇸
-WhatsApp: +1 YOUR_NUMBER
+WhatsApp: +1 12152848650
 ```
 
 ---
@@ -166,7 +166,7 @@ iPhone 14 Pro 128GB (26 units)
 
 Interested? Let's talk numbers.
 
-📲 WhatsApp: +1 YOUR_NUMBER
+📲 WhatsApp: +1 12152848650
 🌐 Catalog: luchianowireless.netlify.app
 ```
 
@@ -217,7 +217,7 @@ Shipping included to Nigeria/Ghana/Kenya.
 
 ⏰ Sale ends in [X] hours!
 
-Order now: https://wa.me/YOUR_NUMBER
+Order now: https://wa.me/12152848650
 
 Don't sleep on this! 😤
 ```
@@ -403,9 +403,9 @@ site:whatsapp.com "invite" phone dealers Lagos
 
 **Your Site:** luchianowireless.netlify.app  
 **Full Catalog:** luchianowireless.netlify.app/products.html  
-**WhatsApp:** https://wa.me/YOUR_NUMBER  
+**WhatsApp:** https://wa.me/12152848650  
 
-**Update YOUR_NUMBER in all templates before posting!**
+**Update 12152848650 in all templates before posting!**
 
 ---
 
