@@ -538,7 +538,7 @@ class OptimizedScanner:
                 option_price = signal['price'] * 0.05  # Rough ATM estimate
                 
                 kelly_result = self.kelly.size_from_signal(
-                    win_probability=signal['confidence'],
+                    signal_confidence=signal['confidence'],
                     risk_reward=signal.get('risk_reward', 2.0),
                     option_price=option_price
                 )
