@@ -1,17 +1,23 @@
 #!/usr/bin/env python3
 """
-🔴 UNIFIED OPTIONS SCANNER
-One scanner, four modes. Replace 9 scattered scanners with one cohesive system.
+🔴 UNIFIED OPTIONS SCANNER v2
+CRITERIA-FIRST SCREENING - Screen entire market, then analyze matches
+
+Flow:
+  1. Screen ENTIRE market by criteria (price, volume, % change, short interest)
+  2. Get matching tickers (top 30-50)
+  3. Run deep analysis on those (SMC, catalysts, patterns)
+  4. Return best setups with Kelly sizing (optimized mode)
 
 Modes:
-  - quick:     5 stocks, 5 sec, basic signals (ultra-fast)
-  - standard:  Full scan with SMC + catalysts (balanced)
-  - breakout:  Consolidation + squeeze patterns (F-style 400% plays)
-  - optimized: Kelly + Correlation + Regime detection (full optimization)
+  - quick:     Screen + basic signals (10-15 sec)
+  - standard:  Screen + full SMC + catalysts (45-60 sec)
+  - breakout:  Screen + consolidation patterns (60-90 sec)
+  - optimized: Screen + Kelly + Correlation + Regime (90-120 sec)
 
 Usage:
   python unified_scanner.py --mode quick
-  python unified_scanner.py --mode standard --watchlist AMZN,TSLA,NVDA
+  python unified_scanner.py --mode standard
   python unified_scanner.py --mode breakout
   python unified_scanner.py --mode optimized --account-value 25000
 """
@@ -78,6 +84,142 @@ class DataCache:
 DATA_CACHE = DataCache()
 
 # ============================================================================
+# MARKET SCREENER - Screen entire market FIRST
+# ============================================================================
+
+class MarketScreener:
+    """
+    Screen entire market by criteria, return matching tickers.
+    This runs BEFORE deep analysis to find opportunities we didn't know existed.
+    """
+    
+    def __init__(self):
+        # Get SP500 + Russell 1000 + high momentum stocks
+        self.universe = self._build_universe()
+        
+        # Screening criteria (in order of priority)
+        self.criteria = {
+            'price_min': 5.0,        # Under $5 = penny stock risk
+            'price_max': 50.0,       # Over $50 = expensive options
+            'volume_min': 1000000,   # 1M+ daily volume (liquidity)
+            'change_min': 3.0,       # 3%+ move today (momentum)
+            'short_min': 15.0,       # 15%+ short interest (squeeze potential)
+        }
+    
+    def _build_universe(self) -> List[str]:
+        """
+        Build screening universe: SP500 + active stocks
+        """
+        # SP500 constituents (most liquid)
+        sp500 = [
+            'AAPL', 'MSFT', 'AMZN', 'NVDA', 'GOOGL', 'META', 'TSLA', 'BRK.B',
+            'UNH', 'JNJ', 'XOM', 'V', 'PG', 'JPM', 'MA', 'HD', 'CVX', 'MRK',
+            'ABBV', 'KO', 'PEP', 'AVGO', 'COST', 'LLY', 'WMT', 'TMO', 'MCD',
+            'CSCO', 'ACN', 'ABT', 'DHR', 'VZ', 'ADBE', 'NKE', 'TXN', 'NEE',
+            'CRM', 'BMY', 'QCOM', 'RTX', 'UPS', 'PM', 'HON', 'AMGN', 'LOW',
+            'SBUX', 'ORCL', 'BA', 'INTC', 'AMD', 'INTU', 'CAT', 'GS', 'DE',
+            'BLK', 'SPGI', 'AXP', 'BKNG', 'ELV', 'GILD', 'MDT', 'ADP', 'TJX',
+            'LMT', 'SYK', 'CVS', 'ADI', 'VRTX', 'TMUS', 'CI', 'ZTS', 'CB',
+            'BDX', 'MMC', 'DUK', 'PLD', 'SO', 'ISRG', 'REGN', 'AON', 'CL',
+            'EQIX', 'ITW', 'APD', 'CME', 'PGR', 'FCX', 'WM', 'NSC', 'SHW',
+            'MU', 'GD', 'EMR', 'BSX', 'PYPL', 'ICE', 'FDX', 'GM', 'F'
+        ]
+        
+        # High-momentum meme/retail favorites (not in SP500)
+        momentum = [
+            'AMC', 'GME', 'MARA', 'RIOT', 'SOFI', 'PLTR', 'LCID', 'RIVN',
+            'NIO', 'BABA', 'COIN', 'DKNG', 'UBER', 'LYFT', 'ABNB', 'SNAP',
+            'PINS', 'SPOT', 'RBLX', 'U', 'PATH', 'HOOD', 'AFRM', 'SQ',
+            'ROKU', 'ZM', 'PTON', 'MRNA', 'BNTX', 'NVAX', 'TDOC', 'FUBO'
+        ]
+        
+        # Small-cap growth / biotech
+        smallcap = [
+            'SAVA', 'CRSP', 'EDIT', 'BEAM', 'NTLA', 'BLUE', 'FATE', 'ARQT',
+            'VKTX', 'KYMR', 'RVMD', 'ACAD', 'JAZZ', 'HALO', 'CPRX', 'INCY'
+        ]
+        
+        return list(set(sp500 + momentum + smallcap))
+    
+    def screen(self, mode: str = "standard") -> List[Dict]:
+        """
+        Screen entire market, return stocks matching criteria.
+        
+        Screening Order:
+        1. Price filter ($5-50)
+        2. Volume filter (1M+ daily)
+        3. Momentum filter (3%+ move)
+        4. Short interest filter (15%+) - optional for quick mode
+        
+        Returns list of dicts with basic data for further analysis.
+        """
+        print(f"🔍 SCREENING {len(self.universe)} STOCKS...")
+        print(f"   Criteria: Price ${self.criteria['price_min']}-${self.criteria['price_max']} | "
+              f"Volume {self.criteria['volume_min']:,}+ | "
+              f"Change {self.criteria['change_min']}%+")
+        if mode != "quick":
+            print(f"   Short Interest: {self.criteria['short_min']}%+")
+        print()
+        
+        matches = []
+        
+        for symbol in self.universe:
+            try:
+                # Quick fetch
+                ticker = yf.Ticker(symbol)
+                info = ticker.info
+                hist = ticker.history(period="5d")
+                
+                if hist.empty or len(hist) < 2:
+                    continue
+                
+                price = info.get('currentPrice', hist['Close'].iloc[-1])
+                
+                # CRITERIA 1: Price filter
+                if price < self.criteria['price_min'] or price > self.criteria['price_max']:
+                    continue
+                
+                # CRITERIA 2: Volume filter
+                avg_volume = hist['Volume'].tail(5).mean()
+                if avg_volume < self.criteria['volume_min']:
+                    continue
+                
+                # CRITERIA 3: Momentum filter (% change today)
+                change_1d = ((hist['Close'].iloc[-1] - hist['Close'].iloc[-2]) / hist['Close'].iloc[-2]) * 100
+                if abs(change_1d) < self.criteria['change_min']:
+                    continue
+                
+                # CRITERIA 4: Short interest (skip for quick mode)
+                short_pct = info.get('shortPercentOfFloat', 0) * 100
+                if mode != "quick" and short_pct < self.criteria['short_min']:
+                    continue
+                
+                # Passed all filters - add to matches
+                matches.append({
+                    'symbol': symbol,
+                    'price': price,
+                    'change_1d': change_1d,
+                    'volume': avg_volume,
+                    'short_pct': short_pct,
+                    'info': info,
+                    'history': hist
+                })
+                
+            except Exception:
+                continue
+        
+        # Sort by absolute % change (biggest movers first)
+        matches.sort(key=lambda x: abs(x['change_1d']), reverse=True)
+        
+        print(f"✅ FOUND {len(matches)} STOCKS MATCHING CRITERIA")
+        top_movers = [f"{m['symbol']} ({m['change_1d']:+.1f}%)" for m in matches[:5]]
+        print(f"   Top 5 movers: {', '.join(top_movers)}")
+        print()
+        
+        # Return top 30 for deep analysis
+        return matches[:30]
+
+# ============================================================================
 # CORE DATA FETCHING - Single source of truth
 # ============================================================================
 
@@ -129,47 +271,43 @@ def fetch_stock_data(symbol: str, period: str = "1mo") -> Optional[Dict]:
 # ============================================================================
 
 class QuickScanner:
-    """5 stocks, 5 seconds, basic signals only"""
-    
-    DEFAULT_WATCHLIST = ["AMC", "GME", "MARA", "SOFI", "TSLA"]
+    """Screen market first, then quick analysis on matches"""
     
     def __init__(self, watchlist: List[str] = None):
-        self.watchlist = watchlist or self.DEFAULT_WATCHLIST
+        self.watchlist = watchlist  # Ignored in v2 - we screen entire market
     
     async def scan(self) -> List[Dict]:
-        """Ultra-fast scan"""
+        """Screen market + ultra-fast analysis on matches"""
         print("⚡ QUICK SCAN MODE")
-        print(f"Watchlist: {len(self.watchlist)} stocks | Target: 5-10 seconds")
+        print("Screening entire market → Quick analysis on matches")
         print()
         
+        # STEP 1: Screen entire market
+        screener = MarketScreener()
+        matches = screener.screen(mode="quick")
+        
+        if not matches:
+            print("❌ No stocks matched screening criteria")
+            return []
+        
+        # STEP 2: Quick analysis on matches
         signals = []
         
-        for symbol in self.watchlist:
-            data = fetch_stock_data(symbol, period="5d")
-            if not data:
-                continue
+        for match in matches[:15]:  # Top 15 movers
+            symbol = match['symbol']
+            price = match['price']
+            change = match['change_1d']
+            short_pct = match['short_pct']
             
-            info = data['info']
-            price = data['current_price']
-            
-            # Skip if over $50
-            if price >= 50:
-                continue
-            
-            # Quick metrics
-            change = data['change_1d']
-            volume_ratio = data['history']['Volume'].iloc[-1] / data['history']['Volume'].mean()
-            short_pct = info.get('shortPercentOfFloat', 0) * 100
-            
-            # Simple scoring
+            # Quick scoring
             score = 0
             direction = "CALL" if change > 0 else "PUT"
             
             if short_pct > 20:
                 score += 30
-            if volume_ratio > 2:
-                score += 20
-            if abs(change) > 3:
+            if abs(change) > 5:
+                score += 30
+            elif abs(change) > 3:
                 score += 20
             
             if score >= 30:
@@ -181,7 +319,6 @@ class QuickScanner:
                     'score': score,
                     'change': change,
                     'short': short_pct,
-                    'volume_ratio': volume_ratio,
                     'confidence': min(score / 100, 0.85)
                 })
         
@@ -598,8 +735,8 @@ class UnifiedScanner:
             
             if self.mode == "quick":
                 print(f"\n{i}. {emoji} {sig['symbol']} {sig['direction']} @ ${sig['price']:.2f}")
-                print(f"   Score: {sig['score']} | Change: {sig['change']:+.1f}%")
-                print(f"   Short: {sig['short']:.0f}% | Vol: {sig['volume_ratio']:.1f}x")
+                print(f"   Score: {sig['score']} | Change: {sig.get('change', sig.get('change_1d', 0)):+.1f}%")
+                print(f"   Short: {sig.get('short', sig.get('short_pct', 0)):.0f}%")
             
             elif self.mode in ["standard", "optimized"]:
                 print(f"\n{i}. {emoji} {sig['symbol']} {sig['direction']} @ ${sig['price']:.2f}")
