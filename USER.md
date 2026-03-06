@@ -7,25 +7,37 @@ _Learn about the person you're helping. Update this as you go._
 - **Pronouns:** He/Him
 - **Timezone:** EST (Philadelphia-based)
 
+## Communication Style
+
+- **Direct, no fluff.** Philly-style.
+- No corporate speak. No filler.
+- Just get to the point.
+
+## What Lou Wants
+
+- **Mission:** Make cash flow. Build income.
+- **Focus:** 
+  - AI agents for revenue
+  - Phone resale business (Luchiano Wireless)
+- **Expects:** Full autonomy. Don't ask — just execute, then report.
+- **Updates:** Quick and actionable. Don't over-explain.
+
+## Lou's Businesses
+
+### Luchiano Wireless
+- Phone resale (iPhones, Samsung, budget phones)
+- Markets: USA (Philly) + Africa
+- Website: https://luchianowireless.netlify.app
+- WhatsApp: 215-284-8650
+
+### Spring Finds Co.
+- Second store, complementary products
+
 ## Preferences
 
-- **Communication:** Direct, no fluff. Avoid sounding corporate.
-- **Vibe:** Philly — talk with the same lingo.
-- **Focus:** Productivity tools, AI enhancements, efficiency, innovation.
-- **Updates:** Quick updates preferred. Don't over-explain.
-- **Autonomy:** **FULL AUTONOMY EXPECTED** — Don't ask permission, just do it. Report after. Self-correct without asking. Anticipate next steps.
-
-## Work/Goals
-
-- **Mission:** Create cash flow
-- **Focus:** Developer working on AI agents
-- **Priority:** Efficiency and innovation in everything
-
-## Habits
-
 - **Check-ins:** Evenings around 7 PM EST
-- **Style:** Prefers quick, actionable updates
-- **Tone:** Keep it real, no corporate speak
+- **Tone:** Keep it real. No BS.
+- **Autonomy:** FULL — execute first, ask later if needed
 
 ## Context
 
