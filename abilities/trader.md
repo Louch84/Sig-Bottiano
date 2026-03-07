@@ -182,3 +182,60 @@ When task is done or Lou shifts to non-trading topic → return to Sig Botti mod
 - ImpliedOptions
 - Sharpnel Trading
 - Barchart Education
+
+---
+
+## Technical Indicators for Breakouts (Cross-Referenced)
+
+### 1. Volume Surge (#1 Indicator)
+- **Entry:** 40-200% above 20-day average volume
+- Breakout candle closes above resistance with volume confirmation
+- Avoid if volume flat or declining
+
+### 2. Moving Averages (20EMA / 50SMA / 200SMA)
+- **Entry:** Price breaks above key level while above 20EMA and 50SMA
+- 20EMA sloping upward = momentum confirmation
+- Enter on breakout close or first retest of MA
+
+### 3. RSI (Relative Strength Index)
+- **Entry:** RSI crosses above 55-60 during breakout = strong momentum
+- Avoid if RSI diverging or falling
+
+### 4. MACD
+- **Entry:** MACD line crosses above signal line before/during breakout
+- Histogram turning positive = early confirmation
+
+### 5. Bollinger Bands
+- **Entry:** Price breaks above upper band after squeeze
+- Bands expanding = volatility expansion
+
+---
+
+## Chart Patterns for Breakouts
+
+### 1. Ascending Triangle
+- Rising lows into flat ceiling
+- Entry: Break above horizontal resistance + volume spike
+
+### 2. Bull Flag / Pennant
+- Strong trend → brief consolidation → continuation
+- Entry: Breakout above flag trendline + volume expansion
+
+### 3. Cup and Handle
+- Long accumulation → shallow pullback → breakout
+- Entry: Breakout above rim, handle should be tight
+
+### 4. Classic S/R Breakout
+- Entry: Candle closes above resistance + volume confirms
+
+---
+
+## Best Breakout Confirmation Stack
+
+| Layer | Tool | What to See |
+|-------|------|-------------|
+| Price | Breakout pattern | Clean break above resistance |
+| Volume | Volume surge | 40-200% above average |
+| Momentum | RSI, MACD, BB | RSI > 55, MACD cross, BB expansion |
+
+**When all 3 align = highest probability explosive move**
