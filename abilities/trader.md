@@ -277,3 +277,33 @@ When task is done or Lou shifts to non-trading topic → return to Sig Botti mod
 
 ## Pro Tip (From Gemini)
 > "The most explosive moves occur when these align: A TTM Squeeze firing on a stock with a rising RS Line and an ADX above 25."
+
+---
+
+## Additional Insights (From Perplexity)
+
+### IMI (Intraday Momentum Index)
+- For catching 1-2 day options pops on 5-60 min charts
+- **Setup:** Price consolidates in narrow intraday range near resistance
+- **Entry:** IMI surges above 60-70 for upside with strong breakout candle
+
+### Specific Entry Criteria (Perplexity)
+- Price moves 2-3% above resistance
+- Volume ≥ 100% above 50-day average (2x ideal)
+- Close in top 60-70% of daily range
+- ATR expansion: range ≥ 1.5-2.0x current ATR
+
+### Options Timing (Perplexity)
+- Buy calls when breakout bar closes strong
+- Use 20-45 days to expiration
+- For huge range days: short-dated calls/puts justified
+- Exit when MACD histogram peaks
+
+---
+
+## Sources (All Cross-Referenced)
+- ✅ Copilot AI
+- ✅ Kimi
+- ✅ Gemini
+- ✅ Perplexity
+- ✅ Ollama Web Search
