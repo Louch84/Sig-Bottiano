@@ -92,3 +92,93 @@ When task is done or Lou shifts to non-trading topic → return to Sig Botti mod
 
 ### Key Insight
 > Follow the flows. BlackRock/Vanguard for direction. Hedge funds for timing. Sovereigns for major trend changes.
+
+---
+
+## Trading Strategies for Big Fast Moves (Cross-Referenced)
+
+### 1. MOMENTUM STRATEGIES
+**Best Indicators:**
+- **RSI (10-14)** — Look for RSI > 60 on strong uptrends
+- **MACD Histogram** — Early sign of acceleration
+- **Volume Surge (2-5x average)** — Confirms institutional participation
+- **VWAP Trend** — Price above rising VWAP = strong intraday momentum
+
+**Entry Triggers:**
+- Price makes higher high with increasing volume
+- Break above pre-market high
+- Strong order flow imbalance (aggressive buyers lifting offers)
+
+### 2. BREAKOUT STRATEGIES
+**Best Indicators:**
+- Support/Resistance Zones
+- Bollinger Band Expansion
+- ATR (Average True Range) — Measures volatility potential
+- High-tight flags / consolidation patterns
+
+**Entry Triggers:**
+- Break above key resistance with volume spike
+- Breakout from tight consolidation (inside bars, flags)
+- Gap-and-go setups (open above prior resistance)
+
+### 3. VOLATILITY EXPANSION
+**Best Indicators:**
+- **ATR Expansion** — ATR rising = bigger moves coming
+- **Bollinger Band Squeeze** — Tight bands predict volatility bursts
+- **IV Rank** — For options traders
+
+**Entry Triggers:**
+- Breakout from Bollinger Band squeeze
+- ATR rising for 3+ days
+- IV rising while price consolidates → options market pricing in a move
+
+### 4. OPTIONS FLOW (Follow Smart Money)
+**What to Look For:**
+- Unusual call sweeps at ask
+- Repeated same-strike, same-expiry call buying
+- Large OTM call buying during consolidation
+- Deep ITM calls (institutional directional bets)
+
+**Execution:**
+- Enter stock or options WITH the flow, not against it
+- Confirm with: trend direction, volume, breakout levels
+
+### 5. FAST MOVE FORMULA (Combined)
+1. **Identify squeeze** — tight consolidation, low ATR, BB squeeze
+2. **Confirm momentum** — RSI > 60, MACD rising, price above VWAP
+3. **Watch options flow** — call sweeps, OTM buying, rising IV
+4. **Enter on breakout** — volume > 2x average, stop below consolidation
+
+---
+
+## Best Indicators Ranked (For Fast Moves)
+
+| Rank | Indicator | Why It Works |
+|------|-----------|--------------|
+| 1 | Volume Surge | Confirms institutional activity |
+| 2 | VWAP Trend | Intraday trend confirmation |
+| 3 | ATR Expansion | Predicts large range moves |
+| 4 | Bollinger Band Squeeze | Signals volatility breakout |
+| 5 | RSI + MACD Combo | Confirms momentum strength |
+| 6 | Options Flow | Reveals smart-money direction |
+
+---
+
+## IV Rank Strategies
+
+- **IV Rank > 50** — Volatility is high, consider selling premium (credit spreads, iron condors)
+- **IV Rank < 20** — Volatility is low, consider buying premium (debit spreads, straddles)
+- **Earnings plays** — Buy before earnings if IV is low, sell before if IV is high
+- **IV Crush** — After earnings, IV drops 30-50% — close or avoid directional plays
+
+---
+
+## Sources Cross-Referenced
+- Copilot AI
+- Perplexity (search)
+- Ollama Web Search
+- Bookmap
+- Trade That Swing
+- ImpliedOptions
+- Sharpnel Trading
+- Barchart Education
