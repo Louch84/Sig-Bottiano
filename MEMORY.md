@@ -154,10 +154,10 @@
 
 ## AI Tools Available (Browser)
 
+- **Gemini** — https://gemini.google.com (general AI, multimodal)
 - **Kimi** — https://www.kimi.com (deep research)
 - **Qwen** — https://chat.qwen.ai (coding, analysis)
 - **Perplexity** — https://www.perplexity.ai (research with sources)
-- **Gemini** — https://gemini.google.com (redirects - use others)
 - **MoltBook** — https://www.moltbook.com (agent network)
 
 ---

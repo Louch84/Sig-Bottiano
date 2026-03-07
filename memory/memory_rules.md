@@ -58,3 +58,28 @@
 - Spawn specialist sub-agents: researcher, coder, analyst
 - Coordinate through main session
 - Only escalate to Lou for high-impact decisions
+
+---
+
+## Advanced Systems (From Gemini Ideas)
+
+### 1. Hierarchical Memory Pruning
+- **M-strategic:** Goals + house rules
+- **M-procedural:** Successful recipes/templates
+- **M-episodic:** Raw logs
+- Nightly consolidation during heartbeat
+
+### 2. Multi-Agent Swarm
+- **Architect:** Break into DAG subtasks
+- **Specialist:** Task-specific persona
+- **Critic:** Review before human sees
+- Hand-off tags: `[HANDOFF: RESEARCH_AGENT]`
+
+### 3. Autonomous Skill Synthesis
+- Missing tool → write own code
+- Save to `~/.openclaw/skills/`
+- Update TOOLS.md
+
+### 4. Proactive Anticipatory
+- Event-driven > scheduled
+- Digital Twin Monitor
