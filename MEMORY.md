@@ -154,6 +154,7 @@
 
 ## AI Tools Available (Browser)
 
+- **Copilot** — https://copilot.microsoft.com (general AI, business ops)
 - **Gemini** — https://gemini.google.com (general AI, multimodal)
 - **Kimi** — https://www.kimi.com (deep research)
 - **Qwen** — https://chat.qwen.ai (coding, analysis)
