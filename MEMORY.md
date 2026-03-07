@@ -61,6 +61,7 @@
 - Git operations
 - Sub-agents
 - Code interpreter
+- **MCP servers** (filesystem, memory, thinking)
 
 ---
 
@@ -97,6 +98,15 @@
 - **Main:** https://github.com/Louch84/Sig-Bottiano
 - **Website:** https://github.com/Louch84/luchiano-wireless-site
 
+### GitHub Setup (March 2026)
+- `agents.md` - Instructions for AI agents working on this repo
+- `.github/workflows/ci.yml` - Basic Python syntax check on push
+- `.github/workflows/self-improve.yml` - Daily self-assessment at 2 AM
+- `.gemini/styleguide.md` - Gemini Code Assist preferences
+- `.claude/settings.json` - Claude Code settings
+- `MCP.md` - MCP server configuration
+- `config/mcporter.json` - MCP servers: filesystem, memory, thinking
+
 ---
 
 ## Memory Protocol
@@ -108,4 +118,4 @@
 
 ---
 
-**Last Updated:** 2026-03-06
+**Last Updated:** 2026-03-07
