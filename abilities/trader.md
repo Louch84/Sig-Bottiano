@@ -306,4 +306,61 @@ When task is done or Lou shifts to non-trading topic → return to Sig Botti mod
 - ✅ Kimi
 - ✅ Gemini
 - ✅ Perplexity
-- ✅ Ollama Web Search
+- ✅ Qwen
+
+---
+
+## Complete Entry Checklist (From Qwen)
+
+### Stock Entry (All Must Align)
+1. ✅ Price breaks above defined resistance (prior swing high, base pattern)
+2. ✅ Breakout candle CLOSES above level (not just intraday wick)
+3. ✅ Volume ≥150% of 20-day average on breakout candle
+4. ✅ RSI(14) > 50 and rising (momentum confirmation)
+5. ✅ MACD histogram positive and expanding
+6. ✅ ADX(14) > 25 (trend strength filter)
+7. ✅ Stock trading above 200-day MA (long-term trend)
+8. ✅ Market (SPY/QQQ) in uptrend or neutral
+
+### Options Entry (Added Layer)
+1. ✅ IVR < 50% (avoid buying expensive options)
+2. ✅ 30-60 DTE for swing breakouts, 7-21 DTE for momentum scalps
+3. ✅ Delta 0.60-0.75 for directional leverage
+4. ✅ Underlying meets ALL stock criteria + options volume spike
+5. ⚠️ Weekly options ONLY for confirmed parabolic moves (high risk)
+
+---
+
+## High-Probability Patterns (From Qwen)
+- **Cup-with-Handle** — 7+ week base, handle ≤15%, breakout on volume
+- **Flat Base** — Tight consolidation (≤10% range) for 5+ weeks
+- **Volatility Squeeze** — BB narrow to 6-month low + Keltner contraction
+- **All-Time High Breakouts** — No overhead resistance
+- **Post-Earnings Drift** — Gap + hold above pre-earnings high
+
+---
+
+## Risk Management (From Qwen)
+
+| Rule | Implementation |
+|------|----------------|
+| Position Size | 1-2% per trade, 0.5-1% for options |
+| Stop Loss | Below breakout OR Entry - (2.5×ATR) |
+| Time Stop | Exit if no follow-through in 3-5 bars |
+| Profit | Scale 50% at 1:2 R:R, trail rest with 10-EMA |
+| Avoid | Low volume, downtrending markets, IVR >70% |
+
+---
+
+## Bot Development (From Qwen)
+
+- **Multi-timeframe** — Daily breakout + 4-hour momentum alignment
+- **Catalyst filter** — Only trade with earnings, FDA, sector news
+- **Volatility regime** — VIX < 25, IV percentile < 60%
+- **Volume anomaly** — Flag ≥3× 10-day average as high-conviction
+- **False breakout filter** — Require 2 consecutive closes above level
+
+---
+
+## Ultimate Pro Insight (From All AIs)
+> "The highest-probability breakouts occur when **volatility compression** (low ATR/Bollinger) precedes a **volume-explosive move** with **momentum confirmation** (RSI/MACD). This filters out 70%+ of fakeouts."
