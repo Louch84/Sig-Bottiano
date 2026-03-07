@@ -1,0 +1,11 @@
+{
+  "project": {
+    "name": "Sig-Bottiano",
+    "description": "AI assistant for revenue generation"
+  },
+  "preferences": {
+    "dangerous": {
+      "allowAny": false
+    }
+  }
+}

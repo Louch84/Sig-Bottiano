@@ -1,0 +1,30 @@
+name: Self-Improvement
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 2 * * *'  # 2 AM daily
+
+jobs:
+  improve:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Run self-assessment
+        run: |
+          echo "=== Sig Botti Self-Assessment ==="
+          echo "Date: $(date)"
+          echo "Checking workspace health..."
+          
+          # Count Python files
+          PY_COUNT=$(find . -name "*.py" | wc -l)
+          echo "Python files: $PY_COUNT"
+          
+          # Check memory files
+          ls -la memory/ 2>/dev/null || echo "No memory folder"
+          
+      - name: Log assessment
+        run: |
+          echo "Assessment complete" >> self_improvement_log.md
+          date >> self_improvement_log.md
