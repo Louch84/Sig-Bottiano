@@ -66,8 +66,29 @@ When task is done or Lou shifts to non-trading topic → return to Sig Botti mod
 
 ---
 
-## Memory Notes
-- Track what strategies Lou prefers
-- Note his risk tolerance
-- Remember tickers he trades
-- Log wins and losses for pattern analysis
+## Market Movers — Who Moves Markets
+
+### Daily Market Movers (Volume & Liquidity)
+- **BlackRock ($10T)** — iShares ETF flows, index dominance
+- **Vanguard ($8T)** — Index funds, passive inflows  
+- **State Street ($4T)** — SPDR ETFs (SPY)
+- **Citadel, Millennium, DE Shaw, Two Sigma** — Derivatives & high-frequency positioning
+
+### Macro Movers (Rates, FX, Commodities)
+- **Bridgewater** — Largest hedge fund ($89.6B), macro bets that shift rates/FX
+- **PIMCO** — Bond market king ($1.8T)
+
+### Institutional Flows
+- **Sovereign Wealth Funds** — Norway GPFG ($1.5T), Saudi PIF ($700B+)
+- **Pension Funds** — Japan GPIF ($1.7T), CalPERS ($500B)
+- Move markets during annual rebalancing
+
+### Big Fast Move Signals
+1. **ETF inflows/outflows** — BlackRock/Vanguard = directional pressure
+2. **Hedge fund positioning** — Citadel/Millennium large derivative bets
+3. **Sovereign rebalancing** — Quarterly allocations
+4. **Options flow** — Unusual activity = imminent move
+5. **Sector rotation** — When big funds shift allocations
+
+### Key Insight
+> Follow the flows. BlackRock/Vanguard for direction. Hedge funds for timing. Sovereigns for major trend changes.
