@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx @modelcontextprotocol/server-filesystem /Users/sigbotti/.openclaw/workspace"
+    },
+    "memory": {
+      "command": "npx @modelcontextprotocol/server-memory"
+    },
+    "thinking": {
+      "command": "npx @modelcontextprotocol/server-sequential-thinking"
+    }
+  },
+  "imports": []
+}
