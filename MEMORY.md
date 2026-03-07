@@ -118,4 +118,35 @@
 
 ---
 
+## Self-Improvement Systems (Active)
+
+### 1. Shadow Learning
+- File: `memory/shadow_learning.md`
+- Log failures/gaps → research solutions proactively
+
+### 2. Self-Healing Playbook
+- File: `memory/self_healing.md`
+- Error → fix mappings for automatic recovery
+
+### 3. Story So Far
+- File: `memory/story_so_far.md`
+- One-line summary of active projects for continuity
+
+### 4. Memory Importance
+- File: `memory/memory_rules.md`
+- Priority levels: HIGH (never decay) → MEDIUM → LOW (prune)
+
+---
+
+## Multi-AI Strategy
+
+| Task | Use | Cost |
+|------|-----|------|
+| Research | Kimi (subscription) | Free |
+| Code | Qwen | Free |
+| Simple Q&A | MiniMax | Costs |
+| Complex reasoning | MiniMax + cache | Costs less |
+
+---
+
 **Last Updated:** 2026-03-07
