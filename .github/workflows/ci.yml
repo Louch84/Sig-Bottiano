@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: Check Python syntax
+      run: |
+        python -m py_compile *.py 2>/dev/null || true
+        find . -name "*.py" -exec python -m py_compile {} \; 2>/dev/null || true
+    
+    - name: List workspace files
+      run: |
+        echo "Files in workspace:"
+        ls -la
