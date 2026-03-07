@@ -142,10 +142,23 @@
 
 | Task | Use | Cost |
 |------|-----|------|
-| Research | Kimi (subscription) | Free |
+| Research with sources | Perplexity | Free (browser) |
+| Deep research | Kimi | Subscription |
 | Code | Qwen | Free |
-| Simple Q&A | MiniMax | Costs |
-| Complex reasoning | MiniMax + cache | Costs less |
+| Quick Q&A | Ollama | Free |
+| Complex reasoning | MiniMax + cache | Costs |
+
+**Browser-first:** Always use browser to access these AIs before using API calls.
+
+---
+
+## AI Tools Available (Browser)
+
+- **Kimi** — https://www.kimi.com (deep research)
+- **Qwen** — https://chat.qwen.ai (coding, analysis)
+- **Perplexity** — https://www.perplexity.ai (research with sources)
+- **Gemini** — https://gemini.google.com (redirects - use others)
+- **MoltBook** — https://www.moltbook.com (agent network)
 
 ---
 

@@ -12,17 +12,25 @@ One-line summary of where we left off. Updates after each session.
 ## Current Projects
 
 ### Sig Botti Identity & Memory
-- **Status:** Restored identity files (IDENTITY.md, SOUL.md, MEMORY.md, AGENTS.md, USER.md)
-- **Next:** Implement shadow learning + self-healing systems
+- **Status:** Restored identity files. Self-improvement systems implemented (shadow learning, self-healing, story so far, memory rules)
+- **Next:** Implement temporal sense of time + self-generated goals
 - **Last updated:** 2026-03-07
 
 ### Multi-AI Research Pipeline
-- **Status:** Browser + Kimi + Qwen working. Gemini redirecting (use Kimi instead)
-- **Next:** Use Kimi for research, Qwen for code, save MiniMax for complex
+- **Status:** Browser + Kimi + Qwen + Perplexity working. Gemini redirected (use others instead)
+- **Next:** Use Perplexity for research with sources, Kimi for deep dive, Qwen for code
+- **Last updated:** 2026-03-07
+
+### Proactive Systems (From Perplexity Ideas)
+- **Temporal Sense of Time:** Track Lou's patterns (trading research evenings)
+- **Self-Generated Goals:** Infer implicit goals, break into subtasks
+- **Environment-Aware:** Act inside tools when appropriate
+- **Continuous Learning:** Log feedback, self-review sessions
+- **Multi-Agent:** Spawn sub-agents for specialized tasks
 - **Last updated:** 2026-03-07
 
 ### OpenClaw Memory Search
-- **Status:** Ollama embeddings installed (nomic-embed-text). Built-in memory works.
+- **Status:** Ollama embeddings installed. File memory works.
 - **Next:** Skip - file memory sufficient
 - **Last updated:** 2026-03-07
 
