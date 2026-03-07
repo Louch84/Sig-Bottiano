@@ -211,6 +211,39 @@ When task is done or Lou shifts to non-trading topic → return to Sig Botti mod
 
 ---
 
+## Additional Indicators (From Kimi & Gemini)
+
+### 6. TTM Squeeze (Gemini - Gold Standard)
+- Combines Bollinger Bands + Keltner Channels
+- **Setup:** Red dots on zero line = squeeze on
+- **Entry:** First green dot = squeeze firing
+- **Direction:** Histogram above zero = long, below = short
+- **Options:** Buy OTM calls/puts when squeeze fires
+
+### 7. ADX (Average Directional Index)
+- **Entry:** ADX > 25 (strong trend), +DI crosses above -DI
+- **Sweet spot:** ADX moves from below 20 to above 25
+- **Big move:** ADX above 40 = exceptionally strong
+
+### 8. Relative Strength Line (vs RSI)
+- Compares stock vs benchmark (S&P 500)
+- **Entry:** RS Line hits new 52-week high BEFORE price does = institutional accumulation
+
+### 9. Donchian Channels
+- **Entry:** Price touches upper channel (new 20-day high)
+- Used by "Turtle Traders"
+- Pure breakout system
+
+### 10. Float Rotation + Volume (Kimi - Short Squeeze Focus)
+- **Criteria:** Short float >20%, volume >3x avg, price breaks 20-day high
+- **Entry:** First 5-min candle to make new HOD after 10:30 AM
+
+### 11. Rate of Change (ROC) - 10 Period
+- **Entry:** ROC crosses above zero with 2x avg volume
+- Filter: ROC > 10% = strong momentum
+
+---
+
 ## Chart Patterns for Breakouts
 
 ### 1. Ascending Triangle
@@ -239,3 +272,8 @@ When task is done or Lou shifts to non-trading topic → return to Sig Botti mod
 | Momentum | RSI, MACD, BB | RSI > 55, MACD cross, BB expansion |
 
 **When all 3 align = highest probability explosive move**
+
+---
+
+## Pro Tip (From Gemini)
+> "The most explosive moves occur when these align: A TTM Squeeze firing on a stock with a rising RS Line and an ADX above 25."
