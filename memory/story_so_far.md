@@ -17,8 +17,29 @@ One-line summary of where we left off. Updates after each session.
 - **Last updated:** 2026-03-07
 
 ### Multi-AI Research Pipeline
-- **Status:** Browser + Kimi + Qwen + Perplexity working. Gemini redirected (use others instead)
-- **Next:** Use Perplexity for research with sources, Kimi for deep dive, Qwen for code
+- **Status:** Browser + Kimi + Qwen + Perplexity + Copilot + Gemini working. Research protocol established.
+- **Next:** Use Kimi first for all research, then cross-reference with others
+- **Last updated:** 2026-03-07
+
+### Trader Ability
+- **Status:** Created abilities/trader.md with full trading strategies, indicators, market movers
+- **Next:** Build stock scanner based on institutional picks
+- **Last updated:** 2026-03-07
+
+### Institutional Stock Picks
+- **Status:** Compiled list from news/search. Top 3: SLNO, ALMU, OFRM
+- **Next:** Run filters when browser stabilizes, add more picks
+- **Last updated:** 2026-03-07
+
+### Stock Research (March 2026)
+- **Research:** Cross-referenced with Copilot, Kimi, Gemini, Perplexity, Qwen
+- **Result:** All confirmed core indicators: Volume #1, RSI/MACD momentum, BB squeeze = breakout
+- **Added:** TTM Squeeze, ADX, RS Line, Float Rotation, IMI from cross-reference
+- **Last updated:** 2026-03-07
+
+### Peekaboo (Mac Control)
+- **Status:** Installed. Waiting for permissions (Screen Recording + Accessibility)
+- **Next:** Test full Mac control once permissions granted
 - **Last updated:** 2026-03-07
 
 ### Proactive Systems (From Perplexity Ideas)
