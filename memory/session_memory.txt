@@ -1,0 +1,13 @@
+# Session Memory - Auto-Updated
+
+## Instructions
+After each session, append:
+- Date/time
+- What was accomplished
+- What's pending
+- User preferences noted
+- Issues to revisit
+
+---
+
+## Session Log

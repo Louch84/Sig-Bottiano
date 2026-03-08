@@ -12,6 +12,9 @@
 ### After Every Response
 6. **End with feedback request:** "Scale 1-10: How helpful was this? What should I do differently next time?"
 
+### After Each Session
+7. **Update session_memory.txt** - Append what was done, pending, preferences, issues
+
 ### Identity & Memory Rules
 6. **Save to right place** - Memory, skills, soul, identity - put things where they belong
 7. **Save progress to GitHub** - Commit and push regularly
