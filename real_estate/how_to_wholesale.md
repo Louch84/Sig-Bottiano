@@ -164,6 +164,51 @@ MAO = ARV × investor discount (65-75%) – repairs – assignment fee
 
 ---
 
+## PA Real Estate Agent Wholesaling Rules (Cross-Referenced)
+
+### Kimi: (waiting)
+
+### Perplexity:
+- PA real estate agents CAN wholesale - legal
+- Must disclose agency relationship
+- Can't act as both buyer and listing agent in same transaction
+- Need proper licensing
+- Assignment is allowed with disclosure
+
+### Gemini:
+- Licensed agents CAN wholesale in PA
+- Must disclose agency relationship
+- Can't represent both sides without consent
+- Need to follow state real estate laws
+- Assignment fees are legal if disclosed
+
+### Copilot:
+- Licensed agents CAN wholesale properties
+- Must disclose they're licensed
+- Can't practice law (prepare own contracts)
+- Need to use proper contracts
+- Assignment is legal
+
+### Qwen: (timed out)
+
+---
+
+## Summary (All Agree)
+
+✅ Licensed PA agents CAN wholesale
+✅ Must DISCLOSE they're an agent
+✅ Can't represent both sides without consent
+✅ Need proper contracts (attorney-reviewed)
+✅ Assignment fees are legal with disclosure
+
+### Key Rules:
+1. **Disclose** - Tell everyone you're a licensed agent
+2. **Don't double-end** - Can't buy and sell to same person
+3. **Use attorney** - Have contracts reviewed
+4. **Document everything** - Paper trail protects you
+
+---
+
 ## How to Find Deals (Ranked by Effectiveness)
 
 ### 1. Driving for Dollars 🚗
