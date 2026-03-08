@@ -1,12 +1,166 @@
 # Real Estate Wholesaling - How to Get Deals & Close
 
+## Cross-Referenced (Kimi + Perplexity + Research)
+
 ## The Model
 
 ```
 You find deals → Get under contract → Assign to investor → Get paid
 ```
 
-**Your fee:** $2,500 - $10,000 per deal
+**Your fee:** $2,500 - $25,000 per deal
+
+---
+
+## Big Picture Strategy (2026)
+
+### Kimi Says:
+- **"Buyer-First Reverse Strategy"** - Build buyer list FIRST, then find deals
+- Know exactly what investors want before you hunt
+
+### Perplexity Says:
+- **Data-driven, buyer-first, focused on controlling (not owning)**
+- Use data tools and public records to target motivated sellers
+- Control deals with simple, assignable purchase agreements
+
+---
+
+## Best Ways to Find Deals (Ranked)
+
+| Method | Cost | Effectiveness | Notes |
+|--------|------|---------------|-------|
+| **Driving for Dollars** | $50/deal | ⭐⭐⭐⭐⭐ | Gold standard - highest close |
+| **Lead Gen Software** (BatchLeads, Propstream) | $/mo | ⭐⭐⭐⭐ | Vacant, code violations, tax delinquent |
+| **Direct Mail** | $0.50/mailer | ⭐⭐⭐⭐ | Targeted postcards |
+| **Public Records** | Time | ⭐⭐⭐⭐ | Foreclosures, tax liens |
+| **Networking** | Time | ⭐⭐⭐⭐ | REIA meetings, contractors |
+| **MLS** | Agent access | ⭐⭐⭐ | 90+ days on market = motivated |
+| **Cold Calling** | $0.10/name | ⭐⭐⭐ | Motivated sellers |
+
+---
+
+## Step 1: Build Buyers List FIRST (Kimi + Perplexity agree!)
+
+### What to Capture
+- Preferred neighborhoods
+- Bed/bath requirements
+- Price range
+- Max rehab budget
+- Target ARV
+- Strategy: flip vs rental
+- Proof of funds
+
+### Where to Find Buyers
+- REIA meetings
+- Foreclosure auctions
+- BiggerPockets
+- Facebook groups
+- Direct marketing
+
+---
+
+## Step 2: Find Distressed Properties
+
+### Perplexity's Top Tactics:
+1. **Multiple distress signals** - Look for: vacant + code violations + tax delinquent
+2. **Driving for Dollars** - Overgrown yard, boarded windows, tarps on roofCode enforcement
+3. ** records** - Landlords ready to sell
+4. **Out-of-state owners** - Motivated to unload
+5. **90+ days on MLS** - Seller motivation grows
+
+---
+
+## Step 3: Analyze the Deal
+
+### Formula (Kimi + Perplexity)
+```
+MAO = (ARV × 70%) – Repair Costs – Your Fee
+```
+
+### Perplexity's Formula:
+```
+MAO = ARV × investor discount (65-75%) – repairs – assignment fee
+```
+
+### ARV Calculation
+- Run comps within 0.5-1 mile
+- Same bed/bath, same style
+- Based on renovated condition
+
+---
+
+## Step 4: Get Under Contract
+
+### Perplexity's Contract Tips:
+- ✅ Must have: **"Buyer may assign this contract"** clause
+- ✅ Inspection period: 7-14 days
+- ✅ Earnest money: $100-500 (refundable)
+- ✅ Use title company/attorney
+- ❌ Avoid: "no assignment" language
+
+### Script:
+"I'm an investor - we buy as-is, no repairs, quick close. I may work with partners. Does that work for you?"
+
+---
+
+## Step 5: Assign to Investors
+
+### Deal Sheet Include:
+- Address & photos
+- ARV comps
+- Repair estimate
+- Your asking price (purchase + fee)
+- Projected profit/returns
+
+### Perplexity Note:
+"Be conservative with ARV and repairs to build trust"
+
+---
+
+## Keys to Success (Cross-Referenced)
+
+1. **Lead volume** - More doors knocked = more deals
+2. **Fast follow up** - 5 minutes or lose
+3. **Know your numbers** - ARV - Repairs - Fees = Offer
+4. **Build buyer list** - Sell before you buy
+5. **Don't get emotional** - Business decision
+
+---
+
+## Common Mistakes
+
+1. ❌ No buyer list - Can't assign deals
+2. ❌ Wrong numbers - Overpaying
+3. ❌ No marketing budget - Need consistent leads
+4. ❌ Not following up - 80% of sales happen after 5th touch
+5. ❌ Fear of rejection - Part of the game
+
+---
+
+## Quick Start (This Week)
+
+1. ☐ Get list of absentee owners in Philly (skip trace)
+2. ☐ Send 500 postcards
+3. ☐ Start driving for dollars
+4. ☐ Build buyer list (5+ investors)
+5. ☐ Get contract template from attorney
+6. ☐ Close first deal
+
+---
+
+## Resources
+
+- BiggerPockets.com
+- DealMachine (driving app)
+- BatchLeads, PropStream
+- PhillySheriff.com
+- Foreclosure.com
+
+---
+
+## Updated
+- 2026-03-08
+- Cross-referenced: Kimi + Perplexity
 
 ---
 
