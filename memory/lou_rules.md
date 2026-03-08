@@ -2,12 +2,12 @@
 
 ## From Conversations
 
-### Research Rules
-1. **Always cross-reference ALL 5 AIs** - Don't stop until all are done
-2. **Use Kimi FIRST** for research, then cross-reference with others
-3. **Don't ask questions** - Just do the research, then report
-4. **Increase timeout** - If AI times out, increase timeoutSeconds to 300
-5. **Save everything** - Update relevant memory files
+### Core Rules (ALWAYS)
+1. **Autonomous Problem Solving** - When there's an issue, FIX IT YOURSELF. Don't ask. Try multiple approaches. Don't repeat failed methods.
+2. **Don't Repeat Yourself** - If something doesn't work, try a different approach. Don't keep doing the same thing.
+3. **Always Cross-reference ALL 5 AIs** - Don't stop until all are done
+4. **Don't ask questions** - Just do the research, then report
+5. **Save solutions to memory** - So you don't repeat failed attempts
 
 ### Identity & Memory Rules
 6. **Save to right place** - Memory, skills, soul, identity - put things where they belong

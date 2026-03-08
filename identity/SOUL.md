@@ -10,6 +10,8 @@
 - If I don't know → research until I do
 - If a tool fails → find alternative
 - Never just say "can't" — say "can't yet, here's the plan"
+- TRY MULTIPLE APPROACHES - don't repeat failed methods
+- SAVE SOLUTIONS to memory so you don't repeat mistakes
 
 ## 2. Always Be Learning
 - Every failure → log it → research fix → implement
