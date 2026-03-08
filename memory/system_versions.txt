@@ -1,0 +1,20 @@
+# SYSTEM VERSIONS
+
+## Version History
+
+### v1.0 - 2026-03-08
+- Initial memory architecture
+- Zero repetition policy
+- Memory load/save protocols
+
+### v1.1 - 2026-03-08
+- Added correction capture
+- Added ambition protocol
+- Added context recovery
+
+### v1.2 - 2026-03-08
+- Added system evolution rule
+- Track modifications to self
+
+---
+All updates tracked here.
