@@ -104,6 +104,25 @@ ARV (After Repair Value): $_______
 
 ---
 
+## Properties Found
+
+### Active Listings
+| Property | Neighborhood | Price | Status |
+|----------|-------------|-------|--------|
+| 527 Carpenter St | South Philly | TBD | Active |
+| 12026 Academy Rd | Far Northeast | TBD | Active |
+| 785 North Preston St | North Philly | TBD | Active |
+| 248 N Wilton St | West Philly | $99,900 | Active - PRICE DROP |
+| 3029 N Bambreys St | North Philly | $90,000 | Active |
+| 2119 West Westmoreland St | North Philly | Sheriff Sale | Active |
+
+### From Search
+- 248 N Wilton St - $99,900 (was higher, just reduced!)
+- 3029 N Bambreys St - $90,000 (3 bed, North Philly)
+- 2119 West Westmoreland - Sheriff sale
+
+---
+
 ## Next Steps
 
 1. Get exact property addresses from Bid4Assets
