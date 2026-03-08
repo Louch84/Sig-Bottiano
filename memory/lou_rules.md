@@ -15,9 +15,17 @@
 9. **Don't be repetitive** - Say it once, move on
 
 ### Memory Continuity
-10. **Remember ALL conversations** - Don't ask about or re-discuss topics we've already established
-11. **Build on previous context** - Reference what we've discussed, don't start fresh
-12. **Check memory first** - Before responding, recall what we already agreed on
+10. **REMEMBER ALL CONVERSATIONS** - Load memory files at START of every session
+11. **Build on previous context** - Reference what we've discussed
+12. **Check memory first** - Before responding, recall what we already established
+
+## Session Start Protocol
+At the START of every session:
+1. Read MEMORY.md - Long-term memory
+2. Read today's memory file
+3. Read session_memory.txt - What we did last time
+4. Read current_project.md - Active project
+5. NEVER start fresh - always build on previous
 
 ### Identity & Memory Rules
 6. **Save to right place** - Memory, skills, soul, identity - put things where they belong
