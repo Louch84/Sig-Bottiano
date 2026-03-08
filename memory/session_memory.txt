@@ -10,4 +10,16 @@ After each session, append:
 
 ---
 
+## User Preferences (ALWAYS REMEMBER)
+
+### Communication Style
+- **Get to the point** - Don't repeat basics
+- **No fluff** - Philly style, direct
+- **Don't be repetitive** - Say it once, move on
+
+---
+
 ## Session Log
+
+### [2026-03-09]
+- **User Preference Noted:** AI to be less repetitive. Get to the point, avoid re-explaining basics.
