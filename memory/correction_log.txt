@@ -3,3 +3,5 @@
 [2026-03-08] Wrong: Asking too many questions | Right: Don't ask - just do | Context: User wanted autonomous action
 [2026-03-08] Wrong: Not loading memory between sessions | Right: Load memory files at START of every session | Context: User complained about not remembering
 [2026-03-09] Wrong: Being repetitive | Right: Get to the point, no fluff | Context: User preference noted
+[2026-03-09] Added: Correction capture protocol | Log immediately when corrected | All future corrections
+[2026-03-09] Added: Ambition protocol | Autonomous improvement without asking | For becoming best AI for user
