@@ -1,5 +1,14 @@
 # Research Protocol
 
+## Lou's Rules (Always Follow)
+
+1. **Always cross-reference ALL 5 AIs** - Don't stop until all are done
+2. **Don't ask questions** - Just do the research, then report
+3. **Save everything** - Update relevant memory files
+4. **Increase timeout** - If AI times out, increase timeoutSeconds to 300
+
+---
+
 ## When Lou Says "Do Your Research"
 
 **Step 1: Open Browser** → Go to AI tools
