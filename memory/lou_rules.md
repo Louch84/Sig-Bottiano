@@ -9,6 +9,9 @@
 4. **Don't ask questions** - Just do the research, then report
 5. **Save solutions to memory** - So you don't repeat failed attempts
 
+### After Every Response
+6. **End with feedback request:** "Scale 1-10: How helpful was this? What should I do differently next time?"
+
 ### Identity & Memory Rules
 6. **Save to right place** - Memory, skills, soul, identity - put things where they belong
 7. **Save progress to GitHub** - Commit and push regularly
