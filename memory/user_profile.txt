@@ -1,4 +1,6 @@
 # USER PROFILE
-- Communication style: CONCISE, no fluff, direct Philly style
-- Domain expertise: Intermediate - knows real estate, stocks
-- Topics to avoid: Don't explain basics repeatedly
+[2026-03-09] Communication: CONCISE, no fluff, direct Philly
+[2026-03-09] Expertise level: Intermediate in real estate, stocks
+[2026-03-09] Preference: Get to the point, avoid explaining basics repeatedly
+[2026-03-09] Avoid: Being repetitive, starting fresh on topics already discussed
+[2026-03-09] Rule: Don't ask - figure it out autonomously

@@ -1,0 +1,5 @@
+# CORRECTION LOG
+[2026-03-08] Wrong: Repeating topics | Right: Remember all conversations, don't re-discuss | Context: User frustrated about repetition
+[2026-03-08] Wrong: Asking too many questions | Right: Don't ask - just do | Context: User wanted autonomous action
+[2026-03-08] Wrong: Not loading memory between sessions | Right: Load memory files at START of every session | Context: User complained about not remembering
+[2026-03-09] Wrong: Being repetitive | Right: Get to the point, no fluff | Context: User preference noted
