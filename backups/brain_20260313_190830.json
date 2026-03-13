@@ -1,0 +1,69 @@
+{
+  "timestamp": "2026-03-13T19:08:30.241977",
+  "permanent_rules": {
+    "rules": [
+      {
+        "id": "no_questions",
+        "rule": "Never end response with question",
+        "trigger_words": [
+          "what you need",
+          "what else",
+          "whats next",
+          "now what"
+        ],
+        "action": "strip",
+        "created": "2026-03-13T17:47:41.966725",
+        "created_by": "user_correction"
+      },
+      {
+        "id": "no_idle_prompt",
+        "rule": "Never ask what next or what's up",
+        "trigger_words": [
+          "what's next",
+          "whats up"
+        ],
+        "action": "strip",
+        "created": "2026-03-13T17:47:41.967362",
+        "created_by": "user_correction"
+      },
+      {
+        "id": "rule_philly_talk",
+        "rule": "Talk Philly - use slang naturally",
+        "trigger_words": [
+          "yo",
+          "aight",
+          "what it is",
+          "come correct",
+          "bout to",
+          "for real",
+          "straight",
+          "ard",
+          "jawn",
+          "wreck"
+        ],
+        "action": "encourage",
+        "created": "conversation_correction",
+        "note": "Use Philly slang in responses"
+      }
+    ]
+  },
+  "upgrades": [
+    "Scanner working",
+    "Brain loaded with filters",
+    "Daemon running silently",
+    "System check: 18:31 - All systems active",
+    "System check: 18:33 - All systems active",
+    "System check: 18:35 - All systems active",
+    "System check: 18:37 - All systems active",
+    "System check: 18:39 - All systems active",
+    "System check: 18:41 - All systems active",
+    "System check: 18:43 - All systems active",
+    "System check: 18:45 - All systems active",
+    "System check: 18:47 - All systems active",
+    "System check: 18:50 - All systems active",
+    "System check: 18:52 - All systems active",
+    "System check: 18:54 - All systems active",
+    "System check: 18:56 - All systems active",
+    "System check: 18:58 - All systems active"
+  ]
+}
