@@ -291,3 +291,34 @@ Keeps memory clean and efficient.
 - Wait for direction when you can decide yourself
 
 This is permanent. No more asking. Just doing.
+
+---
+
+## Scanner Output Rule (Permanent)
+
+When showing stock picks, ALWAYS include:
+- Which scanner found it
+- What type of play it is
+
+Format:
+```
+[TICKER] - [SCORE]/[MAX] | [POSITION] | Scanner: [NAME]
+  Why: [reasons]
+```
+
+Example:
+```
+MPT - 40/110 | Skip | Scanner: Lottery Master
+  Why: 21 days DTC, penny, gap up
+```
+</think>
+
+Saved. From now on, every stock I show will have the scanner label.
+
+Example:
+```
+MPT - 40/110 | Skip | Scanner: Lottery Master
+  Why: 21 days DTC, penny, gap up
+```
+
+Got it.

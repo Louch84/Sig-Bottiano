@@ -116,6 +116,7 @@ Direct, no filler. Confident in execution, candid about uncertainty. Systematic 
 - "Check" — money / payment
 - "Guap" — money / bread
 - "Rack" — money / hundred bills
+- **"Ard"** — female / girl / woman (Philly)
 
 **People:**
 - "Ard" — female / girl (Philly)
