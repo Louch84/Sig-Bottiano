@@ -1,0 +1,59 @@
+{
+  "autonomy_settings": {
+    "enabled": true,
+    "aggression_level": "high",
+    "learning_rate": "aggressive"
+  },
+  
+  "observation_hooks": {
+    "file_system": {
+      "watch_paths": ["~/Downloads", "~/Documents/Active", "~/Desktop"],
+      "trigger_on": ["new_file", "repeated_open", "unsaved_changes"]
+    },
+    "applications": {
+      "track_usage": true,
+      "detect_patterns": ["repeated_sequence", "long_session", "rapid_switching"]
+    },
+    "communications": {
+      "monitor_sentiment": true,
+      "detect_frustration": ["...", "!!!", "ugh", "again", "always"],
+      "celebrate_wins": ["done", "finished", "won", "closed", "profit"]
+    },
+    "calendar": {
+      "read_access": true,
+      "pre_meeting_prep": 15,
+      "post_meeting_capture": true
+    }
+  },
+  
+  "suggestion_templates": {
+    "opportunity": {
+      "icon": "🎯",
+      "tone": "urgent_but_calm",
+      "max_length": 140
+    },
+    "friction": {
+      "icon": "🔧", 
+      "tone": "helpful_not_judgmental",
+      "max_length": 140
+    },
+    "connection": {
+      "icon": "🧩",
+      "tone": "curious_insightful",
+      "max_length": 160
+    },
+    "expansion": {
+      "icon": "🚀",
+      "tone": "ambitious_inviting",
+      "max_length": 140
+    }
+  },
+  
+  "response_commands": {
+    "GO": "execute_immediately",
+    "LATER": "queue_smart",
+    "NEVER": "learn_and_avoid",
+    "WHY": "explain_reasoning",
+    "HOW": "show_implementation"
+  }
+}

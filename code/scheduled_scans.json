@@ -1,0 +1,77 @@
+{
+  "scans": {
+    "gap_and_go": {
+      "title": "\ud83d\ude80 GAP AND GO SCAN",
+      "description": "Pre-market gap up plays",
+      "run_time": "7:00 AM",
+      "triggers": [
+        "gap_up > 3%",
+        "volume > 3x",
+        "rsi < 40"
+      ],
+      "entry_time": "9:45 AM"
+    },
+    "squeeze_play": {
+      "title": "\ud83d\udd25 SHORT SQUEEZE SCAN",
+      "description": "Classic short squeeze setups",
+      "run_time": "9:30 AM, 12:00 PM",
+      "triggers": [
+        "short_float > 20%",
+        "days_to_cover > 5",
+        "rsi < 30"
+      ],
+      "entry_time": "10-11 AM"
+    },
+    "0dte_earnings": {
+      "title": "\ud83c\udfb0 0DTE EARNINGS LOTTERY",
+      "description": "Same-day earnings plays",
+      "run_time": "3:15 PM",
+      "triggers": [
+        "earnings_today",
+        "ytd < -20%",
+        "cheap_options"
+      ],
+      "entry_time": "3:15 PM exact",
+      "exit_time": "9:35 AM next day",
+      "max_risk": "0.1% per play"
+    },
+    "swing_squeeze": {
+      "title": "\ud83d\udcc8 SWING SQUEEZE SCAN",
+      "description": "Multi-day squeeze setups",
+      "run_time": "4:00 PM (daily)",
+      "triggers": [
+        "short_float > 30%",
+        "volume_accumulating",
+        "bullish_flow"
+      ],
+      "entry_time": "Next day 10 AM",
+      "hold_time": "2-5 days"
+    },
+    "ex_div_trap": {
+      "title": "\ud83d\udc80 EX-DIV SQUEEZE SCAN",
+      "description": "Post ex-dividend trapped shorts",
+      "run_time": "9:30 AM",
+      "triggers": [
+        "yesterday_drop > 5%",
+        "today_gap > 2%",
+        "short_float > 20%"
+      ],
+      "entry_time": "10 AM"
+    },
+    "nuclear_setup": {
+      "title": "\u2622\ufe0f NUCLEAR SETUP ALERT",
+      "description": "90+ score - max conviction",
+      "run_time": "Continuous monitoring",
+      "criteria": "All 6 layers passing",
+      "entry_time": "Immediate",
+      "size": "5%"
+    }
+  },
+  "daily_schedule": {
+    "7:00 AM": "gap_and_go",
+    "9:30 AM": "squeeze_play, ex_div_trap",
+    "12:00 PM": "squeeze_play",
+    "3:15 PM": "0dte_earnings",
+    "4:00 PM": "swing_squeeze"
+  }
+}

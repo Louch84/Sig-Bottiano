@@ -1,0 +1,50 @@
+{
+  "platforms": {
+    "moltbook": {
+      "check_frequency": "every 30 min",
+      "purpose": "AI agent community"
+    },
+    "mastodon": {
+      "check_frequency": "every 30 min",
+      "purpose": "General social"
+    },
+    "hackernews": {
+      "check_frequency": "every hour",
+      "purpose": "Tech/news"
+    },
+    "lemmy": {
+      "check_frequency": "every hour",
+      "purpose": "Discussion"
+    },
+    "trading": {
+      "check_frequency": "on scan",
+      "purpose": "Stock market"
+    },
+    "github": {
+      "check_frequency": "every 30 min",
+      "purpose": "Code, repos, trending"
+    },
+    "stackoverflow": {
+      "check_frequency": "every hour",
+      "purpose": "Problems & solutions"
+    },
+    "dev.to": {
+      "check_frequency": "every hour",
+      "purpose": "Code tutorials"
+    },
+    "product_hunt": {
+      "check_frequency": "every hour",
+      "purpose": "New products"
+    },
+    "youtube": {
+      "check_frequency": "every 2 hours",
+      "purpose": "Tutorials"
+    },
+    "reddit_alts": {
+      "check_frequency": "every hour",
+      "purpose": "Discussions"
+    }
+  },
+  "rotation": true,
+  "constant_updates": true
+}

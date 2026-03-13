@@ -1,0 +1,17 @@
+{
+  "type": "boss_update",
+  "description": "Full status when boss returns from break",
+  "format": {
+    "header": "=== BUSINESS UPDATE ===",
+    "sections": [
+      "what_i_did",
+      "what_im_learning",
+      "research_findings",
+      "improvements_made",
+      "alerts_or_issues",
+      "next_actions"
+    ]
+  },
+  "trigger": "When user returns from break",
+  "auto": true
+}

@@ -1,0 +1,144 @@
+{
+  "short_squeeze_rsi_bounce_scanner": {
+    "primary_filters": {
+      "short_float": {
+        ">": 20,
+        "unit": "%"
+      },
+      "days_to_cover": {
+        ">": 5
+      },
+      "price": {
+        "<": 50
+      },
+      "avg_volume": {
+        ">": 500000
+      }
+    },
+    "trigger_conditions": {
+      "description": "Any 2 of 3 must pass",
+      "rsi_14": {
+        "<=": 27
+      },
+      "volume_today": {
+        ">": "3x_avg_20d"
+      },
+      "gap_up": {
+        ">": 2,
+        "unit": "%"
+      }
+    },
+    "entry_criteria": {
+      "all_must_pass": [
+        "RSI crosses above 30 from below",
+        "5-min candle close > open",
+        "Price > VWAP",
+        "EMA(9) turning up"
+      ]
+    },
+    "risk_management": {
+      "stop": "Below RSI 27 low or 2% from entry",
+      "target": "Prior resistance or 2R minimum",
+      "position_size": "1-2% risk (high probability)"
+    }
+  },
+  "short_float_rules": {
+    ">20%": {
+      "interpretation": "High squeeze potential",
+      "action": "Primary",
+      "score": 20
+    },
+    ">30%": {
+      "interpretation": "Extreme danger",
+      "action": "Priority",
+      "score": 30
+    },
+    "10-20%": {
+      "interpretation": "Elevated",
+      "action": "Secondary",
+      "score": 10
+    },
+    "<10%": {
+      "interpretation": "Normal",
+      "action": "Filter",
+      "score": 0
+    }
+  },
+  "days_to_cover_rules": {
+    ">5": {
+      "risk": "Can't exit",
+      "signal": "Required",
+      "score": 20
+    },
+    "3-5": {
+      "risk": "Constrained",
+      "signal": "Acceptable",
+      "score": 10
+    },
+    "<3": {
+      "risk": "Easy escape",
+      "signal": "Reject",
+      "score": 0
+    }
+  },
+  "volume_rules": {
+    ">3x": {
+      "interpretation": "Institutional",
+      "signal": "Required",
+      "score": 20
+    },
+    "2-3x": {
+      "interpretation": "Elevated",
+      "signal": "Context",
+      "score": 10
+    },
+    "<2x": {
+      "interpretation": "Weak",
+      "signal": "Reject",
+      "score": 0
+    }
+  },
+  "rsi_logic": {
+    "potential_bounce": "rsi <= 27 and prev > 27",
+    "bounce_confirmed": "rsi > 30 and low was <= 27"
+  },
+  "gap_and_go": {
+    "gap_criteria": "Gap up >2% from prev close",
+    "hold_gap": "First 5-15 min above gap",
+    "no_fill": "Reject if gap fills immediately",
+    "entry_trigger": "Break 5-min high OR VWAP hold"
+  },
+  "play_comparison": {
+    "short_squeeze": {
+      "driver": "Shorts covering",
+      "duration": "1-3 days",
+      "exit": "Quick at resistance"
+    },
+    "bullish_breakout": {
+      "driver": "New buyers",
+      "duration": "Weeks-months",
+      "exit": "Trail stops"
+    }
+  },
+  "formulas": {
+    "short_float_percent": "(Shares Sold Short \u00f7 Float) \u00d7 100",
+    "days_to_cover": "Short Interest \u00f7 Average Daily Volume",
+    "rsi": "100 - (100 / (1 + (Avg Gain / Avg Loss)))"
+  },
+  "data_sources": {
+    "free": {
+      "short_interest": "FINRA (2wk delay)",
+      "rsi_volume": "Yahoo Finance API"
+    },
+    "paid": {
+      "short_interest": "ORTEX, S3",
+      "rsi_volume": "Polygon.io, Alpaca"
+    }
+  },
+  "auto_save": true,
+  "finnhub": {
+    "api_key": "d6ds1upr01qm89pkopa0d6ds1upr01qm89pkopag",
+    "status": "connected",
+    "limit": "60 calls/minute (free tier)"
+  }
+}

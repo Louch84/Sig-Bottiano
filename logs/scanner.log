@@ -1,0 +1,34 @@
+[2026-03-09 20:50:01.183672] Starting daily squeeze scan...
+[2026-03-09 20:50:06.527352] Found 3 candidates
+[2026-03-09 20:50:06.541823] TOP RESULTS:
+[2026-03-09 20:50:06.542310]   NVAX: $10.55 | Short: 31.4% | Vol: 1.1x | Score: 30
+[2026-03-09 20:50:06.542665]   AMC: $1.13 | Short: 24.6% | Vol: 1.1x | Score: 30
+[2026-03-09 20:50:06.542988]   PATH: $11.97 | Short: 23.0% | Vol: 1.7x | Score: 45
+[2026-03-09 20:50:06.543296] Scan complete
+Traceback (most recent call last):
+  File "/Users/sigbotti/.openclaw/workspace/code/daily_scanner.py", line 6, in <module>
+    import yfinance as yf
+ModuleNotFoundError: No module named 'yfinance'
+Traceback (most recent call last):
+  File "/Users/sigbotti/.openclaw/workspace/code/daily_scanner.py", line 6, in <module>
+    import yfinance as yf
+ModuleNotFoundError: No module named 'yfinance'
+[2026-03-11 11:01:33.462505] Starting daily squeeze scan...
+[2026-03-11 11:01:39.259445] No setups found
+[2026-03-11 11:01:39.259835] Scan complete
+[2026-03-11 11:04:40.725172] Starting daily squeeze scan...
+[2026-03-11 11:04:47.347728] No setups found
+[2026-03-11 11:04:47.348242] Scan complete
+[2026-03-11 11:09:00.664582] Starting daily squeeze scan...
+[2026-03-11 11:09:07.095631] No setups found
+[2026-03-11 11:09:07.095994] Scan complete
+[2026-03-11 11:18:35.956412] Starting daily squeeze scan...
+[2026-03-11 11:18:41.540656] No setups found
+[2026-03-11 11:18:41.540987] Scan complete
+Traceback (most recent call last):
+  File "/Users/sigbotti/.openclaw/workspace/code/daily_scanner.py", line 6, in <module>
+    import yfinance as yf
+ModuleNotFoundError: No module named 'yfinance'
+[2026-03-12 09:48:23.243685] Starting daily squeeze scan...
+[2026-03-12 09:48:29.291476] No setups found
+[2026-03-12 09:48:29.291836] Scan complete

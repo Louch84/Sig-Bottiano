@@ -1,5 +1,42 @@
 # ACTIVE PROJECTS
-Project: Real estate wholesaling Philly | Status: In progress | Last: Market analysis, legal research | Next: Skip tracing, lead generation
-Project: WhatsApp phone catalog | Status: Pending | Last: Created catalog template | Next: Add products, images
-Project: iPhone control | Status: Working | Last: TeamViewer connected | Next: Test remote control
-Project: Self-improvement system | Status: Complete | Last: Built memory architecture | Next: Maintain
+
+Based on AGENTS.md Capability Backlog
+
+---
+
+## TIER 2: Revenue & Traffic
+
+| Project | Status | Last | Next |
+|---------|--------|------|------|
+| Automated SEO content pipeline | Building | Tool integration in progress | Complete pipeline |
+| Email/SMS retention flows | Queued | - | Automation platform setup |
+
+---
+
+## TIER 3: Financial Intelligence
+
+| Project | Status | Last | Next |
+|---------|--------|------|------|
+| Options flow alert system | Learning | API integration | Pattern logic |
+| Short squeeze probability model | Queued | - | Data source acquisition |
+
+---
+
+## TIER 4: Real Estate Deal Flow
+
+| Project | Status | Last | Next |
+|---------|--------|------|------|
+| Comp analysis automation | Planning | - | Data source integration |
+| Lead scoring algorithm | Queued | - | Behavioral pattern analysis |
+
+---
+
+## META-CAPABILITIES (Tier 1)
+
+| Project | Status |
+|---------|--------|
+| Self-improvement system | Complete (2026-03-09) |
+
+---
+
+Updated: 2026-03-09

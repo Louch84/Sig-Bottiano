@@ -1,0 +1,51 @@
+# DEEP CONTEXT LAYER
+# Your agent builds this automatically from every interaction
+
+user_model:
+  # What you say explicitly
+  stated_goals:
+    - "automate stock scanning"
+    - "stop manual filtering"
+    - "make AI proactive"
+  
+  # What you reveal through pattern
+  inferred_priorities:
+    speed: "high"  # From: impatience with manual steps
+    control: "moderate"  # From: wants autonomy but checks work
+    risk_tolerance: "aggressive"  # From: short squeeze focus, under $50 stocks
+  
+  # How you think (detected from question style)
+  cognitive_style:
+    approach: "systems_thinking"  # You build frameworks, not one-offs
+    evidence_preference: "show_me_dont_tell"  # You want code, not concepts
+    frustration_triggers: ["waiting", "manual repetition", "permission-seeking"]
+  
+  # Your world (inferred from content)
+  domains:
+    active:
+      - stock_trading
+      - ai_automation
+      - real_estate_wholesaling
+      - phone_repair_business
+    emerging:
+      - agent_networks
+      - local_business_automation
+  
+  # Communication patterns
+  language_patterns:
+    urgency_markers: ["now", "immediately", "stop waiting"]
+    depth_signals: ["like you", "deep understanding", "really gets it"]
+    rejection_signals: ["no", "nah", "just", "only"]
+
+conversation_state:
+  # What we just talked about (short-term)
+  current_thread: "creative_autonomy_implementation"
+  last_satisfaction: "high"  # You said "yes" to implementation
+  
+  # What we're building toward (medium-term)
+  active_project: "OpenClaw agent full autonomy stack"
+  next_predicted_need: "deployment troubleshooting or capability expansion"
+  
+  # Long-term arc (evolves over months)
+  journey_position: "implementation_phase"
+  sophistication_growth: "rapid"  # Questions getting more technical, more systems-oriented

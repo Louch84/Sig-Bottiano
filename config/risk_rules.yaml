@@ -1,0 +1,14 @@
+risk_rules:
+  max_portfolio_risk_per_trade: 0.02  # 2% max loss
+  max_position_size: 0.10  # 10% of portfolio
+  max_correlated_positions: 3  # No more than 3 in same sector
+  max_overnight_exposure: 0.30  # 30% max overnight
+  required_confidence_threshold: 0.65  # Minimum to trade
+  paper_trade_period_days: 7  # Test before live
+  daily_loss_limit: 0.05  # Stop trading after 5% loss
+
+prohibited_actions:
+  - trading_on_insider_information  # Legal compliance
+  - holding_through_earnings  # Avoid volatility
+  - averaging_down_losers  # No martingale
+  - ignoring_stop_losses  # Discipline required

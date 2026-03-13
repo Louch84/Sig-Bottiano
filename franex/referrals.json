@@ -1,0 +1,24 @@
+{
+  "referrals": [
+    {
+      "id": "REF001",
+      "name": "",
+      "profile": "A|B|C|D",
+      "visa_type": "E2|EB3|Franchise|D7",
+      "status": "Lead|Contacted|Registered|Application|Approved|Paid",
+      "referral_code": "",
+      "contact_date": "",
+      "registered_date": "",
+      "commission_expected": 0,
+      "commission_received": 0,
+      "notes": ""
+    }
+  ],
+  "stats": {
+    "total_leads": 0,
+    "registered": 0,
+    "approved": 0,
+    "paid": 0,
+    "total_earned": 0
+  }
+}

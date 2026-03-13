@@ -1,0 +1,645 @@
+{
+  "name": "Lottery Plays Scanner",
+  "description": "High-risk/high-reward penny stock and options plays",
+  "core_system": {
+    "class": "ConvictionScanner",
+    "weights": {
+      "squeeze": 0.25,
+      "flow": 0.2,
+      "darkpool": 0.15,
+      "institutional": 0.15,
+      "sentiment": 0.1,
+      "technical": 0.1,
+      "sector": 0.05
+    },
+    "check_squeeze": {
+      "short_float": {
+        ">30%": 40,
+        ">20%": 25,
+        ">10%": 10
+      },
+      "days_to_cover": {
+        ">15": 30,
+        ">5": 15
+      },
+      "max_score": 100
+    },
+    "position_size": {
+      "90+": "5%",
+      "80-89": "3%",
+      "75-79": "1%",
+      "<75": "0%"
+    }
+  },
+  "options_flow_detector": {
+    "description": "Unusual options volume detection",
+    "gamma_wall": {
+      "rule": "max_oi > avg_oi * 5",
+      "score": 30,
+      "signal": "5x average OI"
+    },
+    "put_call_ratio": {
+      "bullish_extreme": {
+        "pcr": "< 0.30",
+        "score": 25,
+        "description": "Extreme bullish"
+      }
+    },
+    "max_score": 100
+  },
+  "technical_confluence": {
+    "description": "RSI + Moving averages + Gap",
+    "rsi_14": {
+      "<30": {
+        "score": 35,
+        "description": "Oversold"
+      },
+      "<40": {
+        "score": 20,
+        "description": "Near oversold"
+      }
+    },
+    "gap": {
+      ">3%": {
+        "score": 15,
+        "description": "Gap up 3%+"
+      },
+      "<-5%": {
+        "score": 10,
+        "description": "Ex-div drop"
+      }
+    },
+    "trend": {
+      "price_above_sma20": {
+        "score": 10,
+        "description": "Bullish trend"
+      }
+    },
+    "max_score": 100
+  },
+  "social_sentiment_velocity": {
+    "description": "Social sentiment from Twitter/Reddit",
+    "bullish_words": [
+      "squeeze",
+      "moon",
+      "calls",
+      "tendies",
+      "rocket",
+      "to the moon",
+      "bullish"
+    ],
+    "bearish_words": [
+      "puts",
+      "short",
+      "crash",
+      "dump",
+      "bankrupt",
+      "bearish",
+      "sell"
+    ],
+    "scoring": {
+      "calculation": "(bullish_words / total_words) * 100",
+      "viral_bonus": {
+        "condition": "posts > 100",
+        "bonus": "+20 if sentiment > 70"
+      }
+    },
+    "thresholds": {
+      ">70": "Bullish",
+      "<30": "Bearish",
+      "30-70": "Neutral"
+    },
+    "max_score": 100
+  },
+  "dark_pool_signature": {
+    "description": "Detect institutional blocks via volume spikes",
+    "block_detection": {
+      "threshold": "volume > avg_vol * 5",
+      "description": "5x average = institutional block"
+    },
+    "direction": {
+      "bullish_ratio": "> 70%",
+      "score": 40,
+      "description": "Heavy buying"
+    },
+    "scoring": {
+      ">70%": 40,
+      ">50%": 25,
+      "<50%": 10
+    }
+  },
+  "ml_pattern_detector": {
+    "description": "ML-based squeeze prediction",
+    "features": {
+      "return_1d": "(Close[-1] / Close[-2]) - 1",
+      "return_5d": "(Close[-1] / Close[-5]) - 1",
+      "volatility": "pct_change.std() * sqrt(252)",
+      "volume_ratio": "Volume[-1] / Volume.20d.mean()",
+      "rsi": "RSI 14"
+    },
+    "prediction": {
+      "high_volume_oversold": {
+        "condition": "volume_ratio > 3 AND rsi < 35",
+        "squeeze_probability": 0.85
+      },
+      "normal": {
+        "squeeze_probability": 0.3
+      }
+    },
+    "model": "RandomForestClassifier(n_estimators=100)",
+    "output": "0-100 score"
+  },
+  "risk_manager_kelly_sizing": {
+    "description": "Position sizing using Kelly Criterion",
+    "gatekeeper": {
+      "daily_loss_limit": "-3% of account",
+      "min_score": 75
+    },
+    "win_rates": {
+      "short_squeeze": 0.65,
+      "gamma_squeeze": 0.55,
+      "lottery": 0.08
+    },
+    "kelly_formula": "(win_rate * (risk_reward + 1) - 1) / risk_reward",
+    "rules": {
+      "use_half_kelly": true,
+      "max_position": "5%",
+      "target_risk_reward": "3:1"
+    },
+    "output": {
+      "shares": "calculated",
+      "position_pct": "min(kelly/2, 0.05)",
+      "dollar_risk": "account * position_pct"
+    }
+  },
+  "nuclear_setup_checklist": {
+    "description": "90+ score criteria",
+    "score_threshold": 90,
+    "trade_threshold": 75,
+    "layers": {
+      "layer_1_squeeze": {
+        "short_float": ">30%",
+        "days_to_cover": ">10",
+        "borrow_rate": ">50%"
+      },
+      "layer_2_flow": {
+        "unusual_call_volume": ">5x avg",
+        "gamma_wall": "within 5%",
+        "put_call_ratio": "<0.30"
+      },
+      "layer_3_darkpool": {
+        "block_prints": ">5x volume",
+        "bullish_blocks": ">70%"
+      },
+      "layer_4_technical": {
+        "rsi": "<35",
+        "price_vs_20sma": "above",
+        "gap": ">3% or ex-div recovery"
+      },
+      "layer_5_sentiment": {
+        "reddit_mentions": ">100/day",
+        "bullish_sentiment": ">70%",
+        "keyword_trending": "squeeze"
+      },
+      "layer_6_ml_pattern": {
+        "squeeze_probability": ">80%",
+        "volume_breakout": "detected"
+      }
+    },
+    "position_sizing": {
+      "90+": "5%",
+      "80-89": "3%",
+      "75-79": "1%"
+    }
+  },
+  "discord_bot_formatter": {
+    "description": "Discord alert formatter",
+    "embed_format": {
+      "title": "\ud83d\udea8 {ticker} - Score: {score}",
+      "color": {
+        "80+": "0x00ff00 (green)",
+        "75-79": "0xffaa00 (orange)"
+      }
+    },
+    "fields": {
+      "setup_type": "inline",
+      "position_size": "inline",
+      "key_signals": "inline (top 3)",
+      "action": "BUY NOW or WATCH"
+    },
+    "action_emoji": {
+      "buy": "\ud83d\udfe2",
+      "watch": "\u26aa"
+    }
+  },
+  "0dte_earnings_lottery": {
+    "description": "Wounded earnings plays (NKE style)",
+    "criteria": {
+      "wounded_ytd": {
+        "condition": "YTD < -20%",
+        "score": 40,
+        "description": "Wounded stock"
+      },
+      "downtrend": {
+        "condition": "Close today < Close 5 days ago",
+        "score": 20,
+        "description": "Technical breakdown"
+      },
+      "cheap_options": {
+        "condition": "OTM puts < $0.05",
+        "score": 30,
+        "description": "Lottery price"
+      }
+    },
+    "play_rules": {
+      "entry_time": "3:15 PM (day of earnings)",
+      "exit_time": "9:35 AM next day",
+      "max_tickets_per_week": 1,
+      "max_risk": "0.1% per ticket",
+      "expected_loss": "90% lose 100%"
+    },
+    "direction": {
+      "ytd_below_minus15": "PUTS",
+      "ytd_above_plus15": "CALLS"
+    },
+    "min_score": 70
+  },
+  "ex_dividend_trap_detector": {
+    "description": "Ex-dividend squeeze pattern (MPT March 13 style)",
+    "criteria": {
+      "yesterday_drop": {
+        "condition": "< -5%",
+        "description": "Artificial drop"
+      },
+      "today_gap": {
+        "condition": "> 2%",
+        "description": "Gap up"
+      },
+      "short_float": {
+        "condition": "> 20%",
+        "description": "Shorts trapped"
+      }
+    },
+    "score": 90,
+    "alert_format": "EX-DIV SQUEEZE on {ticker}: Yesterday -7% artificial drop, Shorts trapped at {short_float}%, Gap fill play to ${target}"
+  },
+  "unusual_whales_api": {
+    "description": "Unusual Whales API integration",
+    "endpoints": {
+      "flow_sweeps": {
+        "url": "https://api.unusualwhales.com/api/flow/sweeps",
+        "params": [
+          "ticker",
+          "min_premium"
+        ],
+        "fields": [
+          "ticker",
+          "call_or_put",
+          "strike_price",
+          "expiration",
+          "premium",
+          "volume",
+          "sentiment",
+          "timestamp"
+        ]
+      },
+      "gamma": {
+        "url": "https://api.unusualwhales.com/api/stock/{ticker}/gamma",
+        "fields": [
+          "zero_gamma_level",
+          "max_call_gamma",
+          "max_put_gamma",
+          "net_gamma"
+        ]
+      }
+    },
+    "urgency_scoring": {
+      "premium_500k+": "CRITICAL",
+      "premium_200k-500k": "HIGH",
+      "premium_<200k": "NORMAL"
+    },
+    "gamma_signals": {
+      "net_gamma_positive": "BULLISH",
+      "net_gamma_negative": "BEARISH"
+    },
+    "note": "Requires paid API key"
+  },
+  "usage_examples": {
+    "unusual_whales": "flow = whale.get_flow('GME', 100000)",
+    "gamma": "gamma = whale.get_gamma('GME')",
+    "scanner": "result = lottery_scanner.scan('MPT')",
+    "discord_alert": "await bot.send_alert(channel, result)"
+  },
+  "cheddar_flow_api": {
+    "description": "Alternative to Unusual Whales",
+    "endpoints": {
+      "unusual_options": {
+        "url": "https://api.cheddarflow.com/api/v1/flow",
+        "params": [
+          "ticker",
+          "days"
+        ],
+        "fields": [
+          "ticker",
+          "side",
+          "strike",
+          "expiry",
+          "size",
+          "premium",
+          "sentiment",
+          "time"
+        ]
+      },
+      "dark_pool": {
+        "url": "https://api.cheddarflow.com/api/v1/dark-pool/{ticker}",
+        "fields": [
+          "significant_levels",
+          "recent_volume",
+          "sentiment"
+        ]
+      }
+    },
+    "pricing": {
+      "real_time": "$99/month",
+      "free_tier": "15-min delayed"
+    }
+  },
+  "tradytics_api": {
+    "description": "Retail sentiment data",
+    "endpoints": {
+      "ticker_snapshot": {
+        "url": "https://api.tradytics.com/v1/ticker/{ticker}",
+        "description": "Full ticker data"
+      },
+      "options_flow": {
+        "url": "https://api.tradytics.com/v1/flow/{ticker}",
+        "params": [
+          "hours"
+        ],
+        "output": {
+          "bullish_count": "int",
+          "bearish_count": "int",
+          "ratio": "float"
+        }
+      },
+      "reddit_sentiment": {
+        "url": "https://api.tradytics.com/v1/sentiment/{ticker}",
+        "output": {
+          "mentions_24h": "int",
+          "sentiment_score": "-1 to 1",
+          "trending": "bool"
+        }
+      }
+    },
+    "pricing": {
+      "free": "100 calls/day",
+      "paid": "$39/month unlimited"
+    }
+  },
+  "polygon_io": {
+    "description": "Best for price/action data",
+    "endpoints": {
+      "dark_pool": {
+        "method": "list_trades(ticker, date)",
+        "filter": "exchange == 4 (Dark Pool)",
+        "output": {
+          "total_volume": "int",
+          "avg_price": "float",
+          "blocks": "int"
+        }
+      },
+      "options_oi": {
+        "method": "get_options_snapshot(ticker)",
+        "description": "Options open interest"
+      },
+      "institutional_trades": {
+        "method": "get_institutional_ownership(ticker)",
+        "description": "13F holders (quarterly)"
+      }
+    },
+    "pricing": {
+      "free": "5 calls/minute",
+      "paid": "$199/month (real-time + unlimited)"
+    }
+  },
+  "openinsider_scraper": {
+    "description": "Free insider data",
+    "endpoints": {
+      "recent_buys": {
+        "url": "http://openinsider.com/screener",
+        "params": [
+          "ticker"
+        ],
+        "output": {
+          "insider": "str",
+          "shares": "str",
+          "price": "str",
+          "value": "str",
+          "date": "str"
+        }
+      },
+      "cluster_buying": {
+        "description": "Multiple insiders buying",
+        "threshold": "3+ different insiders in 30 days",
+        "output": {
+          "cluster_buy": "bool",
+          "insider_count": "int",
+          "recent_buys": "list"
+        }
+      }
+    },
+    "rate_limit": "1 request per 5 seconds",
+    "note": "Free, respect rate limits"
+  },
+  "finnhub_api": {
+    "description": "News & Earnings data",
+    "endpoints": {
+      "catalysts": {
+        "method": "company_news(ticker, days_back)",
+        "keywords": [
+          "earnings",
+          "guidance",
+          "fda",
+          "approval",
+          "contract",
+          "partnership",
+          "buyout",
+          "short"
+        ],
+        "output": {
+          "headline": "str",
+          "score": "int",
+          "datetime": "str",
+          "source": "str",
+          "url": "str"
+        }
+      },
+      "earnings_calendar": {
+        "method": "earnings_calendar(symbol, from, to)",
+        "description": "Upcoming earnings"
+      },
+      "short_interest": {
+        "method": "short_interest(ticker)",
+        "description": "Monthly short interest"
+      }
+    },
+    "pricing": {
+      "free": "60 calls/minute",
+      "paid": "$39/month"
+    }
+  },
+  "earnings_whispers": {
+    "description": "Earnings calendar and wounded plays",
+    "endpoints": {
+      "today_earnings": {
+        "url": "https://www.earningswhispers.com/api/calendar",
+        "output": {
+          "ticker": "str",
+          "time": "str",
+          "eps_est": "float",
+          "revenue_est": "float",
+          "float": "int",
+          "short_interest": "float"
+        }
+      },
+      "lottery_candidates": {
+        "criteria": "AMC time + short interest > 15%",
+        "description": "Wounded earnings plays"
+      }
+    },
+    "alternative": "Yahoo Finance earnings calendar (more reliable)",
+    "note": "Free, scrape responsibly"
+  },
+  "iborrowdesk": {
+    "description": "Real-time borrow rates",
+    "endpoints": {
+      "borrow_rate": {
+        "url": "https://iborrowdesk.com/report/{ticker}",
+        "output": {
+          "fee": "float (annual %)",
+          "available": "int (shares)",
+          "updated": "date"
+        }
+      },
+      "historical": {
+        "method": "get_historical(ticker, days)",
+        "description": "Borrow rate trend"
+      }
+    },
+    "interpretation": {
+      ">100%": "Extreme squeeze potential",
+      ">50%": "High squeeze potential",
+      "<10%": "Easy to borrow (no squeeze)"
+    }
+  },
+  "financial_modeling_prep": {
+    "description": "Institutional holders + fundamentals",
+    "endpoints": {
+      "institutional_holders": {
+        "url": "https://financialmodelingprep.com/api/v3/institutional-holder/{ticker}",
+        "output": {
+          "holders": "list",
+          "total_institutional": "int",
+          "holder_count": "int"
+        }
+      },
+      "short_interest": {
+        "url": "https://financialmodelingprep.com/api/v3/short_interest/{ticker}",
+        "description": "Short interest by date"
+      },
+      "float": {
+        "url": "https://financialmodelingprep.com/api/v3/float/{ticker}",
+        "description": "Current float"
+      }
+    },
+    "pricing": {
+      "free": "250 calls/day",
+      "paid": "$19/month (10,000 calls)"
+    }
+  },
+  "unified_api_controller": {
+    "description": "Combines all sources into one call",
+    "class": "MasterDataFeed",
+    "data_layers": {
+      "layer_1_short_data": {
+        "source": "FMP",
+        "method": "fmp.get_short_interest(ticker)"
+      },
+      "layer_2_options_flow": {
+        "source": "Unusual Whales",
+        "method": "whales.get_flow(ticker, 50000)"
+      },
+      "layer_3_dark_pool": {
+        "source": "Polygon",
+        "method": "polygon.get_dark_pool(ticker, date)"
+      },
+      "layer_4_news": {
+        "source": "Finnhub",
+        "method": "finnhub.get_catalysts(ticker)"
+      },
+      "layer_5_insider": {
+        "source": "OpenInsider",
+        "method": "InsiderScraper().check_cluster_buying(ticker)"
+      }
+    },
+    "output": {
+      "ticker": "str",
+      "timestamp": "datetime",
+      "short_data": "dict",
+      "options_flow": "list",
+      "dark_pool": "dict",
+      "catalysts": "list",
+      "insider": "dict"
+    },
+    "note": "Cache results for 5 minutes to save API calls"
+  },
+  "api_stack": {
+    "free": {
+      "finnhub": {
+        "purpose": "News",
+        "limit": "60 calls/min"
+      },
+      "openinsider": {
+        "purpose": "Insider data",
+        "limit": "Unlimited but slow"
+      },
+      "yahoo_finance": {
+        "purpose": "Price/Volume",
+        "limit": "No key needed"
+      },
+      "iborrowdesk": {
+        "purpose": "Borrow rates",
+        "limit": "Free scraping"
+      }
+    },
+    "paid": {
+      "total_monthly": "$200-300",
+      "unusual_whales": {
+        "purpose": "Best flow",
+        "cost": "$149/month",
+        "free_tier": "Limited free tier available"
+      },
+      "polygon_io": {
+        "purpose": "Institutional",
+        "cost": "$199/month",
+        "free_tier": "5 calls/minute (free)"
+      },
+      "tradytics": {
+        "purpose": "Retail sentiment",
+        "cost": "$39/month",
+        "free_tier": "100 calls/day (free)"
+      },
+      "fmp": {
+        "purpose": "Fundamentals",
+        "cost": "$19/month",
+        "free_tier": "250 calls/day (free)"
+      }
+    },
+    "priority_order": [
+      "1. Finnhub + OpenInsider (FREE)",
+      "2. Add Tradytics ($39)",
+      "3. Add Unusual Whales ($149)",
+      "4. Add Polygon only if doing size ($199)"
+    ]
+  }
+}

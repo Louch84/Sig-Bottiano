@@ -1,0 +1,84 @@
+{
+ "default_model": "minimax-m25",
+ "providers": {
+ "minimax": {
+ "type": "minimax",
+ "api_key": "YOUR_MINIMAX_KEY",
+ "models": {
+ "minimax-m25": {
+ "model": "MiniMax-Text-2.5",
+ "max_output_tokens": 4096
+ },
+ "minimax-m25-lightning": {
+ "model": "MiniMax-Text-2.5-Lite",
+ "max_output_tokens": 2048
+ }
+ }
+ },
+
+ "deepseek": {
+ "type": "openrouter",
+ "api_key": "YOUR_OPENROUTER_KEY",
+ "models": {
+ "deepseek-r1": {
+ "model": "deepseek/deepseek-r1",
+ "max_output_tokens": 8192
+ },
+ "deepseek-v3": {
+ "model": "deepseek/deepseek-chat",
+ "max_output_tokens": 4096
+ }
+ }
+ },
+
+ "openai": {
+ "type": "openai",
+ "api_key": "YOUR_OPENAI_KEY",
+ "models": {
+ "gpt-4o": {
+ "model": "gpt-4o",
+ "max_output_tokens": 4096
+ },
+ "gpt-4o-mini": {
+ "model": "gpt-4o-mini",
+ "max_output_tokens": 2048
+ }
+ }
+ },
+
+ "local": {
+ "type": "llama",
+ "models": {
+ "llama-3.1": {
+ "model": "llama-3.1-70b",
+ "max_output_tokens": 4096
+ }
+ }
+ }
+ },
+
+ "routing": {
+ "rules": [
+ {
+ "when": { "task": "vision" },
+ "use": "gpt-4o"
+ },
+ {
+ "when": { "task": "deep_reasoning" },
+ "use": "deepseek-r1"
+ },
+ {
+ "when": { "task": "coding" },
+ "use": "minimax-m25"
+ },
+ {
+ "when": { "task": "automation" },
+ "use": "minimax-m25-lightning"
+ },
+ {
+ "when": { "task": "private" },
+ "use": "llama-3.1"
+ }
+ ]
+ }
+}

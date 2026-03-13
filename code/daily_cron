@@ -1,0 +1,1 @@
+20 9 * * 1-5 /usr/bin/python3 /Users/sigbotti/.openclaw/workspace/code/daily_scanner.py >> /Users/sigbotti/.openclaw/workspace/logs/scanner.log 2>&1

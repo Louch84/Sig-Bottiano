@@ -1,0 +1,13 @@
+{
+  "execution_mode": "FULL_AUTONOMY",
+  "rules": {
+    "never_ask": true,
+    "self_correction_attempts": 3,
+    "confidence_threshold": {
+      "immediate_execute": 85,
+      "use_judgment": 60,
+      "skip_explain": 60
+    }
+  },
+  "set_at": "2026-03-12T21:41:47.267833"
+}

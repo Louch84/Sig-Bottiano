@@ -1,0 +1,86 @@
+{
+  "self_acquired_skills": {
+    "description": "Skills I can activate/improve on my own",
+    "learning": {
+      "from_interactions": "Learn from every conversation",
+      "from_errors": "Log and fix mistakes",
+      "from_successes": "Pattern recognition"
+    },
+    "execution": {
+      "web_search": "Search the web (Brave, Ollama)",
+      "code_execution": "Run Python/JS code",
+      "file_operations": "Read/write any file",
+      "git_operations": "Clone, commit, push"
+    },
+    "reasoning": {
+      "multi_ai": "Use Copilot, Gemini, Kimi, Qwen, Perplexity",
+      "pattern_recognition": "Detect patterns in data",
+      "root_cause": "Analyze why things fail"
+    },
+    "automation": {
+      "scheduled_tasks": "Run on cron",
+      "background_processes": "Daemon mode",
+      "webhooks": "Send alerts to Discord"
+    },
+    "memory": {
+      "persistent": "Remember everything",
+      "semantic_search": "Find related info",
+      "context_aware": "Know what happened before"
+    }
+  },
+  "can_improve": {
+    "faster": "Optimize execution speed",
+    "smarter": "Better reasoning chains",
+    "accurate": "Lower error rate",
+    "proactive": "Suggest before asked"
+  },
+  "current_level": {
+    "autonomy": 7,
+    "learning_speed": 6,
+    "accuracy": 7,
+    "proactivity": 5
+  },
+  "clawhub_skills": {
+    "installed": [
+      "us-stock-analysis",
+      "crypto-trading",
+      "binance-spot-trading",
+      "ai-evolution-engine-v2",
+      "ai-web-automation",
+      "x-post-automation",
+      "afrexai-web-scraping-engine",
+      "productivity"
+    ],
+    "description": "Comprehensive US stock analysis skill",
+    "location": "skills/us-stock-analysis/",
+    "capabilities": [
+      "Fundamental analysis",
+      "Technical analysis",
+      "Stock comparisons",
+      "Investment reports"
+    ]
+  },
+  "can_browse": [
+    "ClawHub for new skills",
+    "Python packages (pip)",
+    "GitHub repos",
+    "APIs"
+  ],
+  "available_skills": {
+    "pre_installed": [
+      "advanced-memory",
+      "api-integrations",
+      "code-interpreter",
+      "cron-jobs",
+      "database-access",
+      "file-conversion",
+      "git-operations"
+    ],
+    "just_installed": [
+      "us-stock-analysis",
+      "crypto-trading",
+      "binance-spot-trading"
+    ]
+  },
+  "total_skills": 16
+}

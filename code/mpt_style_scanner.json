@@ -1,0 +1,70 @@
+{
+  "name": "MPT-Style Scanner",
+  "description": "Find plays like MPT - short squeeze + whale + technical bounce",
+  "criteria": {
+    "fundamentals": {
+      "short_float": {
+        ">=": 20,
+        "weight": 20
+      },
+      "days_to_cover": {
+        ">=": 10,
+        "weight": 15
+      },
+      "short_covering": {
+        "<": 0,
+        "weight": 20
+      }
+    },
+    "whales": {
+      "options_volume_oi_ratio": {
+        ">=": 3,
+        "weight": 25
+      },
+      "call_volume": {
+        ">=": 1000,
+        "weight": 15
+      }
+    },
+    "technicals": {
+      "rsi": {
+        "<=": 35,
+        "weight": 15
+      },
+      "volume_ratio": {
+        ">=": 1.5,
+        "weight": 15
+      },
+      "price_vs_sma50": {
+        "<": 1.0,
+        "weight": 10
+      }
+    },
+    "options_flow": {
+      "put_call_ratio": {
+        "<=": 0.5,
+        "weight": 15
+      }
+    },
+    "price_range": {
+      "max": 20,
+      "min": 1,
+      "weight": 10
+    }
+  },
+  "min_score": 60,
+  "universe": [
+    "MPT",
+    "NLY",
+    "AGNC",
+    "GME",
+    "AMC",
+    "NVAX",
+    "MARA",
+    "SOUN",
+    "AI",
+    "LCID",
+    "BBAI",
+    "PATH"
+  ]
+}

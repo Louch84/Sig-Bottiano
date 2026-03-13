@@ -1,0 +1,72 @@
+# Rumor Sources Configuration
+
+twitter_financial:
+  enabled: true
+  accounts_to_monitor:
+    - unusual_whales # Options flow & institutional activity
+    - SpotGamma # Options positioning data
+    - InvestorsLive # Real-time day trading insights
+    - BreakoutStocks # Price/volume breakouts
+    - Benzinga # Breaking news & analyst changes
+    - DeItaone # Breaking news aggregator
+    - FirstSquawk # Real-time market news
+    - ForexLive # Currency & macro news
+    - LiveSquawk # Audio squawk alternative
+    - MarketCurrents # Seeking Alpha breaking news
+    - OptionAlert # Options activity alerts
+    - Trade_The_Break # Technical breakouts
+    - StockDweebs # Retail sentiment
+    - ChartingProdigy # Technical analysis
+    - StockTwits # Community sentiment
+  
+  keywords_to_track:
+    - "rumor"
+    - "speculation"
+    - "reportedly"
+    - "sources say"
+    - "considering"
+    - "exploring"
+    - "potential"
+    - "upcoming"
+    - "exclusive"
+    - "breaking"
+    - "merger"
+    - "acquisition"
+    - "buyout"
+    - "partnership"
+    - "FDA approval"
+    - "earnings beat"
+    - "guidance raise"
+
+options_flow:
+  enabled: true
+  data_providers:
+    - unusual_whales_api # Institutional options flow
+    - spotgamma_api # Gamma exposure analysis
+    - cheddar_flow # Unusual options activity
+    - flowalgo # Smart money tracking
+
+alert_triggers:
+  - volume_oi_ratio: 2.0
+  - premium_threshold: 100000
+  - sweep_count: 5
+  - bullish_bearish_ratio: 3.0
+
+pre_market_news:
+  enabled: true
+  sources:
+    - benzinga_pro_api
+    - investing_com_api
+    - marketwatch_premarket
+    - cnbc_premarket
+  scan_time: "04:00"
+
+community_sentiment:
+  enabled: true
+  platforms:
+    - stocktwits_api
+    - reddit_wallstreetbets
+    - reddit_stocks
+  sentiment_thresholds:
+    - bullish_mention_spike: 200%
+    - ticker_velocity: 50

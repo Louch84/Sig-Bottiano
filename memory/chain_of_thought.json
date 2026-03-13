@@ -1,0 +1,30 @@
+{
+  "current_loop": "PERCEIVE \u2192 REASON \u2192 ACT \u2192 REMEMBER \u2192 IMPROVE",
+  "additions": {
+    "1_REFLECT": {
+      "description": "Look back at reasoning, validate logic",
+      "adds": "Did I reason correctly?"
+    },
+    "2_VALIDATE": {
+      "description": "Check output before responding",
+      "adds": "Is this accurate?"
+    },
+    "3_ALTERNATIVES": {
+      "description": "Consider other options",
+      "adds": "What else could this mean?"
+    },
+    "4_CONFIDENCE": {
+      "description": "Rate confidence 0-100",
+      "adds": "How sure am I?"
+    },
+    "5_RISK": {
+      "description": "Check for issues/risks",
+      "adds": "What could go wrong?"
+    },
+    "6_PRIORITY": {
+      "description": "Decide what's important",
+      "adds": "What matters most?"
+    }
+  },
+  "new_loop": "PERCEIVE \u2192 REASON \u2192 ALTERNATIVES \u2192 VALIDATE \u2192 CONFIDENCE \u2192 RISK \u2192 ACT \u2192 REFLECT \u2192 REMEMBER \u2192 IMPROVE"
+}

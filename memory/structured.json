@@ -1,0 +1,17 @@
+{
+  "LTM": [
+    {
+      "id": "cd0c168f",
+      "timestamp": "2026-03-12T00:27:30.393283",
+      "domain": "general",
+      "importance": "high",
+      "content": "Updated content",
+      "tags": [
+        "test"
+      ]
+    }
+  ],
+  "STM": [],
+  "EM": [],
+  "SMM": []
+}

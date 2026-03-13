@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2026-03-12T00:19:15.482401",
+    "success_description": "Test win",
+    "contributing_factors": [
+      "factor1"
+    ],
+    "repeatable_pattern": "pattern",
+    "recommended_new_rule": "new rule"
+  }
+]

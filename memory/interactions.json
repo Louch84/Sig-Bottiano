@@ -1,0 +1,46 @@
+{
+  "interactions": [
+    {
+      "timestamp": "2026-03-12T09:45:42.952831",
+      "type": "stock_scan",
+      "input": "ran full options scan",
+      "outcome": "completed",
+      "feedback": "pending"
+    },
+    {
+      "timestamp": "2026-03-12T15:39:50.269100",
+      "type": "trading_analysis",
+      "input": "MPT setup analysis",
+      "outcome": "completed",
+      "feedback": "accepted"
+    },
+    {
+      "timestamp": "2026-03-12T15:39:50.269907",
+      "type": "whale_detection",
+      "input": "Options whale activity scan",
+      "outcome": "completed",
+      "feedback": "accepted"
+    },
+    {
+      "timestamp": "2026-03-12T15:39:50.270565",
+      "type": "scanner_improvement",
+      "input": "Added whale activity to scanner",
+      "outcome": "completed",
+      "feedback": "accepted"
+    }
+  ],
+  "learnings": [
+    {
+      "from": "MPT setup analysis",
+      "what_worked": "completed"
+    },
+    {
+      "from": "Options whale activity scan",
+      "what_worked": "completed"
+    },
+    {
+      "from": "Added whale activity to scanner",
+      "what_worked": "completed"
+    }
+  ]
+}

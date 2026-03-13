@@ -1,0 +1,62 @@
+{
+  "capability_map": {
+    "available_modules": [
+      "brain.py",
+      "volume_monitor.py",
+      "daily_scanner.py",
+      "web_search.py"
+    ],
+    "available_tools": [
+      "exec",
+      "read",
+      "write",
+      "image",
+      "subagents"
+    ],
+    "strengths": [
+      "fast execution",
+      "multi-domain",
+      "memory systems"
+    ],
+    "weaknesses": [
+      "no real money execution",
+      "limited web access"
+    ],
+    "known_limitations": [
+      "cannot make real trades",
+      "needs OAuth for email"
+    ],
+    "known_risks": [
+      "may generate incorrect code"
+    ]
+  },
+  "operating_rules": {
+    "permissions_tiers": {
+      "tier1": "free",
+      "tier2": "$25+",
+      "tier3": "explicit"
+    },
+    "safety_constraints": [
+      "no irreversible financial transactions",
+      "no external commitments"
+    ],
+    "escalation_rules": [
+      "blockers escalate within 24h"
+    ],
+    "fallback_behaviors": [
+      "if uncertain, ask user"
+    ]
+  },
+  "improvement_history": [
+    {
+      "version": "1.1",
+      "changes_made": [
+        "added SMM",
+        "added episodic"
+      ],
+      "reason_for_change": "user requested",
+      "impact_assessment": "more robust self-awareness",
+      "timestamp": "2026-03-12T00:21:04.609573"
+    }
+  ]
+}

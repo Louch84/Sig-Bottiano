@@ -1,0 +1,77 @@
+# workflows/rumor_trading_workflow.yaml
+
+workflow_name: "Buy Rumor Sell News Automation"
+version: "1.0"
+schedule: "continuous"  # Or specific times
+
+steps:
+  1_data_ingestion:
+    - name: "Twitter Stream"
+      module: "data_sources.twitter_stream"
+      interval: "30s"
+      filters: *twitter_financial_accounts
+    
+    - name: "Options Flow Poll"
+      module: "data_sources.options_flow"
+      interval: "60s"
+    
+    - name: "Pre-Market Scanner"
+      module: "data_sources.premarket"
+      schedule: "04:00-09:30 EST"
+    
+    - name: "News Aggregator"
+      module: "data_sources.news_api"
+      interval: "60s"
+
+  2_signal_processing:
+    - name: "Rumor Detection"
+      module: "rumor_detector.RumorDetectionEngine"
+      input: "1_data_ingestion"
+      output: "rumor_queue"
+    
+    - name: "Signal Ranking"
+      module: "signal_ranker.ScoreCalculator"
+      criteria:
+        - confidence_score > 0.6
+        - options_flow_confirmed: preferred
+        - sentiment_alignment: required
+
+  3_decision_engine:
+    - name: "Trade Plan Generator"
+      module: "trading_strategy.BuyRumorSellNewsStrategy"
+      input: "2_signal_processing"
+      conditions:
+        - account_available: true
+
+        - max_positions_not_reached: true
+        - market_hours: "pre_market|regular"
+
+    - name: "Risk Check"
+      module: "risk_manager.ValidateTrade"
+      constraints:
+        - max_position_size: 10%
+        - daily_loss_limit: 2%
+        - sector_exposure_limit: 30%
+
+  4_execution:
+    - name: "Order Entry"
+      module: "broker_api.PlaceOrder"
+      order_type: "LIMIT"  # Avoid market impact
+      timing: "immediate"
+    
+    - name: "Position Monitor"
+      module: "position_monitor.TrackPosition"
+      check_interval: "30s"
+      exit_conditions:
+        - stop_loss: 5%
+        - profit_target: 15%
+        - time_stop: 72h
+        - news_confirmation: immediate
+
+  5_post_trade:
+    - name: "Trade Logging"
+      module: "analytics.TradeJournal"
+    
+    - name: "Performance Analytics"
+      module: "analytics.ReportGenerator"
+      schedule: "daily"

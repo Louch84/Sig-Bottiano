@@ -1,0 +1,937 @@
+{
+  "inventory": [
+    {
+      "brand": "Apple",
+      "model": "iPhone 12 64GB",
+      "grade": "Like New",
+      "qty": 116,
+      "price": 256.5
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 12 128GB",
+      "grade": "Like New",
+      "qty": 26,
+      "price": 283.5
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 12 Pro Max 128GB",
+      "grade": "Like New",
+      "qty": 165,
+      "price": 418.5
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 12 Pro Max 256GB",
+      "grade": "Like New",
+      "qty": 1,
+      "price": 445.5
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 12 Pro Max 512GB",
+      "grade": "Like New",
+      "qty": 9,
+      "price": 472.5
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 13 128GB",
+      "grade": "Like New",
+      "qty": 1,
+      "price": 378.0
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 13 Pro 128GB",
+      "grade": "Like New",
+      "qty": 1,
+      "price": 445.5
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 13 Pro Max 128GB",
+      "grade": "Like New",
+      "qty": 15,
+      "price": 526.5
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 13 Pro Max 256GB",
+      "grade": "Like New",
+      "qty": 4,
+      "price": 553.5
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 14 128GB",
+      "grade": "Like New",
+      "qty": 16,
+      "price": 398.25
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 14 Pro 128GB",
+      "grade": "Like New",
+      "qty": 27,
+      "price": 492.75
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 14 Pro 256GB",
+      "grade": "Like New",
+      "qty": 7,
+      "price": 519.75
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 14 Pro Max 512GB",
+      "grade": "Like New",
+      "qty": 7,
+      "price": 668.25
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 15 Pro 128GB",
+      "grade": "Like New",
+      "qty": 3,
+      "price": 614.25
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 15 Pro 512GB",
+      "grade": "Like New",
+      "qty": 2,
+      "price": 668.25
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 15 Pro Max 256GB",
+      "grade": "Like New",
+      "qty": 2,
+      "price": 816.75
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 16 Pro Max 256GB",
+      "grade": "Like New",
+      "qty": 16,
+      "price": 1080.0
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone SE 3rd Gen 64GB",
+      "grade": "Like New",
+      "qty": 1,
+      "price": 181.25
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone XR 64GB",
+      "grade": "Like New",
+      "qty": 5,
+      "price": 181.25
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone XS Max 256GB",
+      "grade": "Like New",
+      "qty": 16,
+      "price": 212.5
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 11 256GB",
+      "grade": "A Stock",
+      "qty": 5,
+      "price": 247.0
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 11 Pro 256GB",
+      "grade": "A Stock",
+      "qty": 3,
+      "price": 279.5
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 11 Pro 64GB",
+      "grade": "A Stock",
+      "qty": 2,
+      "price": 260.0
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 12 128GB",
+      "grade": "A Stock",
+      "qty": 3,
+      "price": 260.0
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 12 Pro 128GB",
+      "grade": "A Stock",
+      "qty": 4,
+      "price": 318.5
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 12 Pro 256GB",
+      "grade": "A Stock",
+      "qty": 1,
+      "price": 344.5
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 12 Pro 512GB",
+      "grade": "A Stock",
+      "qty": 3,
+      "price": 370.5
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 12 Pro Max 128GB",
+      "grade": "A Stock",
+      "qty": 50,
+      "price": 383.5
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 12 Pro Max 256GB",
+      "grade": "A Stock",
+      "qty": 2,
+      "price": 409.5
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 12 Pro Max 512GB",
+      "grade": "A Stock",
+      "qty": 3,
+      "price": 435.5
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 13 128GB",
+      "grade": "A Stock",
+      "qty": 1,
+      "price": 351.0
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 13 Pro 128GB",
+      "grade": "A Stock",
+      "qty": 26,
+      "price": 416.0
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 13 Pro 512GB",
+      "grade": "A Stock",
+      "qty": 1,
+      "price": 468.0
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 13 Pro Max 128GB",
+      "grade": "A Stock",
+      "qty": 11,
+      "price": 494.0
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 13 Pro Max 256GB",
+      "grade": "A Stock",
+      "qty": 7,
+      "price": 520.0
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 14 128GB",
+      "grade": "A Stock",
+      "qty": 50,
+      "price": 364.0
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 14 Pro 128GB",
+      "grade": "A Stock",
+      "qty": 41,
+      "price": 455.0
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 14 Pro 256GB",
+      "grade": "A Stock",
+      "qty": 15,
+      "price": 481.0
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 15 128GB",
+      "grade": "A Stock",
+      "qty": 2,
+      "price": 500.5
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 15 Pro 128GB",
+      "grade": "A Stock",
+      "qty": 4,
+      "price": 572.0
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 15 Pro 256GB",
+      "grade": "A Stock",
+      "qty": 1,
+      "price": 598.0
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 15 Pro Max 256GB",
+      "grade": "A Stock",
+      "qty": 33,
+      "price": 760.5
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 16 Pro Max 256GB",
+      "grade": "A Stock",
+      "qty": 51,
+      "price": 1020.5
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 7 Plus 256GB",
+      "grade": "A Stock",
+      "qty": 1,
+      "price": 117.0
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 8 64GB",
+      "grade": "A Stock",
+      "qty": 2,
+      "price": 104.0
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone SE 2nd Gen 128GB",
+      "grade": "A Stock",
+      "qty": 2,
+      "price": 149.5
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone SE 2nd Gen 256GB",
+      "grade": "A Stock",
+      "qty": 1,
+      "price": 162.5
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone SE 2nd Gen 64GB",
+      "grade": "A Stock",
+      "qty": 7,
+      "price": 136.5
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone SE 3rd Gen 64GB",
+      "grade": "A Stock",
+      "qty": 6,
+      "price": 182.0
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone X 256GB",
+      "grade": "A Stock",
+      "qty": 1,
+      "price": 149.5
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 11 256GB",
+      "grade": "AB Stock",
+      "qty": 1,
+      "price": 225.0
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 11 64GB",
+      "grade": "AB Stock",
+      "qty": 2,
+      "price": 187.5
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 11 Pro 64GB",
+      "grade": "AB Stock",
+      "qty": 3,
+      "price": 225.0
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 12 64GB",
+      "grade": "AB Stock",
+      "qty": 5,
+      "price": 212.5
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 12 Pro 128GB",
+      "grade": "AB Stock",
+      "qty": 1,
+      "price": 287.5
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 12 Pro 256GB",
+      "grade": "AB Stock",
+      "qty": 3,
+      "price": 312.5
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 12 Pro Max 128GB",
+      "grade": "AB Stock",
+      "qty": 2,
+      "price": 350.0
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 13 128GB",
+      "grade": "AB Stock",
+      "qty": 2,
+      "price": 318.75
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 13 256GB",
+      "grade": "AB Stock",
+      "qty": 1,
+      "price": 343.75
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 13 Mini 128GB",
+      "grade": "AB Stock",
+      "qty": 1,
+      "price": 268.75
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 13 Pro 128GB",
+      "grade": "AB Stock",
+      "qty": 1,
+      "price": 381.25
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 13 Pro 256GB",
+      "grade": "AB Stock",
+      "qty": 4,
+      "price": 406.25
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 13 Pro 512GB",
+      "grade": "AB Stock",
+      "qty": 1,
+      "price": 431.25
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 13 Pro Max 128GB",
+      "grade": "AB Stock",
+      "qty": 5,
+      "price": 450.0
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 13 Pro Max 1TB",
+      "grade": "AB Stock",
+      "qty": 2,
+      "price": 525.0
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 13 Pro Max 256GB",
+      "grade": "AB Stock",
+      "qty": 1,
+      "price": 475.0
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 14 128GB",
+      "grade": "AB Stock",
+      "qty": 36,
+      "price": 331.25
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 14 Pro 128GB",
+      "grade": "AB Stock",
+      "qty": 10,
+      "price": 418.75
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 14 Pro 256GB",
+      "grade": "AB Stock",
+      "qty": 3,
+      "price": 443.75
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 14 Pro 512GB",
+      "grade": "AB Stock",
+      "qty": 1,
+      "price": 468.75
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 14 Pro Max 512GB",
+      "grade": "AB Stock",
+      "qty": 1,
+      "price": 562.5
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 15 128GB",
+      "grade": "AB Stock",
+      "qty": 4,
+      "price": 462.5
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 15 Pro 128GB",
+      "grade": "AB Stock",
+      "qty": 2,
+      "price": 531.25
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 15 Pro 256GB",
+      "grade": "AB Stock",
+      "qty": 1,
+      "price": 556.25
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 15 Pro Max 256GB",
+      "grade": "AB Stock",
+      "qty": 6,
+      "price": 706.25
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 16 Pro Max 256GB",
+      "grade": "AB Stock",
+      "qty": 18,
+      "price": 962.5
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone 8 Plus 64GB",
+      "grade": "AB Stock",
+      "qty": 2,
+      "price": 112.5
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone SE 2nd Gen 256GB",
+      "grade": "AB Stock",
+      "qty": 1,
+      "price": 143.75
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone SE 2nd Gen 64GB",
+      "grade": "AB Stock",
+      "qty": 19,
+      "price": 118.75
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone SE 3rd Gen 64GB",
+      "grade": "AB Stock",
+      "qty": 31,
+      "price": 162.5
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone X 64GB",
+      "grade": "AB Stock",
+      "qty": 1,
+      "price": 118.75
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone XS 256GB",
+      "grade": "AB Stock",
+      "qty": 3,
+      "price": 137.5
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone XS 512GB",
+      "grade": "AB Stock",
+      "qty": 2,
+      "price": 150.0
+    },
+    {
+      "brand": "Apple",
+      "model": "iPhone XS Max 256GB",
+      "grade": "AB Stock",
+      "qty": 1,
+      "price": 200.0
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy A03s 32GB",
+      "grade": "Like New",
+      "qty": 2,
+      "price": 87.75
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy A15 5G 128GB",
+      "grade": "Like New",
+      "qty": 100,
+      "price": 148.5
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy A15 5G 64GB",
+      "grade": "Like New",
+      "qty": 2,
+      "price": 135.0
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy A16 5G",
+      "grade": "Like New",
+      "qty": 135,
+      "price": 162.0
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy S21 Ultra 128GB",
+      "grade": "Like New",
+      "qty": 37,
+      "price": 310.5
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy S22 Ultra",
+      "grade": "Like New",
+      "qty": 9,
+      "price": 465.75
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy S23 Ultra 256GB",
+      "grade": "Like New",
+      "qty": 22,
+      "price": 641.25
+    },
+    {
+      "brand": "Motorola",
+      "model": "Edge 256GB",
+      "grade": "Like New",
+      "qty": 1,
+      "price": 148.5
+    },
+    {
+      "brand": "Motorola",
+      "model": "One Ace 5G 64GB",
+      "grade": "Like New",
+      "qty": 1,
+      "price": 108.0
+    },
+    {
+      "brand": "Sonim",
+      "model": "XP8800 64GB",
+      "grade": "Like New",
+      "qty": 33,
+      "price": 50.0
+    },
+    {
+      "brand": "TCL",
+      "model": "30V 5G 128GB",
+      "grade": "Like New",
+      "qty": 43,
+      "price": 81.25
+    },
+    {
+      "brand": "TCL",
+      "model": "Flip 4056s",
+      "grade": "Like New",
+      "qty": 97,
+      "price": 37.5
+    },
+    {
+      "brand": "TCL",
+      "model": "Stylus 5G 128GB",
+      "grade": "Like New",
+      "qty": 1,
+      "price": 81.25
+    },
+    {
+      "brand": "TCL",
+      "model": "T10 5G 128GB",
+      "grade": "Like New",
+      "qty": 26,
+      "price": 81.25
+    },
+    {
+      "brand": "TCL",
+      "model": "V30 T781 128GB",
+      "grade": "Like New",
+      "qty": 7,
+      "price": 81.25
+    },
+    {
+      "brand": "ZTE",
+      "model": "Cymbal Flip",
+      "grade": "Like New",
+      "qty": 374,
+      "price": 81.25
+    },
+    {
+      "brand": "Orbic",
+      "model": "Journey V Flip 8GB",
+      "grade": "Like New",
+      "qty": 4,
+      "price": 37.5
+    },
+    {
+      "brand": "Revvl",
+      "model": "5",
+      "grade": "Like New",
+      "qty": 9,
+      "price": 93.75
+    },
+    {
+      "brand": "Revvl",
+      "model": "5 Plus",
+      "grade": "Like New",
+      "qty": 1,
+      "price": 87.5
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy A13 5G",
+      "grade": "A Stock",
+      "qty": 1,
+      "price": 97.5
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy A50",
+      "grade": "A Stock",
+      "qty": 1,
+      "price": 182.0
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy S22 Plus",
+      "grade": "A Stock",
+      "qty": 1,
+      "price": 208.0
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy S22 Ultra",
+      "grade": "A Stock",
+      "qty": 5,
+      "price": 448.5
+    },
+    {
+      "brand": "Sonim",
+      "model": "XP8800 64GB",
+      "grade": "A Stock",
+      "qty": 4,
+      "price": 43.75
+    },
+    {
+      "brand": "Unimax",
+      "model": "U690CP",
+      "grade": "A Stock",
+      "qty": 102,
+      "price": 40.0
+    },
+    {
+      "brand": "Revvl",
+      "model": "6 Pro",
+      "grade": "A Stock",
+      "qty": 16,
+      "price": 106.25
+    },
+    {
+      "brand": "Wiko",
+      "model": "phone",
+      "grade": "A Stock",
+      "qty": 1,
+      "price": 56.25
+    },
+    {
+      "brand": "ZTE",
+      "model": "Blade A3 plus",
+      "grade": "A Stock",
+      "qty": 2,
+      "price": 75.0
+    },
+    {
+      "brand": "Orbic",
+      "model": "Journey V Flip 8GB",
+      "grade": "A Stock",
+      "qty": 1,
+      "price": 35.0
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy A10e 32GB",
+      "grade": "AB Stock",
+      "qty": 1,
+      "price": 50.0
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy A11 32GB",
+      "grade": "AB Stock",
+      "qty": 1,
+      "price": 68.75
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy A12 32GB",
+      "grade": "AB Stock",
+      "qty": 1,
+      "price": 87.5
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy A13 5G",
+      "grade": "AB Stock",
+      "qty": 1,
+      "price": 87.5
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy A51 128GB",
+      "grade": "AB Stock",
+      "qty": 3,
+      "price": 162.5
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy Note 20 Ultra",
+      "grade": "AB Stock",
+      "qty": 2,
+      "price": 325.0
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy S21 Plus",
+      "grade": "AB Stock",
+      "qty": 1,
+      "price": 262.5
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy S22 Ultra",
+      "grade": "AB Stock",
+      "qty": 11,
+      "price": 425.0
+    },
+    {
+      "brand": "Samsung",
+      "model": "Galaxy S23 Plus 256GB",
+      "grade": "AB Stock",
+      "qty": 1,
+      "price": 481.25
+    },
+    {
+      "brand": "Motorola",
+      "model": "Moto G Stylus 5G 128GB",
+      "grade": "AB Stock",
+      "qty": 1,
+      "price": 93.75
+    },
+    {
+      "brand": "Motorola",
+      "model": "Moto X4 5G 64GB",
+      "grade": "AB Stock",
+      "qty": 2,
+      "price": 100.0
+    },
+    {
+      "brand": "Motorola",
+      "model": "One Ace 5G 64GB",
+      "grade": "AB Stock",
+      "qty": 2,
+      "price": 87.5
+    },
+    {
+      "brand": "Revvl",
+      "model": "4 Plus",
+      "grade": "AB Stock",
+      "qty": 1,
+      "price": 56.25
+    },
+    {
+      "brand": "Revvl",
+      "model": "5 Plus",
+      "grade": "AB Stock",
+      "qty": 3,
+      "price": 68.75
+    },
+    {
+      "brand": "Revvl",
+      "model": "6 Pro",
+      "grade": "AB Stock",
+      "qty": 130,
+      "price": 93.75
+    },
+    {
+      "brand": "Sonim",
+      "model": "XP8800 64GB",
+      "grade": "AB Stock",
+      "qty": 4,
+      "price": 40.0
+    },
+    {
+      "brand": "TCL",
+      "model": "Flip Pro 4056V",
+      "grade": "AB Stock",
+      "qty": 17,
+      "price": 31.25
+    },
+    {
+      "brand": "Unimax",
+      "model": "U690CP",
+      "grade": "AB Stock",
+      "qty": 202,
+      "price": 37.5
+    }
+  ],
+  "gradeDefinitions": {
+    "Like New": "Pristine condition, fully tested, battery 90%+",
+    "A Stock": "Excellent condition, minor signs of use, battery 85%+",
+    "AB Stock": "Good condition, visible wear, battery 80%+"
+  },
+  "updated": "2026-03-09",
+  "totalItems": 131,
+  "business": {
+    "name": "Luchiano Wireless",
+    "address": "13 S 60th St, Philadelphia, PA 19139",
+    "phone": "215-284-8650",
+    "services": [
+      "Phone resale",
+      "Phone repair"
+    ]
+  }
+}

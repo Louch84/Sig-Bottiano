@@ -1,0 +1,72 @@
+[
+  {
+    "ticker": "MPT",
+    "price": 5.085,
+    "short_float": 32.09,
+    "days_cover": 20.99,
+    "vol_ratio": 1.9262948231337185,
+    "daily_pct": 4.818090265486726,
+    "short_change": -17845173,
+    "score": 90
+  },
+  {
+    "ticker": "NVAX",
+    "price": 10.39,
+    "short_float": 31.370002000000003,
+    "days_cover": 10.16,
+    "vol_ratio": 0.5433771666552727,
+    "daily_pct": -3.9461005774783446,
+    "short_change": -257834,
+    "score": 55
+  },
+  {
+    "ticker": "AMC",
+    "price": 1.09,
+    "short_float": 23.54,
+    "days_cover": 3.04,
+    "vol_ratio": 0.5123398303872803,
+    "daily_pct": -2.7522909174311923,
+    "short_change": -763770,
+    "score": 40
+  },
+  {
+    "ticker": "SOUN",
+    "price": 7.475,
+    "short_float": 32.959998,
+    "days_cover": 4.66,
+    "vol_ratio": 0.5955553728115645,
+    "daily_pct": -4.214047625418061,
+    "short_change": 4094686,
+    "score": 35
+  },
+  {
+    "ticker": "AI",
+    "price": 8.835,
+    "short_float": 33.19,
+    "days_cover": 4.77,
+    "vol_ratio": 0.3892173129115212,
+    "daily_pct": -4.810415393322014,
+    "short_change": 1555833,
+    "score": 35
+  },
+  {
+    "ticker": "LCID",
+    "price": 9.98,
+    "short_float": 42.540002,
+    "days_cover": 5.95,
+    "vol_ratio": 1.1255795375570012,
+    "daily_pct": -7.014035671342684,
+    "short_change": 929679,
+    "score": 35
+  },
+  {
+    "ticker": "BBAI",
+    "price": 4.02,
+    "short_float": 28.24,
+    "days_cover": 2.37,
+    "vol_ratio": 0.4367756620613601,
+    "daily_pct": -2.9850717910447764,
+    "short_change": 13054596,
+    "score": 35
+  }
+]

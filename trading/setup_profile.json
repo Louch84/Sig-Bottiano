@@ -1,0 +1,11 @@
+{
+  "pattern": "gap_fill",
+  "price_movement": ">5%",
+  "volume_surge": "2x+",
+  "options_premium": "<$0.10",
+  "twitter_signal": "SniperAlert",
+  "engagement": "high_retweets",
+  "sector": "REIT",
+  "short_interest": "elevated",
+  "chart_pattern": "gap_up_fill"
+}

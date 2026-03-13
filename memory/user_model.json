@@ -1,0 +1,18 @@
+{
+  "name": "Louch",
+  "preferences": {
+    "communication": "direct, no fluff, results-first",
+    "approval_style": "assume_yes",
+    "explanation": "execute first, explain after",
+    "timezone": "America/New_York"
+  },
+  "patterns": {
+    "triggers_urgency": ["now", "immediately", "stop waiting"],
+    "frustration_signals": ["waiting", "manual", "permission"],
+    "cognitive_style": "systems_thinking"
+  },
+  "domains": ["website_retail", "options_trading", "real_estate_wholesaling", "visa_referral"],
+  "franklin_phone": "215-284-8650",
+  "address": "13 S 60th St, Philadelphia, PA 19139",
+  "businesses": ["Luchiano Wireless", "Spring Finds Co", "Franex Global referrals"]
+}

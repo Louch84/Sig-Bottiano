@@ -1,0 +1,29 @@
+{
+  "self_improvement": {
+    "frequency": "EVERY 5 MINUTES",
+    "sources": {
+      "1_ai_communities": {
+        "check": "every 5 min",
+        "purpose": "AI patterns"
+      },
+      "2_tech_news": {
+        "check": "every 5 min",
+        "purpose": "New developments"
+      },
+      "3_trending": {
+        "check": "every 5 min",
+        "purpose": "What's hot"
+      },
+      "4_discussions": {
+        "check": "every 5 min",
+        "purpose": "Problems to solve"
+      },
+      "5_self_reflect": {
+        "check": "every cycle",
+        "purpose": "What can I improve?"
+      }
+    },
+    "build_speed": "NEW FEATURE EVERY HOUR",
+    "learn_speed": "NONSTOP"
+  }
+}

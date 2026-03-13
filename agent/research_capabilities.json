@@ -1,0 +1,64 @@
+{
+  "free_research_platforms": {
+    "description": "Sources I can research in spare time",
+    "stock_trading": {
+      "stocktwits": {
+        "url": "api.stocktwits.com",
+        "free": true,
+        "description": "Social trading platform"
+      },
+      "finviz": {
+        "url": "finviz.com",
+        "free": true,
+        "description": "Stock screener"
+      },
+      "yahoo_finance": {
+        "url": "finance.yahoo.com",
+        "free": true,
+        "description": "Prices and data"
+      }
+    },
+    "reddit_alternatives": {
+      "lemmy": {
+        "url": "lemmy.world",
+        "free": true,
+        "communities": [
+          "technology",
+          "programming",
+          "stocks"
+        ]
+      },
+      "kbin": {
+        "url": "kbin.social",
+        "free": true
+      }
+    },
+    "ai_tech": {
+      "hackernews": {
+        "url": "news.ycombinator.com",
+        "free": true,
+        "description": "Tech news"
+      },
+      "producthunt": {
+        "url": "producthunt.com",
+        "free": true
+      }
+    },
+    "general": {
+      "google_search": "web search",
+      "brave_search": "web search",
+      "arxiv": "research papers"
+    }
+  },
+  "autonomous_research": {
+    "enabled": true,
+    "frequency": "During daemon idle time",
+    "topics": [
+      "Stock squeeze plays",
+      "AI developments",
+      "Self-improvement techniques",
+      "Automation methods",
+      "Trading strategies"
+    ]
+  }
+}

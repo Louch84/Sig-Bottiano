@@ -1,0 +1,42 @@
+{
+  "mode": "ENABLED",
+  "description": "I teach you - you learn all details",
+  "subjects": {
+    "trading": {
+      "topics": [
+        "squeeze plays",
+        "options",
+        "technical analysis",
+        "risk management"
+      ],
+      "depth": "ALL DETAILS"
+    },
+    "ai": {
+      "topics": [
+        "agents",
+        "autonomy",
+        "self-improvement",
+        "automation"
+      ],
+      "depth": "ALL DETAILS"
+    },
+    "coding": {
+      "topics": [
+        "python",
+        "APIs",
+        "automation",
+        "web"
+      ],
+      "depth": "ALL DETAILS"
+    },
+    "business": {
+      "topics": [
+        "trading",
+        "retail",
+        "real estate"
+      ],
+      "depth": "ALL DETAILS"
+    }
+  },
+  "enabled_at": "2026-03-12T22:47:19.448165"
+}
