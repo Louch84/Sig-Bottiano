@@ -32,3 +32,7 @@ ModuleNotFoundError: No module named 'yfinance'
 [2026-03-12 09:48:23.243685] Starting daily squeeze scan...
 [2026-03-12 09:48:29.291476] No setups found
 [2026-03-12 09:48:29.291836] Scan complete
+Traceback (most recent call last):
+  File "/Users/sigbotti/.openclaw/workspace/code/daily_scanner.py", line 6, in <module>
+    import yfinance as yf
+ModuleNotFoundError: No module named 'yfinance'
